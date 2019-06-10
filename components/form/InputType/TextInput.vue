@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input @change="dataChanged($event.target.value)" v-bind:value="value"  v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" class="form-control" type="text">
+    <input @change="dataChanged($event.target.value)" v-bind:value="value"  v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" v-bind:placeholder="placeholder" class="form-control" type="text">
     <div class="invalid-feedback">
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
     </div>
@@ -17,7 +17,6 @@ let input = new InputType({
   },
   methods: {
     dataChanged(value){
-      console.log(value)
       if(value !== 'NULL' && value !== null){
         this.$emit('data-changed', this.index, value)
       }else{
@@ -27,7 +26,6 @@ let input = new InputType({
   },
   watch: {
     value(newData){
-      console.log('watch', newData)
     }
   }
 })

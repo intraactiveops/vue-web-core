@@ -12,17 +12,17 @@
       </thead>
       <tbody>
         <template v-if="typeof formData[index+'.last_array_key'] !== 'undefined' && formData[index+'.last_array_key'] !== null">
-          <template>
-            <tr  v-for="(x, i) in formData[index+'.array_key_list']" v-if="typeof formData[index + '.' + x + '.deleted'] == 'undefined' && (formData[index+'.deleted_array_key']).indexOf(x) === -1">
+          <template  v-for="x in formData[index+'.array_key_list']">
+            <tr  v-if="typeof formData[index + '.' + x + '.deleted'] === 'undefined' && (formData[index+'.deleted_array_key']).indexOf(x) === -1">
               <td v-for="column in columns">
                 {{setColumnDefaultValue(x, index + '.' + x + '.' + column['index'], column['index'])}}
-                <div v-if="column['type'] == 'text'">
+                <div v-if="column['type'] === 'text'">
                   <input  @change="$emit('data-changed', index + '.' + x + '.' + column['index'], $event.target.value)" v-bind:class="typeof validationMessage[index + '.' + x + '.' + column['index']] != 'undefined' ? 'is-invalid': null" class="form-control" type="text" v-bind:value="formData[index + '.' + x + '.' + column['index']]" />
                   <div class="invalid-feedback">
                     {{typeof validationMessage[index + '.' + x + '.' + column['index']] != 'undefined' ? validationMessage[index + '.' + x + '.' + column['index']]['message']  : ''}}
                   </div>
                 </div>
-                <template v-else-if="column['type'] == 'yesno'" >
+                <template v-else-if="column['type'] === 'yesno'" >
                   <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
                     <label @click="$emit('data-changed', index + '.' + x + '.' + column['index'], 1)" v-bind:class="formData[index + '.' + x + '.' + column['index']] ? 'active' : ''" class="btn btn-outline-success ml-auto">
                       <input  type="radio" autocomplete="off"> Yes
@@ -33,8 +33,8 @@
                   </div>
                   <small v-if="typeof validationMessage[index + '.' + x + '.' + column['index']] != 'undefined'" class="text-danger">{{validationMessage[index + '.' + x + '.' + column['index']]['message']}}</small>
                 </template>
-                <input v-else-if="column['type'] == 'checkbox'" @change="$emit('data-changed', index + '.' + x + '.' + column['index'], $event.target.value)" class="ml-auto mr-auto" type="checkbox" v-bind:value="formData[index + '.' + x + '.' + column['index']]" />
-                <template v-else-if="column['type'] == 'select2'" >
+                <input v-else-if="column['type'] === 'checkbox'" @change="$emit('data-changed', index + '.' + x + '.' + column['index'], $event.target.value)" class="ml-auto mr-auto" type="checkbox" v-bind:value="formData[index + '.' + x + '.' + column['index']]" />
+                <template v-else-if="column['type'] === 'select2'" >
                   <input-type @data-changed="dataChanged" :index="index + '.' + x + '.' + column['index']" type="select2" :config="column['config']" :form-data="formData" />
                 </template>
               </td>
@@ -81,17 +81,16 @@ export default {
   },
   methods: {
     dataChanged(index, value){
-
       this.$emit('data-changed', index, value)
     },
     setColumnDefaultValue(row, formDataField, column){
-      if(typeof this.columnDefaultValues[column] != 'undefined' && (typeof this.formData[formDataField] === 'undefined' || this.formData[formDataField] === null)){
+      if(typeof this.columnDefaultValues[column] !== 'undefined' && (typeof this.formData[formDataField] === 'undefined' || this.formData[formDataField] === null)){
         this.$emit('data-changed', formDataField, this.columnDefaultValues[column])
       }
     },
     addEntry(){
       let newEntry = {}
-      let lastArrayKey = typeof this.formData[this.index+'.last_array_key'] === 'undefined' ? 0 : this.formData[this.index+'.last_array_key'] + 1
+      let lastArrayKey = typeof this.formData[this.index + '.last_array_key'] === 'undefined' ? 0 : this.formData[this.index + '.last_array_key'] + 1
       newEntry[this.index] = {}
       newEntry[this.index][lastArrayKey] = this.emptyRowField
       let newFormData = APIUtil.arrayToTextKey(newEntry)
@@ -120,11 +119,11 @@ export default {
         this.$emit('data-removed', this.index + '.' + x)
 
         let arrayKeyList = this.formData[this.index + '.array_key_list']
-        arrayKeyList.splice(arrayKeyList.indexOf(x+ ''), 1)
+        arrayKeyList.splice(arrayKeyList.indexOf(x + ''), 1)
         console.log('del', x, arrayKeyList.indexOf(x + ''), arrayKeyList)
         this.$emit('data-changed', this.index + '.array_key_list', arrayKeyList)
       }
-      this.formData[this.index+'.deleted_array_key'].push(x)
+      this.formData[this.index + '.deleted_array_key'].push(x)
     },
     initConfig(){
       this.options = this.config['options']
@@ -133,9 +132,19 @@ export default {
         this.columns = this.config.columns
         for(let column in this.columns){
           this.columns[column]['index'] = column
-          this.setDefault(this.columns[column], 'name', TextTransformHelper.toPhrase(column))
-          this.setDefault(this.columns[column], 'type', 'text')
-          typeof this.columns[column]['default_value'] != 'undefined' ? this.columnDefaultValues[column] = this.columns[column]['default_value'] : null
+          this.setDefault(
+            this.columns[column],
+            'name',
+            TextTransformHelper.toPhrase(column)
+          )
+          this.setDefault(
+            this.columns[column],
+            'type',
+            'text'
+          )
+          if(typeof this.columns[column]['default_value'] !== 'undefined'){
+            this.columnDefaultValues[column] = this.columns[column]['default_value']
+          }
           emptyRowField[column] = null
         }
         this.emptyRowField = emptyRowField

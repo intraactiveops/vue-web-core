@@ -4,7 +4,7 @@ export default class InputType{
   inputProperties = {}
   defaultPropoerties = {
     props: {
-      config: {type: Object, required: false},
+      config: { type: Object, required: false },
       validationMessage: Object,
       index: String,
       formData: Object,
@@ -20,10 +20,9 @@ export default class InputType{
     computed: {
       value(){
         let value
-        if(typeof this.valueTrigger !== 'undefined'){
-          this.valueTrigger
-
-        }
+        // if(typeof this.valueTrigger !== 'undefined'){
+        //   this.valueTrigger
+        // }
         if(typeof this.formData[this.index] === 'undefined' || (this.formData[this.index] === null && this.defaultValue !== null)){
           this.defaultValue = this.defaultValue ? this.defaultValue : null
           value = this.defaultValue
@@ -36,6 +35,9 @@ export default class InputType{
           value = this.formData[this.index]
         }
         // if(typeof this.config['yawa'] !== 'undefined'){
+        if(typeof this.config['value_listener'] !== 'undefined'){
+          this.config['value_listener'](value)
+        }
         return value
       }
     },
@@ -51,13 +53,16 @@ export default class InputType{
 
       },
       _initCore(){
-        this.$nextTick(() => {
-          if(typeof this.config['get_setter'] !== 'undefined'){
-            this.config['get_setter']((newValue) => {
-              this.$emit('data-changed', this.index, newValue)
-            })
-          }
-        })
+        if(this.index === 'permanent_address.country') {
+          this.$nextTick(() => {
+            if(typeof this.config['value_setter'] !== 'undefined'){
+              let defaultValueSetter = (newValue) => { // value_setter means get the value setter function
+                this.$emit('data-changed', this.index, newValue)
+              }
+              this.config['value_setter'](defaultValueSetter)
+            }
+          })
+        }
       }
     }
   }
@@ -65,6 +70,6 @@ export default class InputType{
     this.inputProperties = inputProperties
   }
   generate(){
-    return ObjectHelper.mergeDeep( this.defaultPropoerties, this.inputProperties)
+    return ObjectHelper.mergeDeep(this.defaultPropoerties, this.inputProperties)
   }
 }

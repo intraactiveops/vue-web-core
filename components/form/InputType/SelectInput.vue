@@ -35,13 +35,23 @@ let input = new InputType({
       if(typeof this.config['default_option'] !== 'undefined'){
         this.defaultOption = this.config['default_option']
       }
+      if(typeof this.config['default_option_setter'] !== 'undefined'){
+        this.config['default_option_setter']((defaultOption) => {
+          this.defaultOption = defaultOption
+          this.setOptions(this.options)
+        })
+      }
+      if(this.isset(this.config, 'option_setter')){
+        setTimeout(() => {
+          this.config['option_setter'](this.setOptions)
+        }, 500)
+      }
       if(this.isset(this.config, 'api_link')){
         this.source = 'api'
         this.getLatestAPIOption()
       }else{
         this.setOptions(this.config['options'])
       }
-
     },
     getLatestAPIOption(){
       let param = {
@@ -72,10 +82,11 @@ let input = new InputType({
     },
     setOptions(newOptions){
       if(typeof newOptions === 'undefined'){
-        return false
+        this.options = [this.defaultOption]
+      }else{
+        newOptions.unshift(this.defaultOption)
+        this.options = newOptions
       }
-      newOptions.unshift(this.defaultOption)
-      this.options = newOptions
       for(let x in this.options){
         this.optionValueLookUp[this.options[x]['value']] = x
       }

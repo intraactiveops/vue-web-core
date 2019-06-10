@@ -10,7 +10,7 @@ export default {
   },
   mounted(){
   },
-  props:{
+  props: {
     title: String
   },
   data(){

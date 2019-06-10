@@ -9,7 +9,7 @@ let convertMessage = (message) => {
   let messageText = messageLookUp[messageParameter[0]]
 
   let parameters = messageParameter.length > 1 ? messageParameter[1].split(',') : []
-  //TODO things like min
+  // TODO things like min
   for(let x = 0; x < parameters.length; x++){
     messageText = messageText.replace('<param-' + 1 + '>', parameters[x])
   }
@@ -24,7 +24,7 @@ export default {
       for(let x = 0; x < errorMessages[error].length; x++){
         messageText += convertMessage(errorMessages[error][x]) + '. '
       }
-      validationErrorMessage[error] = {type: 'error', message: messageText}
+      validationErrorMessage[error] = { type: 'error', message: messageText }
     }
     return validationErrorMessage
   }

@@ -3,6 +3,5 @@ export default class Discount extends QueryBuilder{
   constructor(){
     super()
     this.tableName = 'discounts'
-
   }
 }

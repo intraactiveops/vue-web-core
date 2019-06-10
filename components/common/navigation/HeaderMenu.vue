@@ -1,13 +1,14 @@
 <template>
   <nav id="header-wrapper" class="navbar navbar-expand-md navbar-dark bg-primary">
-      <router-link class="navbar-brand mr-0" to="/">Kibitz</router-link>
-      <button v-if="!navConfig.sidebarToggled && !navConfig.noSideBar" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled"  class="sideButtonToggler float-left btn btn-outline-primary text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
-        <fa :icon="'toggle-on'" />
-      </button>
-      <button v-else-if="!navConfig.noSideBar" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="sideButtonToggler float-left btn btn-outline-primary text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
-        <fa :icon="'toggle-off'" />
-      </button>
-
+      <router-link class="navbar-brand mr-0" to="/">IntraActiveOPS</router-link>
+      <template v-if="noSidebar !== true">
+        <button v-if="!navConfig.sidebarToggled && !navConfig.noSideBar" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled"  class="sideButtonToggler float-left btn btn-outline-primary text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
+          <fa :icon="'toggle-on'" />
+        </button>
+        <button v-else-if="!navConfig.noSideBar" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="sideButtonToggler float-left btn btn-outline-primary text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
+          <fa :icon="'toggle-off'" />
+        </button>
+      </template>
       <button id="menuToggleBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -35,6 +36,9 @@
 import navigationConfig from '@/vue-web-core/components/common/navigation/config.js'
 import store from '@/store'
 export default {
+  props: {
+    noSidebar: Boolean
+  },
   data(){
     return {
       navConfig: navigationConfig

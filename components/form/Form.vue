@@ -1,7 +1,7 @@
 <template>
   <div>
     <form class="">
-      <input-group @data-removed="removeData" @data-changed="dataChanged" @has-field-default-value="setFieldDeaultValue" :config="fieldGroup" :form-data="formData" :validation-message="validationMessageList"/>
+      <input-group @data-removed="removeData" @data-changed="dataChanged" @has-field-default-value="setFieldDeaultValue" :config="fieldGroup" :form-data="formData" :validation-message="validationMessages"/>
     </form>
   </div>
 </template>
@@ -39,40 +39,38 @@ export default {
     this.initConfig()
   },
   methods: {
-    _getFormData(){
+    _getFormData(toArray = false){
       let cleanedFormData = {}
       for(let key in this.formData){
         if(key.indexOf('last_array_key') === -1 && key.indexOf('deleted_array_key') === -1 && key.indexOf('array_key_list') === -1 && this.formData[key] !== 'NULL'){
           cleanedFormData[key] = this.formData[key]
         }
       }
-      console.log(cleanedFormData)
-      return cleanedFormData
+      return toArray ? APIUtil.textKeyToArray(cleanedFormData) : cleanedFormData
     },
     _getFieldList(){
       return this.fieldList
     },
-    fillFormData(data){
-
+    _fillFormData(data){
       this.formData = APIUtil.arrayToTextKey(data)
     },
     dataChanged(index, value){
       Vue.set(this.formData, index, value)
-      //TODO call back change
+      // TODO call back change
       for(let x = 0; x < this.onDataChangeListener.length; x++){
         let result = this.onDataChangeListener[x](index, this.formData)
         if(result){
           if(this.isset(result, 'validation_message')){
-            this.validationMessageList = {...this.validationMessageList, ...result['validation_message']}
+            this.validationMessageList = { ...this.validationMessageList, ...result['validation_message'] }
           }
         }
       }
-      //TODO validation
+      // TODO validation
     },
     setFieldDeaultValue(index, value){
       Vue.set(fieldDefaultValue, index, value)
     },
-    removeData(formDataField){ //remove array data base on the given formDataField
+    removeData(formDataField){ // remove array data base on the given formDataField
       for(let field in this.formData){
         if(field.indexOf(formDataField) === 0){
           Vue.delete(this.formData, field)
@@ -90,6 +88,7 @@ export default {
       let setting = Object.assign({}, group)
       this.setDefault(setting, 'type', 'normal')
       this.setDefault(setting, 'default_label_col_span', 4)
+      this.setDefault(setting, 'default_label_style', '')
       this.setDefault(setting, 'col', 12)
       for(let field in group['fields']){ // init fields
         if(this.isset(group['fields'][field], 'fields')){ // it is a group
@@ -102,15 +101,15 @@ export default {
           this.setDefault(fieldSetting, 'placeholder', fieldSetting['name'])
           this.setDefault(fieldSetting, 'type', 'text')
           this.setDefault(fieldSetting, 'label_col_span', setting['default_label_col_span'])
+          this.setDefault(fieldSetting, 'label_style', setting['default_label_style'])
           if(this.isset(fieldSetting, 'on_form_data_change')){
             this.onDataChangeListener.push(fieldSetting['on_form_data_change'])
           }
 
-          //TODO should handle config defaults
+          // TODO should handle config defaults
           this.setDefault(fieldSetting, 'config', {})
-          //TODO dont include plurals because its foreign table. It should be added manually in the request parameter
+          // TODO dont include plurals because its foreign table. It should be added manually in the request parameter
           this.fieldList.push(fieldSetting['db_name'])
-
         }
       }
       return setting

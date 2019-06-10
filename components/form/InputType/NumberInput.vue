@@ -7,27 +7,27 @@
   </div>
 </template>
 <script>
-  import InputType from './InputTypeCore.js'
-  let input = new InputType({
-    name: "NumberInput",
-    data(){
-      return {
-      }
-    },
-    methods: {
-      dataChanged(value){
-        if(value.target.value !== 'NULL'){
-          this.$emit('data-changed', this.index, value.target.value)
-        }else{
-          this.$emit('data-removed', this.index)
-        }
-      }
-    },
-    computed: {
-    },
-    mounted(){
-
+import InputType from './InputTypeCore.js'
+let input = new InputType({
+  name: 'NumberInput',
+  data(){
+    return {
     }
-  })
-  export default input.generate()
+  },
+  methods: {
+    dataChanged(value){
+      if(value.target.value !== 'NULL'){
+        this.$emit('data-changed', this.index, value.target.value)
+      }else{
+        this.$emit('data-removed', this.index)
+      }
+    }
+  },
+  computed: {
+  },
+  mounted(){
+
+  }
+})
+export default input.generate()
 </script>

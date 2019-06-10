@@ -5,7 +5,7 @@
     <div v-if="resultPerPage" class="">
       <small class="float-left">{{totalResult}} results</small>
       <div class="btn-group float-right" role="group" aria-label="Button group with nested dropdown">
-        <button t
+        <button >
         <div class="btn-group" role="group">
           <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Page {{padNumber(1, 3,'&nbsp;')}}
@@ -24,7 +24,6 @@
   </div>
 </template>
 <script>
-import Vue from 'vue'
 import TableComponent from '@/vue-web-core/components/table/Table.vue'
 import TableFilter from '@/vue-web-core/components/table/Filter.vue'
 import APIUtil from '@/vue-web-core/helper/api/util.js'
@@ -32,7 +31,7 @@ import ObjectHelper from '@/vue-web-core/helper/object.js'
 
 export default {
   name: 'ModuleTable',
-  components:{
+  components: {
     TableComponent,
     TableFilter
   },
@@ -80,7 +79,7 @@ export default {
       //   // console.log(this.$refs.table.list)
       //   this.$refs.table._updateList(rowList)
       // })
-      if(this.componentReadyCount == 2){
+      if(this.componentReadyCount === 2){
         this.$refs.filter._filter()
       }
     },
@@ -99,13 +98,11 @@ export default {
     _updateRow(index, rowData){
       this.list(rowData['id']).then((response) => {
         if(index !== null || index === 0){ // update row
-            this.$refs.table._updateRow(index, response)
+          this.$refs.table._updateRow(index, response)
         }else{ // new row
-
           this.$refs.table._addRow(response)
         }
       })
-
     },
     _deleteRow(index){
       // this.rowData.splice(index, 1)
@@ -114,12 +111,12 @@ export default {
     list(id){
       return new Promise((resolve, reject) => {
         let parameter = this.cloneObject(this.config['table_setting']['retrieve_parameter'])
-        parameter = ObjectHelper.mergeDeep(parameter, {select: this.selectParameter})
+        parameter = ObjectHelper.mergeDeep(parameter, { select: this.selectParameter })
         if(typeof id === 'undefined'){
           if(typeof parameter['condition'] === 'undefined'){
             parameter['condition'] = []
           }
-          parameter['condition'] =  parameter['condition'].concat(this.filterConditionParameter)
+          parameter['condition'] = parameter['condition'].concat(this.filterConditionParameter)
         }else{
           delete parameter['condition']
           parameter['id'] = id
@@ -130,7 +127,7 @@ export default {
         }
         this.apiRequest(this.config['api'] + '/retrieve', parameter, (response) => {
           // this.$refs.table._updateList(response.data)
-          console.log('TEST',this.resultPerPage,response)
+          console.log('TEST', this.resultPerPage, response)
           resolve(response.data)
           if(typeof id === 'undefined'){
             this.totalPage = Math.ceil(response['additional_data']['total_result'] * 1 / this.resultPerPage)

@@ -18,20 +18,20 @@ let getFileDisplay = (type) => {
     return 'fileAudio'
   }else{
     let knownFileType = {
-      'word': { icon: 'fileWord', color: '#285396'},
-      'pdf': { icon: 'filePdf', color: '#e73e32'},
-      'spreadsheet': { icon: 'table', color: '#1d723b'},
-      'excel' : { icon: 'fileExcel', color: '#1d723b'},
-      'powerpoint': { icon: 'filePowerpoint', color: '#cc4424'},
-      'csv': { icon: 'table', color: '#206f10'},
-      'torrent': { icon: 'magnet', color: '#7cc450'}
+      'word': { icon: 'fileWord', color: '#285396' },
+      'pdf': { icon: 'filePdf', color: '#e73e32' },
+      'spreadsheet': { icon: 'table', color: '#1d723b' },
+      'excel': { icon: 'fileExcel', color: '#1d723b' },
+      'powerpoint': { icon: 'filePowerpoint', color: '#cc4424' },
+      'csv': { icon: 'table', color: '#206f10' },
+      'torrent': { icon: 'magnet', color: '#7cc450' }
     }
     for(let x in knownFileType){
       if((type.indexOf(x) !== -1)){
         return knownFileType[x]
       }
     }
-    return {icon: 'file', color: 'gray'}
+    return { icon: 'file', color: 'gray' }
   }
 }
 let isWithin = (number, lower, upper) => {
@@ -45,25 +45,25 @@ export default{
       unit = unit.toUpperCase()
     }
     let sizeStringLength = (size + '').length
-    if(unit == "B" || sizeStringLength < 4){
+    if(unit === 'B' || sizeStringLength < 4){
       return (size).toFixed(2) + ' Bytes'
     }
-    if(unit == "KB" || isWithin(sizeStringLength, 4, 6)){
-      return (size/ 1000).toFixed(2) + ' KB'
+    if(unit === 'KB' || isWithin(sizeStringLength, 4, 6)){
+      return (size / 1000).toFixed(2) + ' KB'
     }
-    if(unit == "MB" || isWithin(sizeStringLength, 7, 9)){
-      return (size/ 1000000).toFixed(2) + ' MB'
+    if(unit === 'MB' || isWithin(sizeStringLength, 7, 9)){
+      return (size / 1000000).toFixed(2) + ' MB'
     }
-    if(unit == "GB" || isWithin(sizeStringLength, 10, 12)){
-      return (size/ 1000000000).toFixed(2) + ' GB'
+    if(unit === 'GB' || isWithin(sizeStringLength, 10, 12)){
+      return (size / 1000000000).toFixed(2) + ' GB'
     }
-    if(unit == "TB" || sizeStringLength > 12){
-      return (size/ 1000000000000).toFixed(2) + ' TB'
+    if(unit === 'TB' || sizeStringLength > 12){
+      return (size / 1000000000000).toFixed(2) + ' TB'
     }
   },
   readFile: (file) => {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
+    var reader = new FileReader()
+    reader.readAsDataURL(file)
 
     return new Promise((resolve, reject) => {
       resolve(URL.createObjectURL(file))
@@ -75,8 +75,6 @@ export default{
       //   console.log('failed to load image')
       //   reject(false)
       // }
-
     })
-
   }
 }

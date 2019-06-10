@@ -24,7 +24,6 @@ export default class Select2InputHelper{
     }else{
       console.log('ahw :()')
     }
-
   }
   recursiveProcess(){
     let processParameter = this.processList.shift()
@@ -38,18 +37,18 @@ export default class Select2InputHelper{
   }
   process(search, id, done){
     return new Promise((resolve, reject) => {
-      if(id === null ){
+      if(id === null){
         this.requestNewOptions(search, done).then(() => {
           resolve(true)
         })
       }else{
         if(typeof this.optionLookUp[id] !== 'undefined'){
-          done({text: this.options[id]['text'], value: this.options[id]['value']})
+          done({ text: this.options[id]['text'], value: this.options[id]['value'] })
           resolve(true)
         }else{
-          apiRequest.request('service-action/retrieve', {select: ['id', this.descriptionColumn], id: id}, (response) => {
+          apiRequest.request('service-action/retrieve', { select: ['id', this.descriptionColumn], id: id }, (response) => {
             let text = response['data'][this.descriptionColumn]
-            let option = {text: text, value: id}
+            let option = { text: text, value: id }
             this.options.push(option)
             this.optionLookUp[this.options.length - 1] = option
             done(option)
@@ -61,7 +60,7 @@ export default class Select2InputHelper{
   }
   requestNewOptions(search, done){
     let ids = []
-    console.log('ops',this.options)
+    console.log('ops', this.options)
     for(let x = 0; x < this.options.length; x++){
       ids.push(this.options[x]['value'])
     }
@@ -93,8 +92,6 @@ export default class Select2InputHelper{
         done(this.options)
         resolve('true')
       })
-
     })
   }
-
 }

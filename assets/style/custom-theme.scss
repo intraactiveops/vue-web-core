@@ -8,9 +8,10 @@
 // $font-family-sans-serif:      'Theme Font';
 // $font-family-monospace:       $font-family-sans-serif;
 // $body-bg: #f8f9fa;
-$primary: #ef6c00;
+$primary: #000;
 $warning: #f2a11d;
 $info: #63cce9;
+$body-bg: whitesmoke;
 $enable-shadows: true;
 @import "node_modules/bootstrap/scss/mixins/box-shadow";
 @import "node_modules/bootstrap/scss/bootstrap";

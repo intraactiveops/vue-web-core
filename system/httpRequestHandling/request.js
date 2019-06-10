@@ -1,18 +1,13 @@
 import axios from 'axios'
-import Config from '@/vue-web-core/system/config.js'
 let mixin = {
   methods: {
-    request(link, parameter, callback, errorCallback){
+    httpRequest(method, link, parameter, callback, errorCallback){
       let options = {
-        method: 'POST',
+        method: method,
         data: parameter,
-        url: Config.API_URL + '/' + link,
-        Authorization: localStorage.getItem('default_auth_token'),
-        headers: {
-          'Content-Type': 'text/json'
-        }
+        url: link
       }
-      let requestInstance = axios(options)
+      return axios(options)
         .then(response => {
           callback(response.data)
         })
@@ -23,15 +18,13 @@ let mixin = {
               alert(401)
               this.$router.push('/')
             }else{
-              typeof errorCallback !== 'undefined' ? errorCallback(error.response.data, error.response.status) : null
+              (typeof errorCallback !== 'undefined') ? errorCallback(error.response.data, error.response.status) : null
             }
           }else{
             console.log(error)
           }
         })
         .finally(() => { this.loading = false })
-
-      return requestInstance
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <textarea @change="$emit('data-change', index, $event.target.value)" v-bind:value="formData[index]" v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" class="form-control" rows="3">
+    <textarea @change="dataChanged($event.target.value)" v-bind:value="formData[index]" v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" class="form-control" rows="3">
 
     </textarea>
     <div class="invalid-feedback">
@@ -9,11 +9,10 @@
   </div>
 </template>
 <script>
-import SelectInput from './SelectInput'
-export default {
+import InputType from './InputTypeCore.js'
+let input = new InputType({
   name: 'TextAreaInput',
   components: {
-    SelectInput
   },
   props: {
     config: Object,
@@ -33,9 +32,15 @@ export default {
     initConfig(){
       this.options = this.config['options']
     },
-    evaluateSelected(){
-
+    dataChanged(value){
+      if(value !== 'NULL' && value !== null){
+        this.$emit('data-changed', this.index, value)
+      }else{
+        this.$emit('data-changed', this.index, '')
+      }
     }
   }
-}
+})
+console.log('eh yo')
+export default input.generate()
 </script>

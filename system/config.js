@@ -6,10 +6,9 @@
 //   BASE_URL: baseURL
 // }
 
-
 let baseURL = 'http://localhost/intraactiveops/api/api-gateway/public'
 let fileServerURL = 'http://localhost/intraactiveops/api/file_server/public'
-let publicAsset = 'http://localhost/intraactiveops/api/public_asset'
+// let publicAsset = 'http://localhost/intraactiveops/api/public_asset'
 export default {
   API_URL: baseURL + '/v1',
   FILE_SERVER_URL: fileServerURL,

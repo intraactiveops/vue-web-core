@@ -1,6 +1,6 @@
 <template>
   <div class="component-form-input-type-select-2">
-    <select2  ref="select" :placeholder="placeholder" :value="selectValue" :label="'text'" :index="'value'" :options="options" @search="userTyping" @input="valueChanged" @change="" v-bind:class="isset(validationMessage, index) ? 'hasError' : ''" class="">
+    <select2  ref="select" :placeholder="placeholder" :value="selectValue" :label="'text'" :index="'value'" :options="options" @search="userTyping" @input="valueChanged" v-bind:class="isset(validationMessage, index) ? 'hasError' : ''" class="">
       <!-- <option v-for="option in options" v-bind:value="option['value']" v-bind:selected="(formData[index] + '') === (option['value'] + '')" >{{option['text']}}</option> -->
     </select2>
     <div v-bind:class="isset(validationMessage, index) ? 'hasError' : ''" class="invalid-feedback" >
@@ -10,7 +10,7 @@
 </template>
 <script>
 import InputType from './InputTypeCore.js'
-import 'vue-select/dist/vue-select.css';
+import 'vue-select/dist/vue-select.css'
 import select2 from 'vue-select'
 let input = new InputType({
   name: 'Select2',
@@ -47,8 +47,12 @@ let input = new InputType({
       }else{
         this.$emit('data-removed', this.index)
       }
+      if(typeof this.config['value_listener'] !== 'undefined'){
+        this.config['value_listener'](value)
+      }
     },
     initConfig(){
+      this._initCore()
       if(this.isset(this.config, 'api_link')){
         this.source = 'api'
         this.apiLink = this.config['api_link']
@@ -63,14 +67,13 @@ let input = new InputType({
       loading(true)
       clearTimeout(this.userTypingTimer)
       this.userTypingTimer = setTimeout(() => {
-        this.fetchOptions (search, loading)
+        this.fetchOptions(search, loading)
       }, 1000)
     },
     fetchOptions (search, loading) {
       if(this.source === 'option'){
         return false
       }
-
 
       if(this.source === 'api'){
         let param = {
@@ -98,7 +101,7 @@ let input = new InputType({
           loading(false)
         })
       }else if(this.source === 'centralized'){
-        let updatedOptions = this.config['fetch_options'](search, null, (newOptionsList) => {
+        this.config['fetch_options'](search, null, (newOptionsList) => {
           this.setOptions(newOptionsList)
           loading(false)
         })
@@ -125,30 +128,29 @@ let input = new InputType({
   computed: {
     selectValue(){
       let value = (typeof this.formData[this.index] !== 'undefined') ? this.formData[this.index] : null
-      let text =  this.placeholder
+      let text = this.placeholder
       if(typeof this.options[this.optionValueLookUp[value]] !== 'undefined'){
         text = this.options[this.optionValueLookUp[value]]['text']
       }else if(value && typeof this.options[this.optionValueLookUp[value]] === 'undefined'){
         if(this.source === 'api'){
-          this.apiRequest(this.config['api_link'], {select: ['id', this.apiOptionText], id: value}, (response) => {
+          this.apiRequest(this.config['api_link'], { select: ['id', this.apiOptionText], id: value }, (response) => {
             text = response['data'][this.apiOptionText]
-            this.setOptions([{text: text, value: value}])
+            this.setOptions([{ text: text, value: value }])
             this.text = !this.text
           })
         }else if(this.source === 'centralized'){
-          let updatedOptions = this.config['fetch_options'](null, value, (newOption) => {
+          this.config['fetch_options'](null, value, (newOption) => { // search word, id, callback
             text = newOption['text']
-            this.setOptions([{text: text, value: value}])
+            this.setOptions([{ text: text, value: value }])
             this.text = !this.text
           })
         }
-
       }
-      if(value && typeof this.options[this.optionValueLookUp[value]] == 'undefined'){
+      if(value && typeof this.options[this.optionValueLookUp[value]] === 'undefined'){
         // console.log('Not text but has value', value, this.optionValueLookUp[value], this.options)
       }
 
-      return {text: text, value: value}
+      return { text: text, value: value }
     }
   },
   watch: {

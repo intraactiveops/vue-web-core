@@ -4,20 +4,20 @@
   </div>
 </template>
 <script>
-  import InputType from './InputTypeCore.js'
-  let input = new InputType({
-    name: "Checkbox",
-    data(){
-      return {
-      }
-    },
-    methods: {
-    },
-    computed: {
-      dpValue(){
-    },
-    mounted(){
+import InputType from './InputTypeCore.js'
+let input = new InputType({
+  name: 'Checkbox',
+  data(){
+    return {
     }
-  })
-  export default input.generate()
+  },
+  methods: {
+  },
+  computed: {
+    // dpValue()
+  },
+  mounted(){
+  }
+})
+export default input.generate()
 </script>

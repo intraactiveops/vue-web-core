@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-let shortMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', "Jul", 'Aug', 'Sept', 'Oct', "Nov", "Dec"]
+let shortMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 
 let formatDate = (datetime, format) => {
   console.log(datetime)
@@ -26,7 +26,7 @@ Vue.mixin({
       }
       let dateString = jsDate.getFullYear() + '-' + this.padNumber(jsDate.getMonth() + 1, 2) + '-' + this.padNumber(jsDate.getDate(), 2) + ' '
       let hourString = !noHours ? this.padNumber(jsDate.getHours(), 2) + ':' + this.padNumber(jsDate.getMinutes(), 2) + ':' + this.padNumber(jsDate.getSeconds(), 2) : '00:00:00'
-      return  dateString + hourString
+      return dateString + hourString
     },
 
   },
@@ -50,7 +50,6 @@ Vue.mixin({
       }else{
         return shortMonthName[date.getMonth()] + ' ' + date.getDate()
       }
-      return data
     }
   }
 })

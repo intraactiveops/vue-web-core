@@ -18,7 +18,7 @@ export default class CreateTransaction extends Migration{
       },
       transaction_number: {
         timestamp: true,
-        columns:{
+        columns: {
           db_id: {},
           transaction_id: {},
           operation: {}, // 1 - transaction, 2 void, 3 - reprint
@@ -37,8 +37,8 @@ export default class CreateTransaction extends Migration{
         }
       }
     }
-    return await this.doMigrate().catch((error) => {
+    return this.doMigrate().catch((error) => {
+      console.log(error)
     })
   }
-
 }

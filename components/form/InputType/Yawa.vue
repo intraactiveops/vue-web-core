@@ -37,7 +37,7 @@ export default {
     DateInput
   },
   props: {
-    index: {type: String, required: true},
+    index: { type: String, required: true },
     type: String,
     config: Object,
     validationMessage: Object,

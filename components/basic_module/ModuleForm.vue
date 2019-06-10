@@ -41,7 +41,7 @@
 </template>
 <script>
 import Vue from 'vue'
-import TextHelper from '@/vue-web-core/helper/text-transform.js'
+// import TextHelper from '@/vue-web-core/helper/text-transform.js'
 import FormComponent from '@/vue-web-core/components/form/Form'
 import ResponseUtil from '@/vue-web-core/helper/api/response-util.js'
 import APIUtil from '@/vue-web-core/helper/api/util.js'
@@ -61,9 +61,8 @@ export default {
     this.initConfig()
   },
   data(){
-
     return {
-      currentMode: 'create', //create, view, edit
+      currentMode: 'create', // create, view, edit
       formConfig: {},
       isVerifyDelete: false,
       validationMessages: {},
@@ -90,7 +89,7 @@ export default {
       let parameter = this.config['form_setting']['retrieve_parameter']
       parameter['id'] = id
       if(this.isset(parameter, 'select')){
-        parameter.select = {...parameter.select, ...this.selectParameter}
+        parameter.select = { ...parameter.select, ...this.selectParameter }
       }else{
         parameter.select = this.selectParameter
       }
@@ -121,12 +120,12 @@ export default {
         this.isLoading = false
         let savedData = formDataRaw
         if(this.currentMode === 'create'){
-          savedData = {...{id: response.data.id}, ...formDataRaw}
+          savedData = { ...{ id: response.data.id }, ...formDataRaw }
         }
         this.$emit('form-save', savedData)
-      }, (errorReponse) => {
-        if(errorReponse.error.code === 1){
-          let errorMessages = errorReponse.error.message
+      }, (errorResponse) => {
+        if(errorResponse.error.code === 1){
+          let errorMessages = errorResponse.error.message
           for(let error in errorMessages){
             let messageText = ''
             for(let x = 0; x < errorMessages[error].length; x++){
@@ -134,7 +133,7 @@ export default {
               // messageText += ResponseUtil.convertMessage(errorMessages[error][x]) + '.'
               messageText += errorMessages[error][x]
             }
-            Vue.set(this.validationMessages, error, {type: 'error', message: messageText})
+            Vue.set(this.validationMessages, error, { type: 'error', message: messageText })
           }
         }
         this.isLoading = false
@@ -144,7 +143,7 @@ export default {
       this.isLoading = true
       this.loadingMessage = 'Talking to the server... please wait...'
       this.validationMessages = {}
-      this.apiRequest(this.config['api'] + '/delete', {id: this.$refs.form._getFormData().id}, (response) => {
+      this.apiRequest(this.config['api'] + '/delete', { id: this.$refs.form._getFormData().id }, (response) => {
         Vue.set(this.formMessage, 'type', 'success')
         Vue.set(this.formMessage, 'message', 'Deleted successfully!')
         this.$emit('form-deleted')
@@ -153,19 +152,19 @@ export default {
           $(this.$refs.modal).modal('hide')
           this.isLoading = false
         }, 1000)
-      }, (errorReponse) => {
-        if(errorReponse.error.code === 1){
-          let errorMessages = errorReponse.error.message
+      }, (errorResponse) => {
+        if(errorResponse.error.code === 1){
+          let errorMessages = errorResponse.error.message
           for(let error in errorMessages){
             let messageText = ''
             for(let x = 0; x < errorMessages[error].length; x++){
               messageText += ResponseUtil.convertMessage(errorMessages[error][x]) + '.'
             }
-            Vue.set(this.validationMessages, error, {type: 'error', message: messageText})
+            Vue.set(this.validationMessages, error, { type: 'error', message: messageText })
           }
         }else{
           Vue.set(this.formMessage, 'type', 'danger')
-          Vue.set(this.formMessage, 'message', errorReponse.error.message)
+          Vue.set(this.formMessage, 'message', errorResponse.error.message)
         }
         this.isLoading = false
       })
@@ -196,7 +195,6 @@ export default {
       this.formConfig = this.config['form_setting']['form_field_setting']
       this.setDefault(this.config, 'retrieve_parameter', {})
     }
-
 
   }
 }

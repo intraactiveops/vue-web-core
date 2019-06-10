@@ -4,14 +4,14 @@ function extractTextArray(keyChain, array){
   let lastArrayKey = null
   let arrayKeyList = []
   for(let key in array){
-    let newKey =  (keyChain ? keyChain + '.' : '') + key
+    let newKey = (keyChain ? keyChain + '.' : '') + key
     if(typeof array[key] === 'object' && array[key] !== null){
       let moreStringifiedArray = extractTextArray(newKey, array[key])
-      stringyfiedArray = {...stringyfiedArray, ...moreStringifiedArray}
+      stringyfiedArray = { ...stringyfiedArray, ...moreStringifiedArray }
     }else{ // array
       stringyfiedArray[newKey] = array[key]
     }
-    if(!isNaN(key*1)){
+    if(!isNaN(key * 1)){
       lastArrayKey = key * 1
     }
     arrayKeyList.push(key)
@@ -30,7 +30,7 @@ export default {
       let segmentedKey = key.split('.')
       let currentArray = arrayData
       for(let x = 0; x < segmentedKey.length; x++){
-        if(x == segmentedKey.length - 1){ // last key and must assign value
+        if(x === segmentedKey.length - 1){ // last key and must assign value
           currentArray[segmentedKey[x]] = arr[key]
         }else{ // create object
           if(typeof currentArray[segmentedKey[x]] === 'undefined' || currentArray[segmentedKey[x]] === null){
@@ -45,7 +45,7 @@ export default {
     return arrayData
   },
   arrayToTextKey(arr){
-    let result =  extractTextArray(null, arr)
+    let result = extractTextArray(null, arr)
     return result
   },
   generateSelecParameter(fieldList){
@@ -62,7 +62,7 @@ export default {
         let currentObject = selectObject
 
         for(let y = 0; y < segmentLength - 1; y++){
-          Quick.setDefault(currentObject, segmentedField[y], {'select': {}})
+          Quick.setDefault(currentObject, segmentedField[y], { 'select': {} })
           // if(Quick.isNumeric(segmentedField[y])){
           //   currentObject['select'][segmentedField[y]]
           // }

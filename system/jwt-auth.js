@@ -60,14 +60,13 @@ window.onfocus = function(){
       Router.go()
     }
     if((!store.getters.authToken && localStorage.getItem('default_auth_token') && !localStorage.getItem('refreshed_once'))){
-      alert('1:' +store.getters.authToken+ ' :::::'+ localStorage.getItem('refreshed_once') + '=====' + (!store.getters.authToken && localStorage.getItem('default_auth_token') && !localStorage.getItem('refreshed_once')))
+      alert('1:' + store.getters.authToken + ' :::::' + localStorage.getItem('refreshed_once') + '=====' + (!store.getters.authToken && localStorage.getItem('default_auth_token') && !localStorage.getItem('refreshed_once')))
       localStorage.setItem('refreshed_once', true)
       Router.go()
     }else if(store.getters.authToken !== localStorage.getItem('default_auth_token') && !localStorage.getItem('refreshed_once')){
       localStorage.setItem('refreshed_once', true)
       // alert('2')
       Router.go()
-
     }else{
       localStorage.removeItem('refreshed_once')
       store.commit('setAuthToken', localStorage.getItem('default_auth_token'))

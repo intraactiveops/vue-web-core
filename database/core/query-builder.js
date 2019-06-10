@@ -1,15 +1,12 @@
 export default class QueryBuilder{
   tableName
-  constructor(){
-  }
   async add(data, childData){
-    return await new Promise((resolve, reject) =>{
+    return new Promise((resolve, reject) => {
       this.openDB().then((db) => {
         let result = {}
-        let tx = db.transaction(this.tableName, "readwrite")
+        let tx = db.transaction(this.tableName, 'readwrite')
         var txStore = tx.objectStore(this.tableName).add(data)
         txStore.onsuccess = (event) => {
-
           result.id = event.target.result
           if(typeof childData !== 'undefined'){ // create child
 
@@ -17,7 +14,7 @@ export default class QueryBuilder{
             resolve(result)
           }
         }
-        txStore.onerror = function(event) {
+        txStore.onerror = (event) => {
           console.error('Failed to add data in query builder', this.tableName, event)
           reject(false, event)
         }
@@ -29,22 +26,22 @@ export default class QueryBuilder{
     if(typeof condition === 'number'){ // get by id
       await this.getByID(condition).then((txResult) => {
         result = txResult
-      }).catch((event) => { console.error('Failed to get by ID', this.tableName)});
-    }else if(typeof condition === 'undefined' || condition == null){ // get all
+      }).catch((event) => { console.error('Failed to get by ID', this.tableName) })
+    }else if(typeof condition === 'undefined' || condition === null){ // get all
       await this.getAll().then((txResult) => {
         result = txResult
-      }).catch((event) => { console.error('Failed to get all', this.tableName)});
+      }).catch((event) => { console.error('Failed to get all', this.tableName) })
     }else{
       await this.getWithCondition(condition).then((txResult) => {
         result = txResult
-      }).catch((event) => { console.error('Failed to get all', this.tableName)});
+      }).catch((event) => { console.error('Failed to get all', this.tableName) })
     }
     return result
   }
   getWithCondition(condition){
     return new Promise((resolve, reject) => {
       this.openDB().then((db) => {
-        let tx = db.transaction(this.tableName, 'readonly');
+        let tx = db.transaction(this.tableName, 'readonly')
         let store = tx.objectStore(this.tableName)
         let equalConditionValue = []
         let index = ''
@@ -57,14 +54,13 @@ export default class QueryBuilder{
 
         let result = []
         indexedStore.openCursor(keyRange).onsuccess = (event) => {
-          var cursor = event.target.result;
+          var cursor = event.target.result
           if(cursor){
             result.push(cursor.value)
             cursor.continue()
           }else{
             resolve(result)
           }
-
         }
         store.onerror = (event) => {
           reject(event)
@@ -75,8 +71,8 @@ export default class QueryBuilder{
   getByIndex(index, value){
     return new Promise((resolve, reject) => {
       this.openDB().then((db) => {
-        let tx = db.transaction(this.tableName, 'readonly');
-        let store = tx.objectStore(this.tableName).index(index).get(value);
+        let tx = db.transaction(this.tableName, 'readonly')
+        let store = tx.objectStore(this.tableName).index(index).get(value)
         store.onsuccess = (event) => {
           resolve(event.target.result)
         }
@@ -89,8 +85,8 @@ export default class QueryBuilder{
   getByID(id){
     return new Promise((resolve, reject) => {
       this.openDB().then((db) => {
-        let tx = db.transaction(this.tableName, 'readonly');
-        let store = tx.objectStore(this.tableName).get(id);
+        let tx = db.transaction(this.tableName, 'readonly')
+        let store = tx.objectStore(this.tableName).get(id)
         store.onsuccess = (event) => {
           resolve(event.target.result)
         }
@@ -103,8 +99,8 @@ export default class QueryBuilder{
   getAll(){
     return new Promise((resolve, reject) => {
       this.openDB().then((db) => {
-        let tx = db.transaction(this.tableName, 'readonly');
-        let store = tx.objectStore(this.tableName).getAll();
+        let tx = db.transaction(this.tableName, 'readonly')
+        let store = tx.objectStore(this.tableName).getAll()
         store.onsuccess = (event) => {
           resolve(event.target.result.length ? event.target.result : null)
         }
@@ -118,37 +114,35 @@ export default class QueryBuilder{
 
   }
   async update(index, data){
-    return await new Promise((resolve, reject) =>{
+    return new Promise((resolve, reject) => {
       this.openDB().then((db) => {
         let result = {}
-        let tx = db.transaction(this.tableName, "readwrite")
+        let tx = db.transaction(this.tableName, 'readwrite')
         var txStore = tx.objectStore(this.tableName).put(data)
         txStore.onsuccess = (event) => {
-
           result.id = event.target.result
           resolve(result)
         }
-        txStore.onerror = function(event) {
-          console.error('Failed to add data in query builder', this.tableName, event)
+        txStore.onerror = (event) => {
+          consoe.log(new Error(['Failed to add data in query builder', this.tableName, event]))
           reject(false, event)
         }
       })
     })
   }
   async delete(id){
-    return await new Promise((resolve, reject) =>{
+    return new Promise((resolve, reject) => {
       this.openDB().then((db) => {
         let result = {}
-        let tx = db.transaction(this.tableName, "readwrite")
+        let tx = db.transaction(this.tableName, 'readwrite')
         console.log('delete', id)
         var txStore = tx.objectStore(this.tableName).delete(id)
         txStore.onsuccess = (event) => {
-
           result.id = event.target.result
           resolve(result)
         }
-        txStore.onerror = function(event) {
-          console.error('Failed to add data in query builder', this.tableName, event)
+        txStore.onerror = (event) => {
+          consoe.log(new Error('Failed to add data in query builder'))
           reject(false, event)
         }
       })
@@ -156,11 +150,11 @@ export default class QueryBuilder{
   }
   openDB(){
     return new Promise((resolve, reject) => {
-      let request = window.indexedDB.open("my-db");
+      let request = window.indexedDB.open('my-db')
       request.onerror = (event) => {
-        console.error("Database Error, failed to open connection in query builder - openDB: ", event);
+        console.error('Database Error, failed to open connection in query builder - openDB: ', event)
         reject(event)
-      };
+      }
       request.onsuccess = (event) => {
         resolve(request.result)
       }

@@ -3,6 +3,5 @@ export default class Product extends QueryBuilder{
   constructor(){
     super()
     this.tableName = 'products'
-
   }
 }
