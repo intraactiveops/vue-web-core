@@ -5,7 +5,6 @@
     <div v-if="resultPerPage" class="">
       <small class="float-left">{{totalResult}} results</small>
       <div class="btn-group float-right" role="group" aria-label="Button group with nested dropdown">
-        <button >
         <div class="btn-group" role="group">
           <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Page {{padNumber(1, 3,'&nbsp;')}}
