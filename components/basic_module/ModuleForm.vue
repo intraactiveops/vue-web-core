@@ -94,7 +94,7 @@ export default {
         parameter.select = this.selectParameter
       }
       this.apiRequest(this.config['api'] + '/retrieve', parameter, (response) => {
-        this.$refs.form.fillFormData(response.data)
+        this.$refs.form._fillFormData(response.data)
         this.openViewModal()
         this.isLoading = false
       }, (errorResponse) => {
@@ -112,7 +112,7 @@ export default {
       if(this.currentMode === 'create'){
         link = this.config['api'] + '/create'
       }
-
+      console.log(this.currentMode)
       this.apiRequest(link, formData, (response) => {
         this.showForm(response.data.id)
         Vue.set(this.formMessage, 'type', 'success')
@@ -174,7 +174,7 @@ export default {
       Vue.set(this.formMessage, 'message', null)
       this.isLoading = false
       this.isVerifyDelete = false
-      this.$refs.form.fillFormData({})
+      this.$refs.form._fillFormData({})
       this.validationMessages = {}
     },
     openCreateModal(){

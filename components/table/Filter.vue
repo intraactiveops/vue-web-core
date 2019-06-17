@@ -34,6 +34,13 @@ export default{
         this.formConfig = config['form_field_setting']
         this.hasFilter = true
         this.generateFormClause()
+        setTimeout(() => {
+          this.$emit('ready', true)
+          if(typeof readyCallback !== 'function'){
+            readyCallback()
+          }
+        }, 300)
+      }else{
         this.$emit('ready', true)
       }
     },
@@ -43,27 +50,30 @@ export default{
       }
     },
     formReady(){
-
+      console.log('form ready')
     },
     _filter(){
-      let formData = this.$refs.form._getFormData()
       let conditionParameter = []
-      for(let x in formData){
-        switch(this.formClauses[x]){
-          case 'like':
-            conditionParameter.push({
-              column: x,
-              clause: 'like',
-              value: '%' + formData[x] + '%'
-            })
-            break
-          default:
-            conditionParameter.push({
-              column: x,
-              value: formData[x]
-            })
+      if(this.hasFilter){
+        let formData = this.$refs.form._getFormData()
+        for(let x in formData){
+          switch(this.formClauses[x]){
+            case 'like':
+              conditionParameter.push({
+                column: x,
+                clause: 'like',
+                value: '%' + formData[x] + '%'
+              })
+              break
+            default:
+              conditionParameter.push({
+                column: x,
+                value: formData[x]
+              })
+          }
         }
       }
+
       this.$emit('filter', conditionParameter)
     },
   },
@@ -71,6 +81,7 @@ export default{
   },
   watch: {
     formConfig(newData){
+
     }
   }
 
