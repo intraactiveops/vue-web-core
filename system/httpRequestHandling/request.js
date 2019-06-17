@@ -18,7 +18,9 @@ let mixin = {
               alert(401)
               this.$router.push('/')
             }else{
-              (typeof errorCallback !== 'undefined') ? errorCallback(error.response.data, error.response.status) : null
+              if(typeof errorCallback !== 'undefined'){
+                errorCallback(error.response.data, error.response.status)
+              }
             }
           }else{
             console.log(error)
