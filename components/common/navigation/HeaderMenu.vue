@@ -23,7 +23,7 @@
           <li v-if="$auth.check()" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello <strong>{{$auth.user().username}}</strong></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
-              <a class="dropdown-item" href="#">Profile Setting</a>
+              <router-link class="dropdown-item" to="/user">Profile Setting</router-link>
               <a class="dropdown-item" href="#" @click="logout">Logout</a>
             </div>
           </li>
