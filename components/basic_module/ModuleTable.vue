@@ -19,7 +19,7 @@
     </div>
     <br>
     <br>
-    <button @click="list(undefined)">test row</button>
+    <button @click="filterTable(undefined)">test row</button>
   </div>
 </template>
 <script>

@@ -2,10 +2,10 @@
   <nav id="header-wrapper" class="navbar navbar-expand-md navbar-dark bg-primary">
       <router-link class="navbar-brand mr-0" to="/">IntraActiveOPS</router-link>
       <template v-if="noSidebar !== true">
-        <button v-if="!navConfig.sidebarToggled && !navConfig.noSideBar" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled"  class="sideButtonToggler float-left btn btn-outline-primary text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
+        <button v-if="!navConfig.sidebarToggled && !navConfig.noSideBar" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled"  class="sideButtonToggler float-left btn text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
           <fa :icon="'toggle-on'" />
         </button>
-        <button v-else-if="!navConfig.noSideBar" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="sideButtonToggler float-left btn btn-outline-primary text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
+        <button v-else-if="!navConfig.noSideBar" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="sideButtonToggler float-left btn text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
           <fa :icon="'toggle-off'" />
         </button>
       </template>
