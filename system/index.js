@@ -1,2 +1,2 @@
-import './fontAwesome'
-import './httpRequestHandling/apiRequest'
+import './font-awesome'
+import './http-request-handling/apiRequest'

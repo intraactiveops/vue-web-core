@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import apiRequest from '@/vue-web-core/system/httpRequestHandling/apiRequest.js'
-import request from '@/vue-web-core/system/httpRequestHandling/request.js'
+import apiRequest from '@/vue-web-core/system/http-request-handling/apiRequest.js'
+import request from '@/vue-web-core/system/http-request-handling/request.js'
 let mixin = {
   methods: {
     apiRequest: apiRequest.request,
