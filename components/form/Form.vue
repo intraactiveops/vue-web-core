@@ -80,9 +80,7 @@ export default {
     initConfig(){
       this.onDataChangeListener = []
       this.fieldGroup = this.initField(this.config)
-      console.log('ee')
       setTimeout(() => {
-        console.log('asd')
         this.$emit('form-ready')
       }, 100)
     },

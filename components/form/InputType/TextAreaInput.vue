@@ -41,6 +41,5 @@ let input = new InputType({
     }
   }
 })
-console.log('eh yo')
 export default input.generate()
 </script>
