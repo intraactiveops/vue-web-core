@@ -3,7 +3,6 @@ import Vue from 'vue'
 let shortMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 
 let formatDate = (datetime, format) => {
-  console.log(datetime)
   let datetimeObject = new Date(datetime)
   switch(format){
     default:

@@ -12,7 +12,7 @@ let mixin = {
           callback(response.data)
         })
         .catch((error, status) => {
-          console.log(error, status)
+          console.error(error, status)
           if(typeof error.response !== 'undefined'){
             if(error.response.status === 401){ // net log in
               alert(401)
@@ -23,7 +23,6 @@ let mixin = {
               }
             }
           }else{
-            console.log(error)
           }
         })
         .finally(() => { this.loading = false })

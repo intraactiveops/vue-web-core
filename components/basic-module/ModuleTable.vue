@@ -87,7 +87,6 @@ export default {
         this.filterConditionParameter = filter
       }
       this.list().then((rowList) => {
-        console.log(rowList)
         this.$refs.table._updateList(rowList)
       })
     },
@@ -135,7 +134,7 @@ export default {
           //
         }, (errorResponse, status) => {
           reject(errorResponse)
-          console.log('error', errorResponse)
+          console.error('error', errorResponse)
         })
       })
     }

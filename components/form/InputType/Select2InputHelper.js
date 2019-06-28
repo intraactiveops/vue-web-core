@@ -22,7 +22,6 @@ export default class Select2InputHelper{
       this.isProcessing = true
       this.recursiveProcess()
     }else{
-      console.log('ahw :()')
     }
   }
   recursiveProcess(){

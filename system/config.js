@@ -7,7 +7,7 @@
 // }
 
 let baseURL = 'http://localhost/intraactiveops/api/api-gateway/public'
-let fileServerURL = 'http://localhost/intraactiveops/api/file_server/public'
+let fileServerURL = 'http://localhost/intraactiveops/api/file-server/public'
 // let baseURL = 'http://ec2-54-161-197-150.compute-1.amazonaws.com/api-gateway/public'
 // let fileServerURL = 'http://ec2-54-161-197-150.compute-1.amazonaws.com/file_server/public'
 // let publicAsset = 'http://localhost/intraactiveops/api/public_asset'

@@ -112,7 +112,6 @@ export default {
       if(this.currentMode === 'create'){
         link = this.config['api'] + '/create'
       }
-      console.log(this.currentMode)
       this.apiRequest(link, formData, (response) => {
         this.showForm(response.data.id)
         Vue.set(this.formMessage, 'type', 'success')

@@ -72,10 +72,8 @@ export default {
         }
       }).done((response) => {
         if (response.data) {
-          console.log('Successfull Upload')
           this.resetData()
         } else {
-          console.log('Unsuccessful Upload', response)
         }
       }).fail((response) => {
         this.$emit('upload_error', response.status, response.responseJSON)

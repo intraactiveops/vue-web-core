@@ -43,7 +43,7 @@ Vue.use(require('@websanova/vue-auth'), {
     makeRequest: false
   },
   tokenExpired: (data) => {
-    console.log('TOKEN EXPIRED', data)
+    console.warn('TOKEN EXPIRED', data)
   },
   // check: (param) => {
   //   store.commit('setAuthToken', localStorage.getItem('default_auth_token'))

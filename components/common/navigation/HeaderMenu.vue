@@ -1,8 +1,12 @@
 <template>
   <nav id="header-wrapper" class="navbar navbar-expand-md navbar-dark bg-primary">
-      <router-link class="navbar-brand mr-0" to="/">IntraActiveOPS</router-link>
+      <router-link class="navbar-brand mr-0" to="/">{{companyName ? companyName : 'IntraActiveOPS'}}</router-link>
       <template v-if="noSidebar !== true">
-        <button v-if="!navConfig.sidebarToggled && !navConfig.noSideBar" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled"  class="sideButtonToggler float-left btn text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
+        <button
+          v-if="!navConfig.sidebarToggled && !navConfig.noSideBar"
+          @click="navConfig.sidebarToggled = !navConfig.sidebarToggled"
+          class="sideButtonToggler float-left btn text-white"  
+          type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
           <fa :icon="'toggle-on'" />
         </button>
         <button v-else-if="!navConfig.noSideBar" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="sideButtonToggler float-left btn text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
@@ -16,14 +20,14 @@
         <ul class="navbar-nav ml-auto">
           <!-- <li class="nav-item">
             <router-link class=" nav-link"  :to="'/'"><fa :icon="'tasks'" /> Admin</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class=" nav-link"  :to="'/pos'"><fa :icon="'cash-register'" /> POS</router-link>
           </li> -->
+          <li v-if="$auth.check()" class="nav-item">
+            <router-link class=" nav-link"  :to="'/user'">Hello <strong>{{$auth.user().username}}</strong></router-link>
+          </li>
           <li v-if="$auth.check()" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello <strong>{{$auth.user().username}}</strong></a>
+            <a class="nav-link "  id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="line-height: 0px; cursor: pointer"><fa :icon="'sort-down'" :size="'lg'"/></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
-              <router-link class="dropdown-item" to="/user">Profile Setting</router-link>
+              <router-link class="dropdown-item" to="/account_setting">Account Setting</router-link>
               <a class="dropdown-item" href="#" @click="logout">Logout</a>
             </div>
           </li>
@@ -41,13 +45,22 @@ export default {
   },
   data(){
     return {
-      navConfig: navigationConfig
+      navConfig: navigationConfig,
     }
+  },
+  mounted(){
+    store.dispatch('setComapnyInformation')
   },
   methods: {
     logout(){
       store.commit('setAuthToken', null)
       this.$auth.logout()
+      window.location.reload()
+    }
+  },
+  computed: {
+    companyName(){
+      return store.state.companyInformation.name
     }
   }
 }

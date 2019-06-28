@@ -120,7 +120,6 @@ export default {
 
         let arrayKeyList = this.formData[this.index + '.array_key_list']
         arrayKeyList.splice(arrayKeyList.indexOf(x + ''), 1)
-        console.log('del', x, arrayKeyList.indexOf(x + ''), arrayKeyList)
         this.$emit('data-changed', this.index + '.array_key_list', arrayKeyList)
       }
       this.formData[this.index + '.deleted_array_key'].push(x)
