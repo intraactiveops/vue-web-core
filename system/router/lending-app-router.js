@@ -1,4 +1,4 @@
-import store from '@/vue-web-core/store.js'
+import store from '@/vue-web-core/system/store'
 export default{
   routes: [
     {

@@ -38,7 +38,7 @@
 </template>
 <script>
 import navigationConfig from '@/vue-web-core/components/common/navigation/config.js'
-import store from '@/store'
+import store from '@/vue-web-core/system/store'
 export default {
   props: {
     noSidebar: Boolean
