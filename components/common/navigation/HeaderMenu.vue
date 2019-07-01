@@ -5,7 +5,7 @@
         <button
           v-if="!navConfig.sidebarToggled && !navConfig.noSideBar"
           @click="navConfig.sidebarToggled = !navConfig.sidebarToggled"
-          class="sideButtonToggler float-left btn text-white"  
+          class="sideButtonToggler float-left btn text-white"
           type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
           <fa :icon="'toggle-on'" />
         </button>
@@ -49,7 +49,8 @@ export default {
     }
   },
   mounted(){
-    store.dispatch('setComapnyInformation')
+    store.dispatch('setCompanyInformation')
+    store.dispatch('setUserInformation')
   },
   methods: {
     logout(){

@@ -5,7 +5,7 @@ let mixin = {
   },
   methods: {
     getFileServerLink(fileName){
-      return Config.FILE_SERVER_URL + '/files/' +fileName
+      return Config.FILE_SERVER_URL + '/files/' + fileName
     }
   }
 }

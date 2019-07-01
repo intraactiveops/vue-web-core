@@ -10,17 +10,17 @@
       <button v-if="typeof config['no_create'] === 'undefined' || !config['no_create']" @click="_openCreateForm" class="btn btn-primary"><fa icon="plus" /> Create</button>
     </div>
     <module-table ref="table"  @view-row="viewRow" :config="config" />
-    <!-- <module-form ref="form" @form-save="updateRowFromForm" @form-deleted="deleteRow" :config="config" /> -->
+    <module-form ref="form" @form-save="updateRowFromForm" @form-deleted="deleteRow" :config="config" />
   </div>
 </template>
 <script>
 import ModuleTable from './ModuleTable'
-// import ModuleForm from './ModuleForm'
+import ModuleForm from './ModuleForm'
 import TextTransform from '@/vue-web-core/helper/text-transform.js'
 export default {
   components: {
     ModuleTable,
-    // ModuleForm
+    ModuleForm
   },
   name: 'BasicModule',
   props: {
@@ -42,6 +42,7 @@ export default {
     },
     _openCreateForm(){
       this.currentRowViewedIndex = null
+      console.log(this.$refs)
       this.$refs.form.openCreateModal()
     },
     updateRowFromForm(rowData){

@@ -125,7 +125,6 @@ export default {
         }
         this.apiRequest(this.config['api'] + '/retrieve', parameter, (response) => {
           // this.$refs.table._updateList(response.data)
-          console.log('TEST', this.resultPerPage, response)
           resolve(response.data)
           if(typeof id === 'undefined'){
             this.totalPage = Math.ceil(response['additional_data']['total_result'] * 1 / this.resultPerPage)

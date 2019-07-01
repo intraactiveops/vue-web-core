@@ -1,8 +1,8 @@
 <template>
-  <div class="row">
+  <div class="row ">
     <template v-if="attachments.length">
-      <div  v-for="(attachment, index) in attachments" class="col-6 col-md-4 py-2">
-        <div class="border rounded shadow p-2">
+      <div  v-for="(attachment, index) in attachments" v-bind:class="(attachments.length <= 4 ? 'col-12 col-lg-12' : 'col-6 col-md-4') + ' ' + (index < attachments.length - 1  ? 'pb-1' : '')" class="px-1">
+        <div class="border rounded shadow2 p-2 bg-white">
           <div v-if="FileHelper.getGeneralFileType(attachment['type']) === 'file'"  >
             <div style="width:40px; float:left" class="bg-muted text-center h1 py-2">
               <fa :icon="FileHelper.getFileDisplay(attachment['type'])['icon']"  v-bind:style="{color: FileHelper.getFileDisplay(attachment['type'])['color']}" />

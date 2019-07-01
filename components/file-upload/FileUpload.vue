@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <button class="btn btn-sm btn-light text-dark" type="button" @click="fileInputClicked" ><fa :icon="'paperclip'" /> Add Photo/Video/File</button>
+  <div style="float:left">
+    <button class="btn btn-outline-primary text-dark" type="button" @click="fileInputClicked" ><fa :icon="'paperclip'" /></button>
     <input ref="fileInput" type="file" multiple="multiple" id="attachments" accept="*" @change="uploadFieldChange" style="display:none" />
   </div>
 </template>
