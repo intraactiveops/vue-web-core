@@ -10,7 +10,6 @@ const toPhrase = (text) => {
 const underscoreToSpace = (text) => {
   return text.replace(/_/g, ' ')
 }
-
 export default {
   underscoreToSpace: underscoreToSpace,
   toPhrase: toPhrase

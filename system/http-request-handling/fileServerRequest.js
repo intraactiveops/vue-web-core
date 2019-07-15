@@ -1,10 +1,8 @@
-import axios from 'axios'
-import Config from '@/vue-web-core/system/config.js'
 let mixin = {
   methods: {
-    request(parameter, percentageUpdateCallback, callback, errorCallback){
+    request(link, parameter, percentageUpdateCallback, callback, errorCallback){
       let requestInstance = $.ajax({
-        url: Config.FILE_SERVER_URL + '/v1/upload',
+        url: link,
         type: 'POST',
         data: parameter,
         cache: false,
@@ -32,9 +30,20 @@ let mixin = {
           errorCallback(response.error)
         }
       }).fail((response) => {
+        console.log('error status------------', response.status, response)
+        switch(response.status * 1){
+          case 404:
+            console.error('Upload location not found')
+            errorCallback(response.responseText)
+            break
+          default:
+            errorCallback(response.responseText)
+        }
+        if(typeof errorCallback === 'function'){
+          errorCallback()
+        }
         console.error('Request Error', response)
       })
-
 
       return requestInstance
     }

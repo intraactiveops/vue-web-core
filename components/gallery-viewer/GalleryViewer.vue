@@ -53,7 +53,6 @@ export default {
   },
   mounted(){
     this.init()
-    let resizeImage = this.resizeImage
     $(this.$refs.image).on('load', () => {
       this.resizeImage()
     })
@@ -86,14 +85,13 @@ export default {
 
       if(natWidth > this.maxViewerDimension.width){
         this.imageElementDimension.height = (this.maxViewerDimension.width * (natHeight / natWidth))
-        this.imageElementDimension.width = (this.maxViewerDimension.width )
+        this.imageElementDimension.width = (this.maxViewerDimension.width)
       }
       if(this.imageElementDimension.height > this.maxViewerDimension.height){
         let ratio = (this.imageElementDimension.width / this.imageElementDimension.height)
         this.imageElementDimension.height = this.maxViewerDimension.height
         this.imageElementDimension.width = (this.maxViewerDimension.height * ratio)
       }
-
 
       // if(natWidth > this.maxViewerDimension.width || natHeight > this.maxViewerDimension.height){
       //   console.log(natWidth, natHeight)

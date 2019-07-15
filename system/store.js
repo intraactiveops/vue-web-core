@@ -54,11 +54,10 @@ let store = new Vuex.Store({
           select: ['name']
         }
         apiRequest.request('company/retrieve', param, (response) => {
-          commit('setCompanyInformation', {id: companyID, name: response.data.name})
+          commit('setCompanyInformation', { id: companyID, name: response.data.name })
         }, (errorResponse) => {
           console.error('Error in store company information', errorResponse)
         })
-
       }
     },
     setUserInformation({ commit }){
@@ -78,13 +77,12 @@ let store = new Vuex.Store({
         }
         apiRequest.request('user/retrieve', param, (response) => {
           // console.log(response)
-          let userInformation = {id: userID}
+          let userInformation = { id: userID }
           userInformation.profilePictureLink = response.data.user_profile_picture ? Config.FILE_SERVER_URL + '/files/' + response.data.user_profile_picture.thumbnail_file_name : require('@/vue-web-core/assets/img/no-profile-pic.jpg')
           commit('setUserInformation', userInformation)
         }, (errorResponse) => {
           console.error('Error in store company information', errorResponse)
         })
-
       }
     },
   }
