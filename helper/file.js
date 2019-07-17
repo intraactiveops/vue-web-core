@@ -9,6 +9,7 @@ let getGeneralFileType = (type) => {
     return 'file'
   }
 }
+let imageFileExtensions = ['png', 'jpg', 'jpeg']
 let getFileDisplay = (type) => {
   if(type.indexOf('image') === 0){
     return 'fileImage'
@@ -18,10 +19,10 @@ let getFileDisplay = (type) => {
     return 'fileAudio'
   }else{
     let knownFileType = {
-      'word': { icon: 'fileWord', color: '#285396' },
-      'pdf': { icon: 'filePdf', color: '#e73e32' },
+      'word': { icon: 'file-word', color: '#285396' },
+      'pdf': { icon: 'file-pdf', color: '#e73e32' },
       'spreadsheet': { icon: 'table', color: '#1d723b' },
-      'excel': { icon: 'fileExcel', color: '#1d723b' },
+      'excel': { icon: 'file-excel', color: '#1d723b' },
       'powerpoint': { icon: 'filePowerpoint', color: '#cc4424' },
       'csv': { icon: 'table', color: '#206f10' },
       'torrent': { icon: 'magnet', color: '#7cc450' }
@@ -60,6 +61,10 @@ export default{
     if(unit === 'TB' || sizeStringLength > 12){
       return (size / 1000000000000).toFixed(2) + ' TB'
     }
+  },
+  isImage: (type) => {
+    console.log(type, imageFileExtensions.indexOf(type.toLowerCase()))
+    return imageFileExtensions.indexOf(type.toLowerCase()) !== -1
   },
   readFile: (file) => {
     var reader = new FileReader()

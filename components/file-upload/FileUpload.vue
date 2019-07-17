@@ -13,7 +13,7 @@ export default {
       // You can store all your files here
       attachments: [],
       // Each file will need to be sent as FormData element
-      data: new FormData(),
+      formData: new FormData(),
       errors: {
       },
     }
@@ -23,16 +23,30 @@ export default {
       this.$refs.fileInput.click()
     },
     prepareFields() {
-      this.data = new FormData()
+      this.formData = new FormData()
       if (this.attachments.length > 0) {
         for (var i = 0; i < this.attachments.length; i++) {
           let attachment = this.attachments[i]
-          this.data.append('files[]', attachment)
+          this.formData.append('files[]', attachment)
         }
       }
     },
+    _getFormData(){
+      this.prepareFields()
+      return this.formData
+    },
+    _getFileList(){
+      return this.attachments
+    },
     _remove(attachment) {
       this.attachments.splice(this.attachments.indexOf(attachment), 1)
+      this.$emit('change', this.attachments)
+    },
+    _reset(){
+      console.log('file resets')
+      this.resetData()
+      this.formData = new FormData() // Reset it completely
+      this.attachments = []
       this.$emit('change', this.attachments)
     },
     uploadFieldChange(e) {
@@ -46,13 +60,13 @@ export default {
     },
     _upload() {
       this.prepareFields()
-      this.data.append('upload_ticket_id', 3)
+      this.formData.append('upload_ticket_id', 3)
       this.uploadPercentage = 0
       // let thisIsThis = this
       $.ajax({
         url: Config.FILE_SERVER_URL + '/v1/upload',
         type: 'POST',
-        data: this.data,
+        data: this.formData,
         cache: false,
         contentType: false,
         processData: false,
@@ -71,8 +85,8 @@ export default {
           return xhr
         }
       }).done((response) => {
-        if (response.data) {
-          this.resetData()
+        if (response.formData) {
+          this._reset()
         } else {
         }
       }).fail((response) => {
@@ -80,8 +94,7 @@ export default {
       })
     },
     resetData() {
-      this.data = new FormData() // Reset it completely
-      this.attachments = []
+
     },
   }
 }
