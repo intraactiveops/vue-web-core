@@ -8,14 +8,14 @@
               <fa :icon="FileHelper.getFileDisplay(attachment['type'])['icon']"  v-bind:style="{color: FileHelper.getFileDisplay(attachment['type'])['color']}" />
             </div>
             <div class="py-1 " style="padding-left: 50px; word-break: break-all;">
-              <button @click="remove(index)" class="btn btn-sm btn-outline-danger float-right" type="button"><fa :icon="'times'" /></button> <span>{{attachment.name}}</span><br>
+              <button v-if="!notEditable" @click="remove(index)" class="btn btn-sm btn-outline-danger float-right" type="button"><fa :icon="'times'" /></button> <span>{{attachment.name}}</span><br>
               <small>{{FileHelper.readableFileSize(attachment.size)}}</small>
             </div>
           </div>
           <div v-else-if="FileHelper.getGeneralFileType(attachment['type']) === 'image'" >
             <img alt="loading image" v-bind:src="fileReader[index]['src']" style="width: 100%; height: auto">
             <div class="py-2 pt-3 px-1" style="word-break: break-all;">
-              <button @click="remove(index)" class="btn btn-sm btn-outline-danger float-right" type="button"><fa :icon="'times'" /></button> <span>{{attachment.name}}</span><br>
+              <button v-if="!notEditable" @click="remove(index)" class="btn btn-sm btn-outline-danger float-right" type="button"><fa :icon="'times'" /></button> <span>{{attachment.name}}</span><br>
               <small>{{FileHelper.readableFileSize(attachment.size)}}</small>
             </div>
           </div>
@@ -25,7 +25,7 @@
               <p>Your browser doesn't support HTML5 video. Here is a <a href="rabbit320.webm">link to the video</a> instead.</p>
             </video>
             <div class="py-2 pt-3 px-1" style="word-break: break-all;">
-              <button @click="remove(index)" class="btn btn-sm btn-outline-danger float-right" type="button"><fa :icon="'times'" /></button> <span>{{attachment.name}}</span><br>
+              <button v-if="!notEditable" @click="remove(index)" class="btn btn-sm btn-outline-danger float-right" type="button"><fa :icon="'times'" /></button> <span>{{attachment.name}}</span><br>
               <small>{{FileHelper.readableFileSize(attachment.size)}}</small>
             </div>
           </div>
@@ -35,7 +35,8 @@
               <p>Your browser doesn't support HTML5 audio. </p>
             </audio>
             <div class="py-2 pt-3 px-1" style="word-break: break-all;">
-              <button @click="remove(index)" class="btn btn-sm btn-outline-danger float-right" type="button"><fa :icon="'times'" /></button> <span>{{attachment.name}}</span><br>
+              <button v-if="!notEditable" @click="remove(index)" class="btn btn-sm btn-outline-danger float-right" type="button"><fa :icon="'times'" /></button>
+              <span>{{attachment.name}}</span><br>
               <small>{{FileHelper.readableFileSize(attachment.size)}}</small>
             </div>
           </div>
@@ -49,6 +50,10 @@ import Vue from 'vue'
 import FileHelper from '@/vue-web-core/helper/file'
 export default{
   props: {
+    notEditable: {
+      type: Boolean,
+      default: false
+    }
   },
   data(){
     return {
