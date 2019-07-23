@@ -75,11 +75,11 @@ window.onfocus = function(){
     // alert('redirect b ' + store.getters.authToken + ' : ' + localStorage.getItem('default_auth_token'))
   }
   //
-  // if(timeout == null){
+  // if(timeout === null){
   //   timeout = setTimeout(() => {
-  //     if(localStorage.getItem('default_auth_token') !== localStorage.getItem('store_default_auth_token') && !(localStorage.getItem('store_default_auth_token') !== null || localStorage.getItem('store_default_auth_token') != 'null')){
+  //     if(localStorage.getItem('default_auth_token') !== localStorage.getItem('store_default_auth_token') && !(localStorage.getItem('store_default_auth_token') !== null || localStorage.getItem('store_default_auth_token') !== 'null')){
   //       store.commit('setAuthToken', localStorage.getItem('default_auth_token'))
-  //       alert('go lang ng go'+ localStorage.getItem('store_default_auth_token')+ ':' + (localStorage.getItem('store_default_auth_token') == 'null') + ':' + (localStorage.getItem('store_default_auth_token') == null))
+  //       alert('go lang ng go'+ localStorage.getItem('store_default_auth_token')+ ':' + (localStorage.getItem('store_default_auth_token') === 'null') + ':' + (localStorage.getItem('store_default_auth_token') === null))
   //       Router.go()
   //     }else if((localStorage.getItem('default_auth_token') && !store.getters.authToken)){
   //       alert('stay lang besh' + store.getters.authToken)

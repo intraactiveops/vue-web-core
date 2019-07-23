@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <input v-bind:value="value" type="date"> -->
-    <date-picker ref="datepicker" @dp-change="dateChanged" :name="placeholder" :value="dpValue != null ? new Date(dpValue) : null" :config="datepickerConfig"/>
+    <date-picker ref="datepicker" @dp-change="dateChanged" :name="placeholder" :value="dpValue !== null ? new Date(dpValue) : null" :config="datepickerConfig"/>
   </div>
 </template>
 <script>

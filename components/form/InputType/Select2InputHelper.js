@@ -1,4 +1,4 @@
-import apiRequest from '@/system/http-request-handling/apiRequest.js'
+import apiRequest from '@/vue-web-core/system/http-request-handling/apiRequest.js'
 export default class Select2InputHelper{
   options
   optionLookUp

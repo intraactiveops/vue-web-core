@@ -2,16 +2,11 @@ import axios from 'axios'
 let mixin = {
   methods: {
     httpRequest(method, link, parameter, callback, errorCallback){
-      // delete axios.defaults.headers.common["authorization"];
-      // delete axios.defaults.headers.common["Access-Control-Request-Headers"];
       let options = {
         headers: {
-      	  // 'Access-Control-Allow-Origin': '*',
-          // 'Access-Control-Request-Headers': 'tae',
           'authorization': 'igitii',
           'Authorization': 'taaae'
-      	},
-
+        },
         method: method,
         data: parameter,
         url: link

@@ -17,9 +17,9 @@
               <td v-for="column in columns">
                 {{setColumnDefaultValue(x, index + '.' + x + '.' + column['index'], column['index'])}}
                 <div v-if="column['type'] === 'text'">
-                  <input  @change="$emit('data-changed', index + '.' + x + '.' + column['index'], $event.target.value)" v-bind:class="typeof validationMessage[index + '.' + x + '.' + column['index']] != 'undefined' ? 'is-invalid': null" class="form-control" type="text" v-bind:value="formData[index + '.' + x + '.' + column['index']]" />
+                  <input  @change="$emit('data-changed', index + '.' + x + '.' + column['index'], $event.target.value)" v-bind:class="typeof validationMessage[index + '.' + x + '.' + column['index']] !== 'undefined' ? 'is-invalid': null" class="form-control" type="text" v-bind:value="formData[index + '.' + x + '.' + column['index']]" />
                   <div class="invalid-feedback">
-                    {{typeof validationMessage[index + '.' + x + '.' + column['index']] != 'undefined' ? validationMessage[index + '.' + x + '.' + column['index']]['message']  : ''}}
+                    {{typeof validationMessage[index + '.' + x + '.' + column['index']] !== 'undefined' ? validationMessage[index + '.' + x + '.' + column['index']]['message']  : ''}}
                   </div>
                 </div>
                 <template v-else-if="column['type'] === 'yesno'" >
@@ -31,7 +31,7 @@
                       <input type="radio"  autocomplete="off"> No
                     </label>
                   </div>
-                  <small v-if="typeof validationMessage[index + '.' + x + '.' + column['index']] != 'undefined'" class="text-danger">{{validationMessage[index + '.' + x + '.' + column['index']]['message']}}</small>
+                  <small v-if="typeof validationMessage[index + '.' + x + '.' + column['index']] !== 'undefined'" class="text-danger">{{validationMessage[index + '.' + x + '.' + column['index']]['message']}}</small>
                 </template>
                 <input v-else-if="column['type'] === 'checkbox'" @change="$emit('data-changed', index + '.' + x + '.' + column['index'], $event.target.value)" class="ml-auto mr-auto" type="checkbox" v-bind:value="formData[index + '.' + x + '.' + column['index']]" />
                 <template v-else-if="column['type'] === 'select2'" >
