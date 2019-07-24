@@ -18,9 +18,9 @@
       </button>
       <div class="collapse navbar-collapse navbar-right" id="navbarsExample06">
         <ul class="navbar-nav ml-auto">
-          <!-- <li class="nav-item">
-            <router-link class=" nav-link"  :to="'/'"><fa :icon="'tasks'" /> Admin</router-link>
-          </li> -->
+          <li v-for="item in menu" class="nav-item">
+            <router-link @click="navConfig.noSideBar = typeof item['no_sidebar'] === 'undefined' ? false : item['no_sidebar']" class="nav-link"  :to="typeof item['link'] === 'undefined' ? ((item['name']).toLowerCase()).replace(/ /g, '_') : item['link']"><fa :icon="item['icon']" /> {{item['name']}}</router-link>
+          </li>
           <li v-if="$auth.check()" class="nav-item">
             <router-link class=" nav-link"  :to="'/user'">Hello <strong>{{$auth.user().username}}</strong></router-link>
           </li>
@@ -41,7 +41,8 @@ import navigationConfig from '@/vue-web-core/components/common/navigation/config
 import store from '@/vue-web-core/system/store'
 export default {
   props: {
-    noSidebar: Boolean
+    noSidebar: Boolean,
+    menu: Array
   },
   data(){
     return {
