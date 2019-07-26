@@ -15,7 +15,9 @@ let store = new Vuex.Store({
     },
     userInformation: {
       id: null,
-      profilePictureLink: null
+      profilePictureLink: null,
+      firstName: null,
+      lastName: null,
     }
   },
   mutations: {
@@ -34,6 +36,8 @@ let store = new Vuex.Store({
     setUserInformation(state, userInformation){
       Vue.set(state.userInformation, 'id', userInformation.id)
       Vue.set(state.userInformation, 'profilePictureLink', userInformation.profilePictureLink)
+      Vue.set(state.userInformation, 'firstName', userInformation.first_name)
+      Vue.set(state.userInformation, 'lastName', userInformation.last_name)
     }
   },
   getters: {
@@ -70,15 +74,25 @@ let store = new Vuex.Store({
           id: userID,
           select: {
             0: 'username',
+            user_basic_information: {
+              select: ['first_name', 'last_name']
+            },
             user_profile_picture: {
               select: ['thumbnail_file_name']
             }
           }
         }
         apiRequest.request('user/retrieve', param, (response) => {
-          // console.log(response)
-          let userInformation = { id: userID }
+          let userInformation = {
+            id: userID,
+            first_name: null,
+            last_name: null
+          }
           userInformation.profilePictureLink = response.data.user_profile_picture ? Config.FILE_SERVER_URL + '/files/' + response.data.user_profile_picture.thumbnail_file_name : require('@/vue-web-core/assets/img/no-profile-pic.jpg')
+          if(response['data']['user_basic_information']){
+            userInformation.first_name = response['data']['user_basic_information']['first_name']
+            userInformation.last_name = response['data']['user_basic_information']['last_name']
+          }
           commit('setUserInformation', userInformation)
         }, (errorResponse) => {
           console.error('Error in store company information', errorResponse)
