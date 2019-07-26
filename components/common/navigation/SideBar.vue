@@ -1,7 +1,6 @@
 <template>
   <div id="sidebar-wrapper" >
-
-      <ul class="sidebar-nav pt-5">
+      <ul class="sidebar-nav pt-4">
       <!-- <li class="text-right px-4" v-if="!navConfig.noSideBar">
         <span @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="btn btn-light text-center sideNavToggler"><fa icon="arrow-left" /> Close</span>
 

@@ -4,7 +4,7 @@ import CONFIG from './config'
 import Axios from 'axios'
 import VueAxios from 'vue-axios'
 import Router from '@/router'
-import store from '@/vue-web-core/system/store'
+// import store from '@/vue-web-core/system/store'
 Vue.router = Router
 Vue.use(VueAxios, Axios)
 Vue.axios.defaults.baseURL = CONFIG.BASE_URL
