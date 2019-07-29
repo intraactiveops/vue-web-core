@@ -63,7 +63,6 @@ export default{
     }
   },
   isImage: (type) => {
-    console.log(type, imageFileExtensions.indexOf(type.toLowerCase()))
     return imageFileExtensions.indexOf(type.toLowerCase()) !== -1
   },
   readFile: (file) => {
