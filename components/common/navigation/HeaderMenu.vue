@@ -24,7 +24,7 @@
           </router-link>
         </li>
         <li v-if="$auth.check()" class="nav-item">
-          <router-link class=" nav-link"  :to="'/user'">Hello <strong>{{$userName}}</strong></router-link>
+          <router-link class=" nav-link"  :to="'/user'">Hello <strong>{{userName}}</strong></router-link>
         </li>
         <li v-if="$auth.check()" class="nav-item dropdown">
           <a class="nav-link "  id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="line-height: 0px; cursor: pointer"><fa :icon="'sort-down'" :size="'lg'"/></a>
