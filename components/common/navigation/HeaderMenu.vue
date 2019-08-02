@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse navbar-right" id="navbarsExample06">
       <ul class="navbar-nav ml-auto">
         <li v-for="item in menu" class="nav-item">
-          <router-link @click="navConfig.noSideBar = typeof item['no_sidebar'] === 'undefined' ? false : item['no_sidebar']" class="nav-link py-1" style="line-height:16px"  :to="typeof item['link'] === 'undefined' ? ((item['name']).toLowerCase()).replace(/ /g, '_') : item['link']">
+          <router-link @click="navConfig.noSideBar = typeof item['no_sidebar'] === 'undefined' ? false : item['no_sidebar']" class="nav-link py-1 text-center" style="line-height:16px"  :to="typeof item['link'] === 'undefined' ? ((item['name']).toLowerCase()).replace(/ /g, '_') : item['link']">
             <big><fa :icon="item['icon']" /></big><br><small>{{item['name']}}</small>
           </router-link>
         </li>
