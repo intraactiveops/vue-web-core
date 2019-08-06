@@ -3,6 +3,7 @@
     <form class="">
       <input-group @data-removed="removeData" @data-changed="dataChanged" @has-field-default-value="setFieldDeaultValue" :config="fieldGroup" :form-data="formData" :validation-message="validationMessages"/>
     </form>
+    <slot name="additionalFormField" v-bind:formData="formData"></slot>
   </div>
 </template>
 <script>
@@ -32,7 +33,8 @@ export default {
       validationMessageList: {},
       fieldList: [],
       onDataChangeListener: [],
-      isDeleteFormData: false
+      isDeleteFormData: false,
+      getFormDataHook: null
     }
   },
   mounted(){
@@ -46,7 +48,11 @@ export default {
           cleanedFormData[key] = this.formData[key]
         }
       }
-      return toArray ? APIUtil.textKeyToArray(cleanedFormData) : cleanedFormData
+      let formData = toArray ? APIUtil.textKeyToArray(cleanedFormData) : cleanedFormData
+      if(this.getFormDataHook){
+        formData = this.getFormDataHook(formData)
+      }
+      return formData
     },
     _getFieldList(){
       return this.fieldList
@@ -79,6 +85,10 @@ export default {
     },
     initConfig(){
       this.onDataChangeListener = []
+      if(typeof this.config['hooks'] !== 'undefined'){
+        this.getFormDataHook = typeof this.config['hooks']['get_form_data'] !== 'undefined' ? this.config['hooks']['get_form_data'] : null
+
+      }
       this.fieldGroup = this.initField(this.config)
       setTimeout(() => {
         this.$emit('form-ready')
