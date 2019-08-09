@@ -17,7 +17,11 @@
               </span>
               <br>
             </div>
-            <form-component ref="form" @form-ready="formReady" :config="formConfig" :validation-messages="validationMessages" />
+            <form-component ref="form" @form-ready="formReady" :config="formConfig" :validation-messages="validationMessages" >
+              <template v-slot:additionalFormField="slotProps">
+                <slot name="additionalFormField" v-bind:formData="slotProps.formData"></slot>
+              </template>
+            </form-component>
           </div>
           <div class="modal-footer">
             <span v-if="isLoading">
@@ -72,7 +76,9 @@ export default {
         type: null,
         message: null
       },
-      selectParameter: {}
+      selectParameter: {},
+      formOpenListener: null,
+      formResetListener: null
     }
   },
   methods: {
@@ -175,6 +181,9 @@ export default {
       this.isVerifyDelete = false
       this.$refs.form._fillFormData({})
       this.validationMessages = {}
+      if(this.formResetListener){
+        this.formResetListener()
+      }
     },
     openCreateModal(){
       if(this.currentMode !== 'create'){
@@ -186,12 +195,21 @@ export default {
     openViewModal(){
       this.currentMode = 'update'
       $(this.$refs.modal).modal('show')
+      setTimeout(() => {
+        if(this.formOpenListener){
+          this.formOpenListener()
+        }
+      }, 300)
     },
     closeForm(){
       $(this.$refs.modal).modal('hide')
     },
     initConfig(){
       this.formConfig = this.config['form_setting']['form_field_setting']
+      if(typeof this.config['form_setting']['listeners'] !== 'undefined'){
+        this.formOpenListener = typeof this.config['form_setting']['listeners']['form_open'] !== 'undefined' ? this.config['form_setting']['listeners']['form_open'] : nulll
+        this.formResetListener = typeof this.config['form_setting']['listeners']['form_reset'] !== 'undefined' ? this.config['form_setting']['listeners']['form_reset'] : nulll
+      }
       this.setDefault(this.config, 'retrieve_parameter', {})
     }
 

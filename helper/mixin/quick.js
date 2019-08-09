@@ -15,6 +15,7 @@ let isNumeric = (variable) => {
   return !isNaN(variable * 1)
 }
 let padNumber = (num, size, character) => {
+  size = typeof size === 'undefined' ? 2 : size
   character = typeof character !== 'undefined' ? character : '0'
   let s = num + ''
   while (s.length < size) s = character + s

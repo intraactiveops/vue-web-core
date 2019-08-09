@@ -10,7 +10,11 @@
       <button v-if="typeof config['no_create'] === 'undefined' || !config['no_create']" @click="_openCreateForm" class="btn btn-primary"><fa icon="plus" /> Create</button>
     </div>
     <module-table ref="table"  @view-row="viewRow" :config="config" />
-    <module-form ref="form" @form-save="updateRowFromForm" @form-deleted="deleteRow" :config="config" />
+    <module-form ref="form" @form-save="updateRowFromForm" @form-deleted="deleteRow" :config="config">
+      <template v-slot:additionalFormField="slotProps">
+        <slot name="additionalFormField" v-bind:formData="slotProps.formData"></slot>
+      </template>
+    </module-form>
   </div>
 </template>
 <script>

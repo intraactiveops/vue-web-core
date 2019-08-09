@@ -1,5 +1,5 @@
 import Vue from 'vue'
-
+import QuickHelper from './quick'
 let shortMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 
 let formatDate = (datetime, format) => {
@@ -10,6 +10,14 @@ let formatDate = (datetime, format) => {
   }
 }
 
+let time12HourFormat = (hour, minute, seconds) => {
+  let median = 'am'
+  if(hour * 1 > 12){
+    hour = hour - 12
+    median = 'pm'
+  }
+  return hour + ':' + QuickHelper.padNumber(minute, 2) + (typeof seconds !== 'undefined' ? ':' + seconds : '') + ' ' + median
+}
 Vue.mixin({
   data(){
     return {
@@ -48,6 +56,15 @@ Vue.mixin({
         }
       }else{
         return shortMonthName[date.getMonth()] + ' ' + date.getDate()
+      }
+    },
+    toReadableDateTime(someDate){
+      let date = new Date(someDate)
+      console.log(date, someDate)
+      if(someDate && !isNaN(date.getTime() * 1)){
+        return QuickHelper.padNumber(date.getMonth()) + '/' + QuickHelper.padNumber(date.getDate()) + '/' + date.getFullYear() + ' ' + time12HourFormat(date.getHours(), date.getMinutes())
+      }else{
+        return ''
       }
     }
   }
