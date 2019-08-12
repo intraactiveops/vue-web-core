@@ -42,8 +42,10 @@ let input = new InputType({
   methods: {
     valueChanged(val){
       let value = val ? val['value'] : null
-      if(value){
+      if(value && typeof this.index !== 'undefined'){
         this.$emit('data-changed', this.index, value)
+      }else if(value){
+        this.$emit('data-changed', value)
       }else{
         this.$emit('data-removed', this.index)
       }
@@ -68,7 +70,7 @@ let input = new InputType({
       clearTimeout(this.userTypingTimer)
       this.userTypingTimer = setTimeout(() => {
         this.fetchOptions(search, loading)
-      }, 1000)
+      }, 500)
     },
     fetchOptions (search, loading) {
       if(this.source === 'option'){
@@ -86,14 +88,23 @@ let input = new InputType({
             value: '%' + search + '%'
           }]
         }
+        if(typeof this.config['api_before_search_hook'] !== 'undefined'){
+          param = this.config['api_before_search_hook'](search, param)
+        }
         this.apiRequest(this.config['api_link'], param, (response) => {
           if(response['data']){
             let newOptions = []
             for(let x = 0; x < response['data'].length; x++){
-              newOptions.push({
-                value: response['data'][x]['id'],
-                text: response['data'][x][this.apiOptionText]
-              })
+              let newOption
+              if(typeof this.config['create_option_hook'] !== 'undefined'){
+                newOption = this.config['create_option_hook'](response['data'][x])
+              }else{
+                newOption = {
+                  value: response['data'][x]['id'],
+                  text: response['data'][x][this.apiOptionText]
+                }
+              }
+              newOptions.push(newOption)
             }
 
             this.setOptions(newOptions)

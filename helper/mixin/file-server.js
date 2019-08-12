@@ -4,8 +4,8 @@ let mixin = {
   data(){
   },
   methods: {
-    getFileServerLink(fileName){
-      return Config.FILE_SERVER_URL + '/files/' + fileName
+    getFileServerLink(fileName, user = 'any'){
+      return fileName ? Config.FILE_SERVER_URL + '/files/' + fileName : (user === 'any' ? require('@/vue-web-core/assets/img/broken-photo.jpg') : require('@/vue-web-core/assets/img/no-profile-pic.jpg'))
     }
   }
 }

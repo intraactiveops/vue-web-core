@@ -3,16 +3,14 @@
     <div ref="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div v-bind:class="'modal-' + size" class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"><fa :icon="icon" /> {{title}} </h5>
+          <div v-if="title" class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"><fa v-if="false" :icon="icon" /> {{title}} </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <slot name="body"></slot>
-          </div>
-          <div class="modal-footer">
           </div>
         </div>
       </div>

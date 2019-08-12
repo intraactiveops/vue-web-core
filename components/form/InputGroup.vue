@@ -6,8 +6,8 @@
           <div v-bind:class="typeof field['col'] === 'undefined' ? 'col-12' : 'col-' + field['col']">
             <input-type v-if="field['type'] === 'hidden'" :type="'hidden'" :index="field['index']"  @data-changed="formDataChanged"  :config="field['config']" :default-value="field['default_value']" :placeholder="field['placeholder']" :form-data="formData"  />
             <div v-else class="form-group row">
-              <label v-if="field['label_col_span']" v-bind:class="('col-' + field['label_col_span']) + ' ' + field['label_style']" class="col-form-label">{{field['name']}}</label>
-              <div v-bind:class="'col-' + ((12 - field['label_col_span']) || field['label_col_span'])">
+              <label v-if="field['label_col_span']" v-bind:class="('col-' + field['label_col_span']) + ' ' + field['label_style']" class="col-form-label text-wrap">{{field['name']}}</label>
+              <div v-bind:class="'col-' + ((12 - field['label_col_span']) || field['label_col_span']) +' '+ field['field_col_style_class']">
                 <!-- <template v-if="field['type'] === 'text'">
                   <input @change="$emit('data-changed', field['index'], $event.target.value)" v-bind:value="formData[field['index']]"  v-bind:name="field['index']" v-bind:class="getValidationErrorType(field)" v-bind:placeholder="field['placeholder']" type="text" class="form-control"  />
                   <div v-bind:class="getValidationErrorType(field) === 'is-invalid'? 'invalid-feedback' : 'valid-feedback'">

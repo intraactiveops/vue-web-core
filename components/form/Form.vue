@@ -87,7 +87,6 @@ export default {
       this.onDataChangeListener = []
       if(typeof this.config['hooks'] !== 'undefined'){
         this.getFormDataHook = typeof this.config['hooks']['get_form_data'] !== 'undefined' ? this.config['hooks']['get_form_data'] : null
-
       }
       this.fieldGroup = this.initField(this.config)
       setTimeout(() => {
@@ -98,7 +97,8 @@ export default {
       let setting = Object.assign({}, group)
       this.setDefault(setting, 'type', 'normal')
       this.setDefault(setting, 'default_label_col_span', 4)
-      this.setDefault(setting, 'default_label_style', '')
+      this.setDefault(setting, 'default_label_style_class', '')
+      this.setDefault(setting, 'field_col_style', '')
       this.setDefault(setting, 'col', 12)
       for(let field in group['fields']){ // init fields
         if(this.isset(group['fields'][field], 'fields')){ // it is a group
@@ -110,8 +110,9 @@ export default {
           this.setDefault(fieldSetting, 'db_name', field)
           this.setDefault(fieldSetting, 'placeholder', fieldSetting['name'])
           this.setDefault(fieldSetting, 'type', 'text')
-          this.setDefault(fieldSetting, 'label_col_span', setting['default_label_col_span'])
+          this.setDefault(fieldSetting, 'label_col_span', fieldSetting['type'] !== 'label' ? setting['default_label_col_span'] : 12)
           this.setDefault(fieldSetting, 'label_style', setting['default_label_style'])
+          this.setDefault(fieldSetting, 'field_col_style_class', setting['field_col_style_class'])
           if(this.isset(fieldSetting, 'on_form_data_change')){
             this.onDataChangeListener.push(fieldSetting['on_form_data_change'])
           }
