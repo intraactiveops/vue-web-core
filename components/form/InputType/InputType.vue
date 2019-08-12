@@ -7,6 +7,7 @@
       <date-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :validationMessage="validationMessage" />
     </template>
     <template v-if="type === 'text'">
+      {{type}}
       <text-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :validationMessage="validationMessage" />
     </template>
     <template v-if="type === 'number'">

@@ -4,6 +4,7 @@
     <div class="invalid-feedback">
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
     </div>
+    {{config}}-
   </div>
 </template>
 <script>
@@ -11,6 +12,7 @@ import InputType from './InputTypeCore.js'
 let input = new InputType({
   name: 'TextInput',
   data(){
+    alert('ayw')
     return {
       valueTrigger: false
     }
