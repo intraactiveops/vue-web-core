@@ -5,7 +5,7 @@
         <div class="modal-content">
           <div v-if="title" class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel"><fa v-if="false" :icon="icon" /> {{title}} </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button v-if="closeable" type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -31,11 +31,22 @@ export default {
     size: {
       type: String,
       default: 'md'
+    },
+    closeable: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
     _open(){
-      $(this.$refs.modal).modal('show')
+      if(this.closeable){
+        $(this.$refs.modal).modal('show')
+      }else{
+        $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
+      }
+    },
+    _close(){
+      $(this.$refs.modal).modal('hide')
     }
   }
 }

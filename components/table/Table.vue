@@ -9,6 +9,7 @@
           <td v-for="column in columnSetting">
             <template v-if="column['type'] === 'text'">{{row[column['index']]}}</template>
             <div v-else-if="column['type'] === 'number'" class="text-right">{{row[column['index']]}}</div>
+            <div v-else-if="column['type'] === 'decimal'" class="text-right">{{(row[column['index']]).toFixed(2)}}</div>
             <div v-else-if="column['type'] === 'html'" v-html="column['value_function'](row)"></div>
             <div v-else-if="column['type'] === 'yesno'">{{row[column['index']] ? 'Yes' : 'No'}}</div>
           </td>
@@ -33,6 +34,9 @@ export default {
     }
   },
   mounted () {
+    if(typeof this.config === 'object'){
+      this.initConfig()
+    }
   },
   data(){
     return {

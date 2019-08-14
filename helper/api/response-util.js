@@ -15,7 +15,7 @@ let convertMessage = (message) => {
       messageText = messageText.replace('<param-' + 1 + '>', parameters[x])
     }
   }else{
-    messageText = messageParameter[0];
+    messageText = messageParameter[0]
   }
   return messageText
 }
@@ -26,7 +26,7 @@ export default {
     for(let error in errorMessages){
       let messageText = ''
       for(let x = 0; x < errorMessages[error].length; x++){
-        console.log(errorMessages[error][x]);
+        console.log(errorMessages[error][x])
         messageText += convertMessage(errorMessages[error][x]) + ' '
       }
       validationErrorMessage[error] = { type: 'error', message: messageText }

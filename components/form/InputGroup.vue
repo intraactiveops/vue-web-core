@@ -15,12 +15,15 @@
                   </div>
                 </template> -->
                 <template v-if="field['type'] === 'password'">
-                  <input @change="$emit('data-changed', field['index'], $event.target.value)" v-bind:value="formData[field['index']]" v-bind:name="field['index']"  v-bind:class="getValidationErrorType(field)" v-bind:placeholder="field['placeholder']" type="password" class="form-control" />
+                  <input @change="$emit('data-changed', field['index'], $event.target.value)" v-bind:maxlength="field['config']['maxlength']" v-bind:value="formData[field['index']]" v-bind:name="field['index']"  v-bind:class="getValidationErrorType(field)" v-bind:placeholder="field['placeholder']" type="password" class="form-control" />
                   <div v-bind:class="getValidationErrorType(field) === 'is-invalid'? 'invalid-feedback' : 'valid-feedback'">
                     {{isset(validationMessage, field['index']) ? validationMessage[field['index']]['message'] : ''}}
                   </div>
+                  <small v-if="typeof field['help_text'] !== 'undefined'" class="form-text text-muted">
+                    {{field['help_text']}}
+                  </small>
                 </template>
-                <input-type v-else @data-removed="$emit('data-removed', $event)" @data-changed="formDataChanged" :validation-message="validationMessage" :type="field['type']" :index="field['index']"  :config="field['config']" :default-value="field['default_value']" :placeholder="field['placeholder']" :form-data="formData"  />
+                <input-type v-else @data-removed="$emit('data-removed', $event)" @data-changed="formDataChanged" :validation-message="validationMessage" :type="field['type']" :index="field['index']"  :config="field['config']" :default-value="field['default_value']" :help-text="field['help_text']" :placeholder="field['placeholder']" :form-data="formData"  />
               </div>
             </div>
           </div>

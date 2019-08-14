@@ -9,6 +9,7 @@ export default class InputType{
       index: String,
       formData: Object,
       placeholder: String,
+      helpText: String,
       defaultValue: {
         type: [Number, String],
         default: null

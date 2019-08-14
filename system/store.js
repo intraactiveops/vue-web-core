@@ -18,6 +18,8 @@ let store = new Vuex.Store({
       profilePictureLink: null,
       firstName: null,
       lastName: null,
+    },
+    userRoles: {
     }
   },
   mutations: {
@@ -38,11 +40,20 @@ let store = new Vuex.Store({
       Vue.set(state.userInformation, 'profilePictureLink', userInformation.profilePictureLink)
       Vue.set(state.userInformation, 'firstName', userInformation.first_name)
       Vue.set(state.userInformation, 'lastName', userInformation.last_name)
+    },
+    setUserRoles(state, userRoles){
+      state.userRoles = userRoles
     }
   },
   getters: {
     authToken: (state) => {
       return state.authToken
+    },
+    userRoles: (state) => {
+      return state.userRoles
+    },
+    userInformation: (state) => {
+      return state.userInformation
     }
   },
   actions: {
@@ -69,18 +80,26 @@ let store = new Vuex.Store({
         localStorage.removeItem('user_id')
       }
       let userID = localStorage.getItem('user_id')
+      let companyID = localStorage.getItem('company_id')
       if(userID){
         let param = {
           id: userID,
           select: {
             0: 'username',
+            user_roles: {
+              select: ['role_id'],
+              condition: [{
+                column: 'company_id',
+                value: companyID
+              }]
+            },
             user_basic_information: {
               select: ['first_name', 'last_name']
             },
             user_profile_picture: {
               select: ['thumbnail_file_name']
             }
-          }
+          },
         }
         apiRequest.request('user/retrieve', param, (response) => {
           let userInformation = {
@@ -94,6 +113,13 @@ let store = new Vuex.Store({
             userInformation.last_name = response['data']['user_basic_information']['last_name']
           }
           commit('setUserInformation', userInformation)
+          let userRoles = {}
+          if(response['data']['user_roles']){
+            for(let x = 0; x < (response['data']['user_roles']).length; x++){
+              userRoles[response['data']['user_roles'][x]['role_id']] = {}
+            }
+          }
+          commit('setUserRoles', userRoles)
         }, (errorResponse) => {
           console.error('Error in store company information', errorResponse)
         })

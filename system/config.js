@@ -14,6 +14,7 @@
 if(typeof process.env.VUE_APP_API_URL === 'undefined'){
   alert('Make sure that .env exists')
 }
+console.log('ENV', process.env.VUE_APP_API_URL)
 export default {
   API_URL: process.env.VUE_APP_API_URL,
   FILE_SERVER_URL: process.env.VUE_APP_FILE_SERVER_URL,

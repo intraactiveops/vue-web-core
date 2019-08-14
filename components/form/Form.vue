@@ -109,6 +109,7 @@ export default {
           this.setDefault(fieldSetting, 'name', TextHelper.toPhrase(field))
           this.setDefault(fieldSetting, 'db_name', field)
           this.setDefault(fieldSetting, 'placeholder', fieldSetting['name'])
+          this.setDefault(fieldSetting, 'help_text', fieldSetting['help_text'])
           this.setDefault(fieldSetting, 'type', 'text')
           this.setDefault(fieldSetting, 'label_col_span', fieldSetting['type'] !== 'label' ? setting['default_label_col_span'] : 12)
           this.setDefault(fieldSetting, 'label_style', setting['default_label_style'])

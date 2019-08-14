@@ -1,22 +1,22 @@
 <template>
   <div>
     <template v-if="type === 'hidden'">
-      <hidden-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :validationMessage="validationMessage" />
+      <hidden-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :validationMessage="validationMessage" />
     </template>
     <template v-if="type === 'date'">
-      <date-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :validationMessage="validationMessage" />
+      <date-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :validationMessage="validationMessage" />
     </template>
     <template v-if="type === 'text'">
-      <text-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :validationMessage="validationMessage" />
+      <text-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :validationMessage="validationMessage" />
     </template>
     <template v-if="type === 'number'">
-      <number-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :validationMessage="validationMessage" />
+      <number-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :validationMessage="validationMessage" />
     </template>
     <template v-if="type === 'select'">
-      <select-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :validationMessage="validationMessage" />
+      <select-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :validationMessage="validationMessage" />
     </template>
     <template v-if="type === 'select2'">
-      <select2-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :validationMessage="validationMessage" />
+      <select2-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :validationMessage="validationMessage" />
     </template>
     <template v-if="type === 'table'">
       <table-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :validationMessage="validationMessage" />
@@ -52,7 +52,8 @@ export default {
     validationMessage: Object,
     formData: Object,
     defaultValue: [Number, String],
-    placeholder: String
+    placeholder: String,
+    helpText: String
   },
   methods: {
     formDataChanged(index, value){

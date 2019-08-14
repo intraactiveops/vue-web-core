@@ -35,7 +35,7 @@ Vue.mixin({
       let hourString = !noHours ? this.padNumber(jsDate.getHours(), 2) + ':' + this.padNumber(jsDate.getMinutes(), 2) + ':' + this.padNumber(jsDate.getSeconds(), 2) : '00:00:00'
       return dateString + hourString
     },
-
+    time12HourFormat: time12HourFormat
   },
   filters: {
     formatDate: formatDate,
@@ -60,7 +60,6 @@ Vue.mixin({
     },
     toReadableDateTime(someDate){
       let date = new Date(someDate)
-      console.log(date, someDate)
       if(someDate && !isNaN(date.getTime() * 1)){
         return QuickHelper.padNumber(date.getMonth()) + '/' + QuickHelper.padNumber(date.getDate()) + '/' + date.getFullYear() + ' ' + time12HourFormat(date.getHours(), date.getMinutes())
       }else{

@@ -1,6 +1,6 @@
 <template>
   <nav id="header-wrapper" class="fixed-top navbar navbar-expand-md navbar-dark bg-primary">
-    <router-link class="navbar-brand mr-0" to="/">{{companyName ? companyName : 'IntraActiveOPS'}}</router-link>
+    <router-link class="navbar-brand mr-0" to="/">{{companyName ? companyName : defaultCompanyName}}</router-link>
     <template v-if="noSidebar !== true">
       <button
         v-if="!navConfig.sidebarToggled && !navConfig.noSideBar"
@@ -43,7 +43,11 @@ import store from '@/vue-web-core/system/store'
 export default {
   props: {
     noSidebar: Boolean,
-    menu: Array
+    menu: Array,
+    defaultCompanyName: {
+      type: String,
+      default: 'IntraActiveOPS'
+    }
   },
   data(){
     return {

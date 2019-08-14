@@ -5,7 +5,7 @@
         <router-link v-on:click="linkClicked" v-if="menu['sub_item'] === null" :to="menu['route']"><div v-on:click="linkClicked" style="width:100%"><fa v-bind:icon="menu['icon']" /> {{menu['name']}}</div></router-link>
         <template v-else>
           <a v-bind:href="'#'+ menu['name'] + 'SideBarItem'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-            <fa icon="dot-circle" /> {{menu['name']}}
+            <fa :icon="menu['icon']" /> {{menu['name']}}
           </a>
           <ul class="subMenu collapse list-unstyled pl-3" v-bind:id="menu['name'] + 'SideBarItem'">
               <li  v-for="subItem in menu['sub_item']">
