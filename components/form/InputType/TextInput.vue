@@ -14,6 +14,7 @@ import InputType from './InputTypeCore.js'
 let input = new InputType({
   name: 'TextInput',
   data(){
+    alert('ayw')
     return {
       valueTrigger: false
     }
