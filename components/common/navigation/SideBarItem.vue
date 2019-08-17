@@ -55,10 +55,10 @@ export default{
 </script>
 <style scoped>
   .dropdown-toggle[aria-expanded=true]{
-    background-color: #ea9120;
+    background-color: #66809e;
   }
   .subMenu{
-    background-color: #ea9120;;
+    background-color: #66809e;;
     font-size: 0.95em;
   }
 </style>

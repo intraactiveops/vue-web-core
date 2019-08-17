@@ -3,6 +3,7 @@
     <select2  ref="select" :placeholder="placeholder" :value="selectValue" :label="'text'" :index="'value'" :options="options" @search="userTyping" @input="valueChanged" v-bind:class="isset(validationMessage, index) ? 'hasError' : ''" class="">
       <!-- <option v-for="option in options" v-bind:value="option['value']" v-bind:selected="(formData[index] + '') === (option['value'] + '')" >{{option['text']}}</option> -->
     </select2>
+    {{selectValue}}---{{source}}
     <div v-bind:class="isset(validationMessage, index) ? 'hasError' : ''" class="invalid-feedback" >
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
     </div>
@@ -33,7 +34,8 @@ let input = new InputType({
       optionValueLookUp: {},
       initializedConfig: {},
       text: 0,
-      userTypingTimer: null
+      userTypingTimer: null,
+      noFormDataValue: null // if form data is null, this will be the basisi of select value
     }
   },
   mounted(){
@@ -42,6 +44,7 @@ let input = new InputType({
   methods: {
     valueChanged(val){
       let value = val ? val['value'] : null
+      this.noFormDataValue = value
       if(value && typeof this.index !== 'undefined'){
         this.$emit('data-changed', this.index, value)
       }else if(value){
@@ -66,9 +69,12 @@ let input = new InputType({
       }
     },
     userTyping(search, loading){
+      console.log('1!', search, search === null, search === '', this.selectValue)
       loading(true)
       clearTimeout(this.userTypingTimer)
       this.userTypingTimer = setTimeout(() => {
+
+        console.log('2!', search, search === null, search === '', this.selectValue)
         this.fetchOptions(search, loading)
       }, 500)
     },
@@ -138,7 +144,12 @@ let input = new InputType({
   },
   computed: {
     selectValue(){
-      let value = (typeof this.formData[this.index] !== 'undefined') ? this.formData[this.index] : null
+      let value
+      if(this.formData === null){
+        value = this.noFormDataValue
+      }else{
+        value = (typeof this.formData[this.index] !== 'undefined') ? this.formData[this.index] : null
+      }
       let text = this.placeholder
       if(typeof this.options[this.optionValueLookUp[value]] !== 'undefined'){
         text = this.options[this.optionValueLookUp[value]]['text']

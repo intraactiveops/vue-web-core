@@ -9,7 +9,7 @@ let mixin = {
         url: Config.API_URL + '/' + link,
         Authorization: localStorage.getItem('default_auth_token'),
         headers: {
-          'Content-Type': 'text/json'
+          // 'Content-Type': 'text/json'
         }
       }
       let requestInstance = axios(options)
