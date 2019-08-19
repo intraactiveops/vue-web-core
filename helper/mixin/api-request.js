@@ -7,6 +7,16 @@ let mixin = {
     apiRequest: apiRequest.request,
     fileServerRequest: fileServerRequest.request,
     httpRequest: request.httpRequest,
+    checkConnectivity: () => {
+      return new Promise((resolve, reject) => {
+        let testStart = (new Date()).getTime()
+        apiRequest.request('test-connnection', { limit: 1 }, response => {
+          resolve((new Date()).getTime() - testStart)
+        }, (errorResponse, status) => {
+          reject(status)
+        })
+      })
+    },
 
   }
 }

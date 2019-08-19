@@ -15,12 +15,9 @@ let mixin = {
       let requestInstance = axios(options)
         .then(response => {
           callback(response.data)
-        })
-        .catch((error, status) => {
-          console.error(error, status)
+        }).catch((error) => {
           if(typeof error.response !== 'undefined'){
             if(error.response.status === 401){ // net log in
-              alert(401)
               window.location = '/'
             }else{
               if(typeof errorCallback !== 'undefined') {
@@ -28,7 +25,9 @@ let mixin = {
               }
             }
           }else{
-            console.error(error)
+            if(typeof errorCallback !== 'undefined') {
+              errorCallback(error)
+            }
           }
         })
         .finally(() => { this.loading = false })

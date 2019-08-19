@@ -16,7 +16,8 @@ let mixin = {
           callback(response.data)
         })
         .catch((error, status) => {
-          console.error(error, status)
+          console.error(error.response)
+          console.log(error.response.status)
           if(typeof error.response !== 'undefined'){
             if(error.response.status === 401){ // net log in
               alert(401)
