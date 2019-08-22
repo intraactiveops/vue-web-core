@@ -1,5 +1,5 @@
 let getGeneralFileType = (type) => {
-  if(type.indexOf('image') === 0){
+  if(type.indexOf('image') === 0 || (imageFileExtensions.indexOf(type) >= 0)){
     return 'image'
   }else if(type.indexOf('video') === 0){
     return 'video'

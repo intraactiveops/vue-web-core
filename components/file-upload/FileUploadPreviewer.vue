@@ -1,7 +1,8 @@
 <template>
   <div class="row ">
-    <template v-if="attachments.length">
-      <div  v-for="(attachment, index) in attachments" v-bind:class="(attachments.length <= 4 ? 'col-12 col-lg-12' : 'col-6 col-md-4') + ' ' + (index < attachments.length - 1  ? 'pb-1' : '')" class="px-1">
+    <template v-for="(attachment, index) in attachments">
+      <div v-if="typeof attachments['deleted'] === 'undefined' || attachments['deleted'] !== true"   v-bind:class="(attachments.length <= 4 ? 'col-12 col-lg-12' : 'col-6 col-md-4') + ' ' + (index < attachments.length - 1  ? 'pb-1' : '')" class="px-1">
+        {{typeof attachments['deleted']}}
         <div class="border rounded shadow2 p-2 bg-white">
           <div v-if="FileHelper.getGeneralFileType(attachment['type']) === 'file'"  >
             <div style="width:40px; float:left" class="bg-muted text-center h1 py-2">
@@ -74,9 +75,13 @@ export default{
       for(let x = 0; x < attachments.length; x++){
         if(FileHelper.getGeneralFileType(this.attachments[x]['type']) === 'image'){
           Vue.set(this.fileReader, x, { src: null })
-          FileHelper.readFile(this.attachments[x]).then((result) => {
-            Vue.set(this.fileReader[x], 'src', result)
-          })
+          if(typeof this.attachments[x]['id'] !== 'undefined' && this.attachments[x]['id']){
+            Vue.set(this.fileReader[x], 'src', this.getFileServerLink(this.attachments[x]['file_name']))
+          }else{
+            FileHelper.readFile(this.attachments[x]).then((result) => {
+              Vue.set(this.fileReader[x], 'src', result)
+            })
+          }
         }
         if(FileHelper.getGeneralFileType(this.attachments[x]['type']) === 'video'){
           Vue.set(this.fileReader, x, { src: null })
