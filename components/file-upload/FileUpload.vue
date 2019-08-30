@@ -43,7 +43,6 @@ export default {
       this.$emit('change', this.attachments)
     },
     _reset(){
-      console.log('file resets')
       this.resetData()
       this.formData = new FormData() // Reset it completely
       this.attachments = []
