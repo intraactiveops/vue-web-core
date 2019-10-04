@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import '@/vue-web-core/assets/style/simple-sidebar.scss'
+import '@/assets/style/simple-sidebar.scss'
 import SideBarItem from './SideBarItem.vue'
 import navigationConfig from './config.js'
 
