@@ -72,7 +72,6 @@ let input = new InputType({
       loading(true)
       clearTimeout(this.userTypingTimer)
       this.userTypingTimer = setTimeout(() => {
-
         console.log('2!', search, search === null, search === '', this.selectValue)
         this.fetchOptions(search, loading)
       }, 500)

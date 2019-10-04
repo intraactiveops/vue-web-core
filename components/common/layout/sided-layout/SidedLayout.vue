@@ -18,7 +18,7 @@
       <slot name="body">
       </slot>
     </div>
-    <div v-bind:class="rightSideBarActive ? 'active' : ''" class="rightSideBar pl-1 pt-1"  >
+    <div v-bind:class="rightSideBarActive ? 'active' : ''" class="rightSideBar  pt-1"  >
       <div style="position:fixed; width:250px">
         <right-side-menu-header />
         <side-menu-container name="Networks">
@@ -56,7 +56,7 @@ export default {
     }
   },
   mounted(){
-    let swiper = new Swipe(this.$refs.layout);
+    let swiper = new Swipe(this.$refs.layout)
     swiper.onLeft(() => {
       if(this.leftSideBarActive){
         this.leftSideBarActive = false

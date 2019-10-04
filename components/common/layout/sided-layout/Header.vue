@@ -3,7 +3,7 @@
     <!-- <h5 class="mb-2 text-uppercase"><router-link class="mr-0" to="/">{{companyName ? companyName : defaultCompanyName}}</router-link></h5> -->
     <div class="w-100">
       <div class="dropdown float-left" style="width: calc(100% - 30px)">
-        <button class="btn btn-outline-primary w-100 mb-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-outline-primary w-100 mb-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <fa :icon="selectedMenuIcon"  /> {{selectedMenu}} <fa icon="caret-down" class="float-right" />
         </button>
         <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
@@ -59,7 +59,7 @@ export default{
   methods: {
     toggleMenu(index, e){
       // console.log('event', e)
-      e.stopPropagation();
+      e.stopPropagation()
       SideMnuStore.commit('toggleMenu', index)
     },
     menuClicked(menu, icon){
