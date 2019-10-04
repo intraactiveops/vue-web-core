@@ -12,9 +12,12 @@
 // let fileServerURL = 'http://ec2-54-81-22-4.compute-1.amazonaws.com/file-server/public'
 // let publicAsset = 'http://localhost/intraactiveops/api/public_asset'
 if(typeof process.env.VUE_APP_API_URL === 'undefined'){
-  alert('Make sure that .env exists')
+  console.log('process.env', process.env)
+  alert('Make sure that .env exists' + 'Hey')
+}else{
+
 }
-console.log('ENV', process.env.VUE_APP_API_URL)
+console.log('ENV Test', process.env.VUE_APP_API_URL)
 export default {
   API_URL: process.env.VUE_APP_API_URL,
   FILE_SERVER_URL: process.env.VUE_APP_FILE_SERVER_URL,

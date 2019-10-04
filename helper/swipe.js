@@ -1,6 +1,5 @@
 export default class Swipe {
     constructor(element) {
-        console.log(element)
         this.xDown = null;
         this.yDown = null;
         this.element = typeof(element) === 'string' ? document.querySelector(element) : element;

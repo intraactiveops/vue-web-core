@@ -1,6 +1,6 @@
 <template>
   <div style="float:left">
-    <button class="btn btn-outline-primary text-dark" type="button" @click="fileInputClicked" ><fa :icon="'paperclip'" /></button>
+    <button class="btn btn-outline-primary text-dark" type="button" @click="_fileInputClicked" ><fa :icon="'paperclip'" /></button>
     <input ref="fileInput" type="file" multiple="multiple" id="attachments" accept="*" @change="uploadFieldChange" style="display:none" />
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
     }
   },
   methods: {
-    fileInputClicked(){
+    _fileInputClicked(){
       this.$refs.fileInput.click()
     },
     prepareFields() {

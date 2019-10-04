@@ -1,47 +1,63 @@
 <template>
   <div ref="layout">
     <div v-bind:class="leftSideBarActive ? 'active' : ''" class="leftSideBar pr-1" >
-      <header-menu />
-      <slot name="leftSide">
-      </slot>
+
+      <div  style="position:fixed; width:250px" class="">
+        <header-menu />
+        <side-menu-container v-if="currentRouteName !== 'channel'" name="Channels" :keep-on="currentRouteName === 'channel'">
+          <template v-slot:body>
+            <channel-list-menu  />
+          </template>
+        </side-menu-container>
+        <slot name="leftSide">
+        </slot>
+      </div>
+      &nbsp;
     </div>
-    <div class="body px-1" style=" float:left">
+    <div class="body px-1 pt-2" style=" float:left">
       <slot name="body">
       </slot>
     </div>
-    <div v-bind:class="rightSideBarActive ? 'active' : ''" class="rightSideBar pl-1"  >
-      <div class="card w-100 mt-2">
-        <h6 class="card-header bg-white p-2 font-weight-bold">Networks</h6>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item py-1 px-2">Public</li>
-          <li class="list-group-item py-1 px-2">Deliotte</li>
-          <li class="list-group-item py-1 px-2">Department of State</li>
-          <li class="list-group-item py-1 px-2">Kirkland & Elis</li>
-          <li class="list-group-item py-1 px-2">NOVA Health</li>
-        </ul>
+    <div v-bind:class="rightSideBarActive ? 'active' : ''" class="rightSideBar pl-1 pt-1"  >
+      <div style="position:fixed; width:250px">
+        <right-side-menu-header />
+        <side-menu-container name="Networks">
+          <template v-slot:body>
+            <network-menu  />
+          </template>
+        </side-menu-container>
       </div>
       <slot name="rightSide">
       </slot>
+      &nbsp;
     </div>
   </div>
 </template>
 <script>
 import HeaderMenu from './Header'
 import Swipe from '@/vue-web-core/helper/swipe.js'
+import RightSideMenuHeader from './RightSideMenu.vue'
+import SideMenuContainer from './side-menus/SideMenuContainer'
+import NetworkMenu from './side-menus/NetworkMenu.vue'
+import ChannelListMenu from '@/views/channel/channel_list/ChannelList'
 export default {
   components: {
-    HeaderMenu
+    HeaderMenu,
+    SideMenuContainer,
+    RightSideMenuHeader,
+    NetworkMenu,
+    ChannelListMenu
   },
   data(){
     return {
       leftSideBarActive: false,
-      rightSideBarActive: false
+      rightSideBarActive: false,
+      // currentRouteName: ''
     }
   },
   mounted(){
     let swiper = new Swipe(this.$refs.layout);
     swiper.onLeft(() => {
-      console.log('hey')
       if(this.leftSideBarActive){
         this.leftSideBarActive = false
       }else{
@@ -49,7 +65,6 @@ export default {
       }
     })
     swiper.onRight(() => {
-      console.log('ho')
       if(this.rightSideBarActive){
         this.rightSideBarActive = false
       }else{
@@ -64,13 +79,24 @@ export default {
     },
     rightSideBarActive(newData){
       this.$emit('right-side-bar-toggled', newData)
+    },
+    $route: (to, from) => {
+      console.log('route', this.$route.name)
+      // this.currentRouteName = to.$route.name.toLowerCase()
+    }
+  },
+  computed: {
+    currentRouteName(){
+      return this.$route.name.toLowerCase()
     }
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
+  $leftSidebarFixedWidth: 250px;
   .leftSideBar{
     float:left;
+
   }
   .rightSideBar{
     float:left;
@@ -108,7 +134,10 @@ export default {
   }
   @media only screen and (min-width: 751px) {
     .leftSideBar{
-      width: 250px
+      width: $leftSidebarFixedWidth
+    }
+    .body{
+      // margin-left: $leftSidebarFixedWidth
     }
   }
   @media only screen and (min-width: 751px) and (max-width: 1000px){
