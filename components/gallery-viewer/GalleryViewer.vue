@@ -1,17 +1,18 @@
 <template>
   <div>
     <div ref="modal" class="modal fade p-0" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog my-3 border-0" role="document" style="">
+      <div class="modal-dialog my-3 border-0 bg-transparent" role="document" style="">
 
-        <div v-show="!isLoading" class="modal-content"  v-bind:style="{width: (imageElementDimension.width) + 'px', 'margin-top' : ((windowDimension.height - imageElementDimension.height) / 2) + 'px'}">
-            <div v-if="typeof links !== 'undefined' && links.length > 1" style="position:absolute" class="navigation w-100">
-              <button @click="(imageIndex > 0) ? imageIndex-- : imageIndex = links.length - 1" class="btn">Previous</button>
-
-              <button @click="(imageIndex < links.length - 1) ? imageIndex++ : imageIndex = 0" class="btn float-right">Next</button>
+        <div v-show="!isLoading" class="modal-content bg-transparent"  v-bind:style="{width: (imageElementDimension.width) + 'px', 'margin-top' : ((windowDimension.height - imageElementDimension.height) / 2) + 'px'}">
+            <div class="w-100 bg-transparent" style="margin-top:-37px"><button @click="_close" class="btn btn-lg text-white p-0 float-right"><fa icon="times" /></button></div>
+            <div v-if="typeof links !== 'undefined' && links.length > 1" style="position:absolute" class="navigation" v-bind:style="{'margin-top': ((imageElementDimension.height - 20) / 2) +'px', width: (imageElementDimension.width + 71) + 'px'}">
+              <button @click="(imageIndex > 0) ? imageIndex-- : imageIndex = links.length - 1" class="navButton btn-lg p-0 "><fa icon="chevron-left" /></button>
+              <button @click="(imageIndex < links.length - 1) ? imageIndex++ : imageIndex = 0" class="navButton  btn-lg p-0 float-right"><fa icon="chevron-right" /></button>
               <div class="log bg-white fade">
                 {{windowDimension}}<br>
                 {{maxViewerDimension}}<br>
-                {{imageElementDimension}}
+                {{imageElementDimension}}<br>
+                {{windowDimension.height}} {{(imageElementDimension / 2) +'px'}}
               </div>
             </div>
             <img ref="image" v-bind:src="links[imageIndex]" style="width:100%; height:100%;">
@@ -19,7 +20,7 @@
               <slot name="footer"></slot>
             </div>
         </div>
-        <div v-if="isLoading" class="bg-white ">
+        <div v-if="isLoading" class="text-white">
           Loading...
         </div>
 
@@ -29,9 +30,14 @@
 </template>
 <script>
 export default {
+  components: {
+  },
   props: {
     source: String,
-    links: Array
+    links: {
+      type: Array,
+      required: true
+    }
   },
   data(){
     return {
@@ -68,9 +74,9 @@ export default {
       this.windowDimension.width = window.innerWidth
       this.windowDimension.height = window.innerHeight
     },
-    _open(){
-      this.imageIndex = 0
-      $(this.$refs.modal).modal('show')
+    _open(index = 0, links = null){
+      this.imageIndex = index
+      $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
       this.resizeImage()
     },
     _close(){
@@ -119,7 +125,15 @@ export default {
 <style scoped>
   .navigation{
     position: absolute;
-    margin-top: 40%;
+    margin-left: -37px
+    /* margin-top: 100%; */
+  }
+  .navButton{
+    background-color: transparent;
+    border: none;
+    font-size: 3em;
+    color: white;
+    padding: 5px!important;
   }
   .modal.show{
     display:block!important
