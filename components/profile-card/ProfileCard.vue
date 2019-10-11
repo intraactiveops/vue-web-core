@@ -1,62 +1,64 @@
 <template>
-  <div class="profile-card" v-show="isOpen">
-    <div class="profile-card-container py-2">
-      <div class="d-flex align-items-center">
-        <div class="profile-picture">
-          <img class="h-100 w-100" :src="profile_picture_file_name" />
-        </div>
-        <div class="profile-main-info">
-          <strong>{{ full_name }}</strong><br/>
-          {{ job_title }}<br/>
-          Company A<br/>
-          <a class="color-blue" href="#" style="text-decoration: none;">Unfollow Me</a><br/>
-          <div class="profile-links">
-            <a href="#" title="Video Call"><fa class="fa-lg color-gray" icon="video" /></a>&nbsp;
-            <a href="#" title="Message"><fa class="fa-lg color-gray" icon="pen-square" /></a>&nbsp;
-            <a href="#" title="Chatter"><fa class="fa-lg color-gray" icon="comments" /></a>&nbsp;
-            <fa class="fa-lg color-blue" icon="address-book" />&nbsp;
-            <a href="#" title="Profile"><fa class="fa-lg color-gray" icon="user" /></a>
+  <transition name="fade" mode="out-in">
+    <div class="profile-card" v-show="isOpen">
+      <div class="profile-card-container py-2">
+        <div class="d-flex align-items-center">
+          <div class="profile-picture">
+            <img class="h-100 w-100" :src="profile_picture_file_name" />
+          </div>
+          <div class="profile-main-info">
+            <strong>{{ full_name }}</strong><br/>
+            {{ job_title }}<br/>
+            Company A<br/>
+            <a class="color-blue" href="#" style="text-decoration: none;">Unfollow Me</a><br/>
+            <div class="profile-links">
+              <a href="#" title="Video Call"><fa class="fa-lg color-gray" icon="video" /></a>&nbsp;
+              <a href="#" title="Message"><fa class="fa-lg color-gray" icon="pen-square" /></a>&nbsp;
+              <a href="#" title="Chatter"><fa class="fa-lg color-gray" icon="comments" /></a>&nbsp;
+              <fa class="fa-lg color-blue" icon="address-book" />&nbsp;
+              <a href="#" title="Profile"><fa class="fa-lg color-gray" icon="user" /></a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="profile-other-info pt-2">
-        <table>
-          <tr>
-            <td class="color-blue"><strong>Office</strong></td>
-            <td>8912345612</td>
-          </tr>
-          <tr>
-            <td class="color-blue"><strong>Cell</strong></td>
-            <td>98765234</td>
-          </tr>
-          <tr>
-            <td class="color-blue"><strong>Email</strong></td>
-            <td>intra1@yahoo.com</td>
-          </tr>
-          <tr>
-            <td class="color-blue"><strong>Facebook</strong></td>
-            <td>tesasdd</td>
-          </tr>
-          <tr>
-            <td class="color-blue"><strong>Twitter</strong></td>
-            <td>dasdasdas</td>
-          </tr>
-          <tr>
-            <td class="color-blue pr-3"><strong>Instagram</strong></td>
-            <td>dasdas</td>
-          </tr>
-          <tr>
-            <td class="color-blue"><strong>Linkedin</strong></td>
-            <td>dasdasdas</td>
-          </tr>
-          <tr>
-            <td class="color-blue"><strong>Address</strong></td>
-            <td>Basak Pardo, Cebu City</td>
-          </tr>
-        </table>
+        <div class="profile-other-info pt-2">
+          <table>
+            <tr>
+              <td class="color-blue"><strong>Office</strong></td>
+              <td>8912345612</td>
+            </tr>
+            <tr>
+              <td class="color-blue"><strong>Cell</strong></td>
+              <td>98765234</td>
+            </tr>
+            <tr>
+              <td class="color-blue"><strong>Email</strong></td>
+              <td>intra1@yahoo.com</td>
+            </tr>
+            <tr>
+              <td class="color-blue"><strong>Facebook</strong></td>
+              <td>tesasdd</td>
+            </tr>
+            <tr>
+              <td class="color-blue"><strong>Twitter</strong></td>
+              <td>dasdasdas</td>
+            </tr>
+            <tr>
+              <td class="color-blue pr-3"><strong>Instagram</strong></td>
+              <td>dasdas</td>
+            </tr>
+            <tr>
+              <td class="color-blue"><strong>Linkedin</strong></td>
+              <td>dasdasdas</td>
+            </tr>
+            <tr>
+              <td class="color-blue"><strong>Address</strong></td>
+              <td>Basak Pardo, Cebu City</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 export default {
@@ -92,6 +94,13 @@ export default {
 }
 </script>
 <style>
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 
 .profile-main-info a:hover, .profile-main-info .fa-lg:hover, .color-blue {
   color: #2b7bb9;
