@@ -164,7 +164,7 @@ export default {
     width: 100%;
 }
 
-.profile-other-info > table td:nth-child(odd) {
+.profile-other-info > table td:nth-child(1) {
   font-weight: bold;
 }
 
