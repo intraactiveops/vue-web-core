@@ -8,13 +8,18 @@
             <div v-if="typeof links !== 'undefined' && links.length > 1" style="position:absolute" class="navigation" v-bind:style="{'margin-top': ((imageElementDimension.height - 20) / 2) +'px', width: (imageElementDimension.width + 71) + 'px'}">
               <button @click="(imageIndex > 0) ? imageIndex-- : imageIndex = links.length - 1" class="navButton btn-lg p-0 "><fa icon="chevron-left" /></button>
               <button @click="(imageIndex < links.length - 1) ? imageIndex++ : imageIndex = 0" class="navButton  btn-lg p-0 float-right"><fa icon="chevron-right" /></button>
-              <div class="log bg-white fade">
+              <div class="log bg-white w-100">
                 {{windowDimension}}<br>
                 {{maxViewerDimension}}<br>
                 {{imageElementDimension}}<br>
+                {{links[imageIndex]}}<br>
                 {{windowDimension.height}} {{(imageElementDimension / 2) +'px'}}
               </div>
             </div>
+            <template v-if="typeof links[imageIndex] === 'undefined'">
+              undfined {{imageIndex}}
+            </template>
+            <video-player ref="videoPlayer" v-else-if="isVideo" :options="{sources: [{type: 'video/mp4', src: links[imageIndex]}]}" />
             <img ref="image" v-bind:src="links[imageIndex]" style="width:100%; height:100%;">
             <div class="footer w-100 p-2 transparent-dark">
               <slot name="footer"></slot>
@@ -29,8 +34,11 @@
   </div>
 </template>
 <script>
+import { videoPlayer } from 'vue-video-player'
+import 'video.js/dist/video-js.css'
 export default {
   components: {
+    videoPlayer
   },
   props: {
     source: String,
@@ -54,6 +62,7 @@ export default {
         height: window.innerHeight,
         width: window.innerWidth,
       },
+      isVideo: false,
       isLoading: false
     }
   },
@@ -75,12 +84,26 @@ export default {
       this.windowDimension.height = window.innerHeight
     },
     _open(index = 0, links = null){
+      this.checkIfVideo()
       this.imageIndex = index
       $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
       this.resizeImage()
+      if(this.isVideo){
+        setTimeout(() => {
+          this.$refs.videoPlayer.play()
+
+        }, 200)
+      }
     },
     _close(){
       $(this.$refs.modal).modal('hide')
+    },
+    checkIfVideo(){
+      if(typeof this.links[this.imageIndex] !== 'undefined' && this.links[this.imageIndex].indexOf('.mp4')){
+        this.isVideo = true
+      }else{
+        this.isVideo = false
+      }
     },
     resizeImage(){
       this.isLoading = true
@@ -98,26 +121,13 @@ export default {
         this.imageElementDimension.height = this.maxViewerDimension.height
         this.imageElementDimension.width = (this.maxViewerDimension.height * ratio)
       }
-
-      // if(natWidth > this.maxViewerDimension.width || natHeight > this.maxViewerDimension.height){
-      //   console.log(natWidth, natHeight)
-      //   if(natWidth >= natHeight){ // width is bigger
-      //     this.imageElementDimension.width = (this.maxViewerDimension.width )
-      //     this.imageElementDimension.height = (this.maxViewerDimension.width * (natHeight / natWidth))
-      //   }else{
-      //     this.imageElementDimension.height = this.maxViewerDimension.height + 'px'
-      //     this.imageElementDimension.width = (this.maxViewerDimension.height * (natWidth / natHeight))
-      //   }
-      // }else{
-      //   this.imageElementDimension.width = (natWidth)
-      //   this.imageElementDimension.height = (natHeight)
-      // }
       this.isLoading = false
     }
   },
   watch: {
     imageIndex(newIndex){
       this.isLoading = true
+      this.checkIfVideo()
     }
   }
 }
