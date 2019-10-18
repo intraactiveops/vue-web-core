@@ -4,8 +4,8 @@ let mixin = {
     httpRequest(method, link, parameter, callback, errorCallback){
       let options = {
         headers: {
-          'authorization': 'igitii',
-          'Authorization': 'taaae'
+          'authorization': '',
+          'Authorization': ''
         },
         method: method,
         data: parameter,
@@ -31,7 +31,39 @@ let mixin = {
           }
         })
         .finally(() => { this.loading = false })
-    }
+    },
+    ajaxRequest(method, link, parameter, callback, errorCallback){
+      let options = {
+        headers: {
+          'authorization': '',
+          'Authorization': ''
+        },
+        method: method,
+        data: parameter,
+        url: link
+      }
+      console.log('options', options)
+      return axios(options)
+        .then(response => {
+          callback(response)
+        })
+        .catch((error, status) => {
+          console.error(error.status, status)
+          console.log(error.response.status)
+          if(typeof error.response !== 'undefined'){
+            if(error.response.status === 401){ // net log in
+              alert(401)
+              this.$router.push('/')
+            }else{
+              if(typeof errorCallback !== 'undefined'){
+                errorCallback(error.response.data, error.response.status)
+              }
+            }
+          }else{
+          }
+        })
+        .finally(() => { this.loading = false })
+    },
   }
 }
 export default mixin.methods

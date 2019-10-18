@@ -25,9 +25,7 @@
           </div>
           <div v-else-if="FileHelper.getGeneralFileType(attachment['type']) === 'video'" >
             <div v-if="fileReader[index]['src'] === null" >Preparing video preview</div>
-            <video v-else v-bind:src="fileReader[index]['src']" controls style="width: 100%">
-              <p>Your browser doesn't support HTML5 video. Here is a <a href="rabbit320.webm">link to the video</a> instead.</p>
-            </video>
+            <video-file v-else :video-source="fileReader[index]['src']" @snapshot="videoSnapshot" :index="index" />
             <div class="py-2 pt-3 px-1" style="word-break: break-all;">
               <button v-if="!notEditable && attachment['deleted']" @click="undoRemove(index)" class="btn btn-sm btn-outline-secondary float-right" type="button">Restore</button>
               <button v-else-if="!notEditable" @click="remove(index)" class="btn btn-sm btn-outline-danger float-right" type="button"><fa :icon="'times'" /></button>
@@ -55,7 +53,11 @@
 <script>
 import Vue from 'vue'
 import FileHelper from '@/vue-web-core/helper/file'
+import VideoFile from './file-upload-previewer-components/VideoFile'
 export default{
+  components: {
+    VideoFile
+  },
   props: {
     notEditable: {
       type: Boolean,
@@ -67,17 +69,25 @@ export default{
       attachments: [],
       attachmentsReady: false,
       FileHelper: FileHelper,
-      fileReader: {}
+      fileReader: {},
+      videoSnapshots: {}
     }
   },
   mounted(){
   },
   methods: {
     remove(index){
+      Vue.remove(this.videoSnapshots, index)
       this.$emit('remove-attachment', this.attachments[index])
     },
     undoRemove(index){
       this.$emit('undo-remove-attachment', this.attachments[index])
+    },
+    videoSnapshot(index, blob){
+      Vue.set(this.videoSnapshots, index, blob)
+    },
+    _getVideoSnapshots(){
+      return Object.getOwnPropertyNames(this.videoSnapshots).length ? this.videoSnapshots : null
     },
     _refresh(attachments){
       this.attachments = attachments

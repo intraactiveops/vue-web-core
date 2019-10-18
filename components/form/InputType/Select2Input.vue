@@ -3,7 +3,6 @@
     <select2  ref="select" :placeholder="placeholder" :value="selectValue" :label="'text'" :index="'value'" :options="options" @search="userTyping" @input="valueChanged" v-bind:class="isset(validationMessage, index) ? 'hasError' : ''" class="">
       <!-- <option v-for="option in options" v-bind:value="option['value']" v-bind:selected="(formData[index] + '') === (option['value'] + '')" >{{option['text']}}</option> -->
     </select2>
-    {{selectValue}}---{{source}}
     <div v-bind:class="isset(validationMessage, index) ? 'hasError' : ''" class="invalid-feedback" >
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
     </div>
@@ -73,7 +72,6 @@ let input = new InputType({
       loading(true)
       clearTimeout(this.userTypingTimer)
       this.userTypingTimer = setTimeout(() => {
-
         console.log('2!', search, search === null, search === '', this.selectValue)
         this.fetchOptions(search, loading)
       }, 500)

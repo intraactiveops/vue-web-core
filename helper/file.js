@@ -65,6 +65,9 @@ export default{
   isImage: (type) => {
     return imageFileExtensions.indexOf(type.toLowerCase()) !== -1
   },
+  isVideo: (type) => {
+    return type.toLowerCase() === 'mp4'
+  },
   readFile: (file) => {
     var reader = new FileReader()
     reader.readAsDataURL(file)

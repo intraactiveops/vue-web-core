@@ -28,8 +28,6 @@ let store = new Vuex.Store({
     },
     setAuthToken(state, token){
       Vue.set(state, 'authToken', token)
-      // return token
-      // state.authToken = token
     },
     setCompanyInformation(state, companyInformation){
       Vue.set(state.companyInformation, 'id', companyInformation.id)
