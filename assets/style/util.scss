@@ -6,3 +6,15 @@
 .bg-transparent{
   background-color: transparent!important
 }
+.bg-whitesmoke{
+  background-color: whitesmoke
+}
+.no-box-shadow{
+  box-shadow: none;
+}
+.form-control-no-border:focus {
+  border-color:#eee;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}

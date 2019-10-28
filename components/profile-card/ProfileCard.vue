@@ -65,11 +65,11 @@
   </transition>
 </template>
 <script>
-import store from "./profile-card"
+import store from './profile-card'
 
 export default {
   props: {
-    id: Number, //Id the of the user
+    id: Number, // Id the of the user
     profile_picture_file_name: String, // the file name of the profile picture
     full_name: String,
     job_title: String,

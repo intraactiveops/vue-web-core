@@ -32,7 +32,7 @@ export default{
     videoStarted(){
       setTimeout(() => {
         if(!this.thumbnail){
-            this.snapVideo()
+          this.snapVideo()
         }
       }, this.defaultSnapshotTime * 1000)
     },

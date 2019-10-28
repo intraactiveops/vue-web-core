@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
 
 let freeSolid = require('@fortawesome/free-solid-svg-icons')
 let iconUsed = ['faCoffee', 'faList', 'faUsers', 'faComments', 'faUserTie', 'faDotCircle', 'faPlus', 'faPrint', 'faDownload', 'faTrash', 'faTrashAlt', 'faSave', 'faCheck', 'faEdit',
@@ -10,7 +10,7 @@ let iconUsed = ['faCoffee', 'faList', 'faUsers', 'faComments', 'faUserTie', 'faD
   'faSortDown', 'faFileAlt', 'faEllipsisH', 'faUserTag', 'faMapMarkerAlt', 'faShoppingCart', 'faArrowRight', 'faEnvelope', 'faMailBulk', 'faReceipt', 'faBan', 'faPrint', 'faStar', 'faCircleNotch', 'faMoneyBill',
   'faBox', 'faTools', 'faFileContract', 'faPercent', 'faBoxes', 'faStore', 'faParking', 'faWifi', 'faServer', 'faThumbsUp', 'faComment', 'faHistory', 'faCalendarDay', 'faCaretDown', 'faPaperPlane', 'faArrowAltCircleRight',
   'faHome', 'faCloud', 'faProjectDiagram', 'faCreditCard', 'faTv', 'faArchive', 'faCalendarWeek', 'faPowerOff', 'faFeatherAlt', 'faPen', 'faClipboardCheck', 'faWindowMinimize', 'faWindowMaximize', 'faMinus',
-  'faVideo', 'faPenSquare', 'faFlag', 'faDoorOpen', 'faArchive'
+  'faVideo', 'faPenSquare', 'faFlag', 'faDoorOpen', 'faArchive', 'faBell'
 ]
 let fileIcon = ['faFile', 'faFileWord', 'faTable', 'faFileExcel', 'faFileCsv', 'faFilePdf', 'faFilePowerpoint', 'faFileImage', 'faFileVideo', 'faFileVideo', 'faMagnet']
 iconUsed = iconUsed.concat(fileIcon)
@@ -19,5 +19,7 @@ for(let x = 0; x < iconUsed.length; x++){
 }
 
 Vue.component('fa', FontAwesomeIcon)
+Vue.component('fa-layers', FontAwesomeLayers)
+Vue.component('fa-layers-text', FontAwesomeLayersText)
 
 Vue.config.productionTip = false
