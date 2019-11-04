@@ -1,6 +1,6 @@
 <template>
   <div class="headerContainer ">
-    <div class="header border-bottom pt-1 w-100 text-center">
+    <div v-if="userId" class="header bg-white border-bottom pt-1 w-100 text-center">
       <div class="header-left">
         <search-bar />
       </div>
@@ -48,13 +48,28 @@
             <div class="dropdown-divider mt-3" style=""></div>
             <button class="dropdown-item" type="button">Interface Settings</button>
             <button class="dropdown-item" type="button">Account Settings</button>
-            <button class="dropdown-item" type="button">Log Out</button>
+            <button class="dropdown-item" type="button" @click="logout">Log Out</button>
           </div>
         </div>
       </div>
       <div class="header-right text-left " style="">
-        <small>IntraComs</small><br>
-        <span class="text-primary font-weight-bold text-uppercase">Personal</span>
+        <small>IntraComs</small>
+        <div class="p-0" style="height; 20px; margin-top: -4px">
+          <span class="text-primary font-weight-bold text-uppercase">Personal </span>
+          <div class="btn-group ">
+            <button type="button" class="btn btn-sm rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <fa icon="exchange-alt"/>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <h3 class="dropdown-header">Authorized Exchanges</h3>
+              <button class="dropdown-item py-1" type="button">Personal</button>
+              <button class="dropdown-item py-1" type="button">Deliotte</button>
+              <button class="dropdown-item py-1" type="button">Dept of State</button>
+              <button class="dropdown-item py-1" type="button">Kirkland oninvalid & Ellis</button>
+              <button class="dropdown-item py-1" type="button">NOVA Health</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -66,7 +81,18 @@ export default {
   components: {
     SearchBar
   },
+  methods: {
+    logout(){
+      store.commit('setAuthToken', null)
+      this.$auth.logout()
+      window.location.reload()
+    }
+  },
   computed: {
+    userId(){
+      console.log(store.state.userInformation,'user id')
+      return store.state.userInformation.id
+    },
     companyName(){
       return store.state.companyInformation.name
     },
