@@ -15,7 +15,7 @@
             </fa-layers>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
-            <router-link to="/channel/null" class="dropdown-item py-0"  title="Compose Message"><fa icon="paper-plane" fixed-width />Create Channel</router-link>
+            <router-link to="/channel/null" class="dropdown-item py-0"  title="Compose Message"><fa icon="paper-plane" fixed-width /> Create Channel</router-link>
             <div class="dropdown-divider" style=""></div>
             <router-link to="/channel" class="dropdown-item py-0"  title="View All Channel">View All Channels</router-link>
           </div>
@@ -46,7 +46,7 @@
             </router-link>
             <div style="clear:both"></div>
             <div class="dropdown-divider mt-3" style=""></div>
-            <button class="dropdown-item" type="button">Interface Settings</button>
+            <button class="dropdown-item" type="button" @click="openPageSetting">Page Settings</button>
             <button class="dropdown-item" type="button">Account Settings</button>
             <button class="dropdown-item" type="button" @click="logout">Log Out</button>
           </div>
@@ -72,20 +72,26 @@
         </div>
       </div>
     </div>
+    <page-setting ref="pageSetting"/>
   </div>
 </template>
 <script>
 import store from '@/vue-web-core/system/store'
 import SearchBar from './header-menu-components/left-components/SearchBar'
+import PageSetting from './header-menu-components/PageSetting'
 export default {
   components: {
-    SearchBar
+    SearchBar,
+    PageSetting
   },
   methods: {
     logout(){
       store.commit('setAuthToken', null)
       this.$auth.logout()
       window.location.reload()
+    },
+    openPageSetting(){
+      this.$refs.pageSetting._open()
     }
   },
   computed: {

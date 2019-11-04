@@ -1,7 +1,7 @@
 <template>
   <div>
     <div ref="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div v-bind:class="'modal-' + size" class="modal-dialog" role="document">
+      <div v-bind:class="'modal-' + size" class="modal-dialog" role="document" :style="paddingTop ? {'padding-top': paddingTop} : {}">
         <div class="modal-content">
           <div v-if="title" class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel"><fa v-if="false" :icon="icon" /> {{title}} </h5>
@@ -35,14 +35,23 @@ export default {
     closeable: {
       type: Boolean,
       default: true
-    }
+    },
+    bgTransparent: {
+      type: Boolean,
+      default: false
+    },
+    paddingTop: String
   },
   methods: {
     _open(){
+      let modalElement = $(this.$refs.modal)
       if(this.closeable){
-        $(this.$refs.modal).modal('show')
+        modalElement.modal('show')
       }else{
-        $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
+        modalElement.modal({ backdrop: 'static', keyboard: false })
+      }
+      if(this.bgTransparent){
+        $(modalElement.data('bs.modal')._backdrop).css('background-color','transparent')
       }
     },
     _close(){
@@ -51,3 +60,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+/* .modal-backdrop {
+   background-color: transparent;
+} */
+</style>
