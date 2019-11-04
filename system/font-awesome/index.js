@@ -10,7 +10,7 @@ let iconUsed = ['faCoffee', 'faList', 'faUsers', 'faComments', 'faUserTie', 'faD
   'faSortDown', 'faFileAlt', 'faEllipsisH', 'faUserTag', 'faMapMarkerAlt', 'faShoppingCart', 'faArrowRight', 'faEnvelope', 'faMailBulk', 'faReceipt', 'faBan', 'faPrint', 'faStar', 'faCircleNotch', 'faMoneyBill',
   'faBox', 'faTools', 'faFileContract', 'faPercent', 'faBoxes', 'faStore', 'faParking', 'faWifi', 'faServer', 'faThumbsUp', 'faComment', 'faHistory', 'faCalendarDay', 'faCaretDown', 'faPaperPlane', 'faArrowAltCircleRight',
   'faHome', 'faCloud', 'faProjectDiagram', 'faCreditCard', 'faTv', 'faArchive', 'faCalendarWeek', 'faPowerOff', 'faFeatherAlt', 'faPen', 'faClipboardCheck', 'faWindowMinimize', 'faWindowMaximize', 'faMinus',
-  'faVideo', 'faPenSquare', 'faFlag', 'faDoorOpen', 'faArchive', 'faBell', 'faExchangeAlt'
+  'faVideo', 'faPenSquare', 'faFlag', 'faDoorOpen', 'faArchive', 'faBell', 'faExchangeAlt', 'faBold', 'faItalic', 'faStrikethrough', 'faUnderline', 'faCode', 'faParagraph', 'faListOl', 'faQuoteRight', 'faUndo'
 ]
 let fileIcon = ['faFile', 'faFileWord', 'faTable', 'faFileExcel', 'faFileCsv', 'faFilePdf', 'faFilePowerpoint', 'faFileImage', 'faFileVideo', 'faFileVideo', 'faMagnet']
 iconUsed = iconUsed.concat(fileIcon)
