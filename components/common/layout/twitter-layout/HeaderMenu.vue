@@ -5,7 +5,6 @@
         <search-bar />
       </div>
       <div class="header-center px-1" >
-        <router-link class="btn centerMenuItem rounded-0" to="/newsfeed"><fa icon="edit" class="fa-lg"/></router-link>
         <router-link class="btn centerMenuItem rounded-0" to="/newsfeed"><fa icon="home" class="fa-lg"/></router-link>
         <div class="btn-group centerMenuItem">
           <button type="button" class="btn rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,23 +52,7 @@
         </div>
       </div>
       <div class="header-right text-left " style="">
-        <small>IntraComs</small>
-        <div class="p-0" style="height; 20px; margin-top: -4px">
-          <span class="text-primary font-weight-bold text-uppercase">Personal </span>
-          <div class="btn-group ">
-            <button type="button" class="btn btn-sm rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <fa icon="exchange-alt"/>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-              <h3 class="dropdown-header">Authorized Exchanges</h3>
-              <button class="dropdown-item py-1" type="button">Personal</button>
-              <button class="dropdown-item py-1" type="button">Deliotte</button>
-              <button class="dropdown-item py-1" type="button">Dept of State</button>
-              <button class="dropdown-item py-1" type="button">Kirkland oninvalid & Ellis</button>
-              <button class="dropdown-item py-1" type="button">NOVA Health</button>
-            </div>
-          </div>
-        </div>
+        <authorized-channel />
       </div>
     </div>
     <page-setting ref="pageSetting"/>
@@ -79,10 +62,12 @@
 import store from '@/vue-web-core/system/store'
 import SearchBar from './header-menu-components/left-components/SearchBar'
 import PageSetting from './header-menu-components/PageSetting'
+import AuthorizedChannel from './header-menu-components/AuthorizedChannel'
 export default {
   components: {
     SearchBar,
-    PageSetting
+    PageSetting,
+    AuthorizedChannel
   },
   methods: {
     logout(){
