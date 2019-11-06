@@ -101,7 +101,7 @@ export default {
 </script>
 <style scoped>
 .centerMenuItem{
-  width: calc(100% / 5)
+  width: calc(100% / 4)
 }
 .header-left{
   width: calc((100% - 500px) / 2);
