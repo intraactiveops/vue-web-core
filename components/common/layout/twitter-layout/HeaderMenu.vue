@@ -31,6 +31,7 @@
             <button class="dropdown-item py-0" type="button">Your post has been reported</button>
           </div>
         </div>
+        <router-link class="btn centerMenuItem rounded-0" to="/newsfeed"><fa icon="user-check" class="fa-lg"/></router-link>
         <div class="btn-group centerMenuItem">
           <button type="button" class="btn border-0 rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img class="rounded-circle mr-1" v-bind:src="profilePictureLink" style="width:30px;">
@@ -101,7 +102,7 @@ export default {
 </script>
 <style scoped>
 .centerMenuItem{
-  width: calc(100% / 4)
+  width: calc(100% / 5)
 }
 .header-left{
   width: calc((100% - 500px) / 2);

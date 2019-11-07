@@ -1,5 +1,15 @@
 <template>
-  <div>
+  <div >
+    <side-menu-container name="Projects">
+      <template v-slot:body>
+        <project-menu  />
+      </template>
+    </side-menu-container>
+    <side-menu-container name="Following">
+      <template v-slot:body>
+        <following-menu  />
+      </template>
+    </side-menu-container>
     <side-menu-container name="Networks">
       <template v-slot:body>
         <network-menu  />
@@ -9,11 +19,15 @@
 </template>
 <script>
 import SideMenuContainer from './SideMenuContainer'
-import NetworkMenu from './NetworkMenu'
+import NetworkMenu from './menus/NetworkMenu'
+import ProjectMenu from './menus/ProjectMenu'
+import FollowingMenu from './menus/FollowingMenu'
 export default{
   components: {
     SideMenuContainer,
-    NetworkMenu
+    NetworkMenu,
+    ProjectMenu,
+    FollowingMenu
   },
   computed: {
     currentRouteName(){

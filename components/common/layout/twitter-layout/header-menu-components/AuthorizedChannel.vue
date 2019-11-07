@@ -27,7 +27,7 @@ export default{
       }, {
         name: 'Dept of State'
       }, {
-        name: 'Kirkland oninvalid & Ellis'
+        name: 'Dunlap Bennett & Ludwig'
       }, {
         name: 'NOVA Health'
       }]
