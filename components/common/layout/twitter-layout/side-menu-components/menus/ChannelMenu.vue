@@ -1,6 +1,6 @@
 <template>
   <div>
-    <side-menu-container name="Channels" :keep-on="currentRouteName === 'channel'">
+    <side-menu-container name="Media Exchange" :keep-on="currentRouteName === 'channel'">
       <template v-slot:body>
         <channel-list-menu  />
       </template>
