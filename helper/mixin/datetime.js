@@ -46,13 +46,13 @@ Vue.mixin({
       let timeDifference = currentTimestamp - dateTimestamp
       if(timeDifference < 604800){
         if(timeDifference < 60){
-          return Math.floor(timeDifference) + ' seconds'
+          return Math.floor(timeDifference) + ' seconds ago'
         }else if(timeDifference < 3600){
-          return Math.floor(timeDifference / 60) + ' minutes'
+          return Math.floor(timeDifference / 60) + ' minutes ago'
         }else if(timeDifference < 86400){
-          return Math.floor(timeDifference / 3600) + ' hours'
+          return Math.floor(timeDifference / 3600) + ' hours ago'
         }else{
-          return Math.floor(timeDifference / 86400) + ' days'
+          return Math.floor(timeDifference / 86400) + ' days ago'
         }
       }else{
         return shortMonthName[date.getMonth()] + ' ' + date.getDate()
