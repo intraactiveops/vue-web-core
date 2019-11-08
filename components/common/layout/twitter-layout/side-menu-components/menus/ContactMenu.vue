@@ -1,6 +1,6 @@
 <template>
   <div class="mb-2">
-    <div class="card w-100 mt-0 border-0 ">
+    <div class="card w-100 mt-0 border-left-0 border-right-0 border-bottom-0  border-top ">
       <div class="card-header py-1 px-2 border-0 bg-white">
         <label class=" font-weight-bold mb-0">Contacts</label>
       </div>
