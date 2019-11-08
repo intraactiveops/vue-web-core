@@ -1,12 +1,12 @@
 <template>
   <div>
-    <side-menu-container name="Todays Event">
+    <side-menu-container v-show="toggleMenu['dailyEvent']" name="Todays Event">
       <template v-slot:body>
         <event-menu />
       </template>
     </side-menu-container>
-    <channel-menu />
-    <side-menu-container name="Activity">
+    <channel-menu v-show="toggleMenu['channel']" />
+    <side-menu-container  v-show="toggleMenu['activity']" name="Activity">
       <template v-slot:body>
         <activity-menu />
       </template>
@@ -18,6 +18,7 @@ import SideMenuContainer from './SideMenuContainer'
 import ActivityMenu from './menus/ActivityMenu'
 import EventMenu from './menus/EventMenu'
 import ChannelMenu from './menus/ChannelMenu'
+import SideMenuStore from './side-menu-store.js'
 export default{
   components: {
     ChannelMenu,
@@ -26,6 +27,10 @@ export default{
     EventMenu
   },
   computed: {
+    toggleMenu(){
+      console.log(SideMenuStore.state)
+      return SideMenuStore.state
+    },
     currentRouteName(){
       return (this.$route.name + '').toLowerCase()
     }
