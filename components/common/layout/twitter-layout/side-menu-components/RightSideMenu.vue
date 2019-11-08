@@ -15,6 +15,7 @@
         <network-menu  />
       </template>
     </side-menu-container>
+    <contact-menu  />
   </div>
 </template>
 <script>
@@ -22,12 +23,14 @@ import SideMenuContainer from './SideMenuContainer'
 import NetworkMenu from './menus/NetworkMenu'
 import ProjectMenu from './menus/ProjectMenu'
 import FollowingMenu from './menus/FollowingMenu'
+import ContactMenu from './menus/ContactMenu'
 export default{
   components: {
     SideMenuContainer,
     NetworkMenu,
     ProjectMenu,
-    FollowingMenu
+    FollowingMenu,
+    ContactMenu
   },
   computed: {
     currentRouteName(){
