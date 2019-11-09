@@ -3,7 +3,7 @@
     <small>
       <div class="btn-group ">
         <button type="button" class="btn btn-sm rounded-0 pl-0 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          IntraCom <fa icon="exchange-alt"/>
+          IntraComs <fa icon="exchange-alt"/>
         </button>
         <div class="dropdown-menu dropdown-menu-right">
           <h3 class="dropdown-header">Authorized Exchanges</h3>
