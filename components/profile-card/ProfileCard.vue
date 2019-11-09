@@ -130,11 +130,12 @@ export default {
 }
 
 .profile-card.channel-member-list{
-  margin: 0 0 0 20px;
+  margin-left: 20px;
 }
 
 .profile-card.post-viewer{
-  margin: 8px 0 0 70px;
+  margin-top: -50px;
+  margin-left: 60px;
 }
 
 .profile-card-container {
