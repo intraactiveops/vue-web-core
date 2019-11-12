@@ -9,6 +9,21 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <div v-else-if="contentEditableTitle" class="modal-header">
+            <div class="font-weight-bold card-header py-1 px-2 bg-whitesmoke border-0 rounded w-100 d-flex align-items-stretch">
+              <div 
+                class="w-90 contentEditable" 
+                @input="$emit('title', $event.target.innerText)" 
+                :contenteditable="true" 
+                placeholder="Title">
+              </div>
+              <div class="w-10">
+                <button @click="_close" title="Close" class="btn btn-sm text-secondary float-right py-0">
+                  <fa icon="times"/>
+                </button>
+              </div>
+            </div>
+          </div>
           <div class="modal-body">
             <slot name="body"></slot>
           </div>
@@ -40,6 +55,10 @@ export default {
       type: Boolean,
       default: false
     },
+    contentEditableTitle: {
+      type: Boolean,
+      default: false
+    },
     paddingTop: String
   },
   methods: {
@@ -64,4 +83,15 @@ export default {
 /* .modal-backdrop {
    background-color: transparent;
 } */
+
+.contentEditable:empty:before {
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}
+.w-90 {
+  width: 90%;
+}
+.w-10 {
+  width: 10%;
+}
 </style>
