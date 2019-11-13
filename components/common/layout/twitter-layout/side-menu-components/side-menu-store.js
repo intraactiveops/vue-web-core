@@ -14,7 +14,6 @@ let store = new Vuex.Store({
   },
   mutations: {
     reset(state, menuSetting){
-      console.log(menuSetting)
       for(let menu in menuSetting){
         Vue.set(state, menu, menuSetting[menu])
       }
@@ -27,7 +26,6 @@ let store = new Vuex.Store({
   },
   getters: {
     dailyEvent: (state) => {
-      console.log(state.dailyEvent, 'state.dailyEvent')
       return state.dailyEvent
     },
     channel: (state) => {

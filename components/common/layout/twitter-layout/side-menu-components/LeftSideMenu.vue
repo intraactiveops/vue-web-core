@@ -28,7 +28,6 @@ export default{
   },
   computed: {
     toggleMenu(){
-      console.log(SideMenuStore.state)
       return SideMenuStore.state
     },
     currentRouteName(){

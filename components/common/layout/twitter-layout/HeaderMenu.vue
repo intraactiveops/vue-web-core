@@ -82,7 +82,6 @@ export default {
   },
   computed: {
     userId(){
-      console.log(store.state.userInformation,'user id')
       return store.state.userInformation.id
     },
     companyName(){
