@@ -13,9 +13,16 @@ let store = new Vuex.Store({
     contact: true
   },
   mutations: {
+    reset(state, menuSetting){
+      console.log(menuSetting)
+      for(let menu in menuSetting){
+        Vue.set(state, menu, menuSetting[menu])
+      }
+    },
     toggleMenu(state, menu){
       // console.log(menu, 'menu',state[menu])
       Vue.set(state, menu, !state[menu])
+      localStorage.setItem('side_menu_setting', JSON.stringify(this.state))
     },
   },
   getters: {
