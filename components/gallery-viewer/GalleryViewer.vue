@@ -8,11 +8,12 @@
             <div v-if="typeof links !== 'undefined' && links.length > 1" style="position:absolute" class="navigation" v-bind:style="{'margin-top': ((imageElementDimension.height - 20) / 2) +'px', width: (imageElementDimension.width + 71) + 'px'}">
               <button @click="(imageIndex > 0) ? imageIndex-- : imageIndex = links.length - 1" class="navButton btn-lg p-0 "><fa icon="chevron-left" /></button>
               <button @click="(imageIndex < links.length - 1) ? imageIndex++ : imageIndex = 0" class="navButton  btn-lg p-0 float-right"><fa icon="chevron-right" /></button>
-              <div class="log bg-white w-100">
+              <div class="log bg-white w-100 fade">
                 {{windowDimension}}<br>
                 {{maxViewerDimension}}<br>
                 {{imageElementDimension}}<br>
                 {{links[imageIndex]}}<br>
+                {{isVideo}}<br>
                 {{windowDimension.height}} {{(imageElementDimension / 2) +'px'}}
               </div>
             </div>
@@ -84,9 +85,9 @@ export default {
       this.windowDimension.height = window.innerHeight
     },
     _open(index = 0, links = null){
-      this.checkIfVideo()
       this.imageIndex = index
       $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
+      this.checkIfVideo()
       this.resizeImage()
       if(this.isVideo){
         setTimeout(() => {
@@ -98,7 +99,8 @@ export default {
       $(this.$refs.modal).modal('hide')
     },
     checkIfVideo(){
-      if(typeof this.links[this.imageIndex] !== 'undefined' && this.links[this.imageIndex].indexOf('.mp4')){
+      console.log('hey', this.links, this.links[this.imageIndex], this.links[this.imageIndex].indexOf('.mp4'))
+      if(typeof this.links[this.imageIndex] !== 'undefined' && this.links[this.imageIndex].indexOf('.mp4') > 0){
         this.isVideo = true
       }else{
         this.isVideo = false

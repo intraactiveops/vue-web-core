@@ -22,11 +22,9 @@
 import Swipe from '@/vue-web-core/helper/swipe.js'
 import LeftSideMenu from './side-menu-components/LeftSideMenu'
 import RightSideMenu from './side-menu-components/RightSideMenu'
-import NetworkMenu from './side-menu-components/NetworkMenu.vue'
 
 export default {
   components: {
-    NetworkMenu,
     LeftSideMenu,
     RightSideMenu
   },

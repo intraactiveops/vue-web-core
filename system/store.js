@@ -52,6 +52,9 @@ let store = new Vuex.Store({
     },
     userInformation: (state) => {
       return state.userInformation
+    },
+    companyInformation: (state) => {
+      return state.companyInformation
     }
   },
   actions: {

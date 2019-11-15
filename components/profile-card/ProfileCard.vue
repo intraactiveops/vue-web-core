@@ -2,7 +2,7 @@
   <transition name="fade" mode="out-in">
     <div :class="['profile-card', parent]" v-show="isOpen">
       <div class="profile-card-container p-3">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-start">
           <div class="profile-picture">
             <img class="h-100 w-100" :src="profile_picture_file_name" />
           </div>
@@ -130,11 +130,12 @@ export default {
 }
 
 .profile-card.channel-member-list{
-  margin: 0 0 0 20px;
+  margin-left: 20px;
 }
 
 .profile-card.post-viewer{
-  margin: 8px 0 0 70px;
+  margin-top: -50px;
+  margin-left: 60px;
 }
 
 .profile-card-container {
@@ -167,6 +168,7 @@ export default {
 .profile-main-info {
     float: left;
     margin: 0 0 0 15px;
+    width: 125px;
 }
 
 .profile-other-info {

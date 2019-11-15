@@ -3,6 +3,28 @@
 .c-pointer{
   cursor: pointer
 }
+.c-text{
+  cursor: text
+}
 .bg-transparent{
   background-color: transparent!important
 }
+.bg-whitesmoke{
+  background-color: whitesmoke
+}
+.no-box-shadow{
+  box-shadow: none;
+}
+.form-control-no-border:focus {
+  border-color:#eee;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.w-80{
+  width: 79.9%
+}
+.w-20{
+  width: 19.9%
+}
+li.borderless { border-top: 0 none; }

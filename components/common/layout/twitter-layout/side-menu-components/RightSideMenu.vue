@@ -1,52 +1,43 @@
 <template>
-  <div>
-    <div class="form-row align-items-center mb-1">
-      <div class="col-12 my-1">
-        <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text bg-white text-primary"><fa icon="cloud" /></div>
-          </div>
-          <select class="form-control font-weight-bold">
-            <option value="null">Personal</option>
-            <option value="null">Deliotte</option>
-            <option value="null">Department of State</option>
-            <option value="null">Kirkland & Elis</option>
-            <option value="null">NOVA Health</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="input-group input-group-sm mb-2">
-      <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button"><fa icon="search" /></button>
-        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="sr-only"></span>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="#"><fa icon="check" /> People</a>
-          <a class="dropdown-item" href="#">Network</a>
-          <a class="dropdown-item" href="#">Post</a>
-        </div>
-      </div>
-    </div>
-    <side-menu-container name="Networks">
+  <div >
+    <side-menu-container v-show="toggleMenu['project']" name="Projects">
+      <template v-slot:body>
+        <project-menu  />
+      </template>
+    </side-menu-container>
+    <side-menu-container v-show="toggleMenu['following']" name="Following">
+      <template v-slot:body>
+        <following-menu  />
+      </template>
+    </side-menu-container>
+    <side-menu-container v-show="toggleMenu['network']" name="Networks">
       <template v-slot:body>
         <network-menu  />
       </template>
     </side-menu-container>
+    <contact-menu v-show="toggleMenu['contact']" />
   </div>
 </template>
 <script>
 import SideMenuContainer from './SideMenuContainer'
-import NetworkMenu from './NetworkMenu'
+import NetworkMenu from './menus/NetworkMenu'
+import ProjectMenu from './menus/ProjectMenu'
+import FollowingMenu from './menus/FollowingMenu'
+import ContactMenu from './menus/ContactMenu'
+
+import SideMenuStore from './side-menu-store.js'
 export default{
   components: {
     SideMenuContainer,
-    NetworkMenu
+    NetworkMenu,
+    ProjectMenu,
+    FollowingMenu,
+    ContactMenu
   },
   computed: {
+    toggleMenu(){
+      return SideMenuStore.state
+    },
     currentRouteName(){
       return (this.$route.name + '').toLowerCase()
     }

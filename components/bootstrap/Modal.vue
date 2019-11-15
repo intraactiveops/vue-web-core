@@ -1,13 +1,23 @@
 <template>
   <div>
     <div ref="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div v-bind:class="'modal-' + size" class="modal-dialog" role="document">
+      <div v-bind:class="'modal-' + size" class="modal-dialog" role="document" :style="paddingTop ? {'padding-top': paddingTop} : {}">
         <div class="modal-content">
           <div v-if="title" class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"><fa v-if="false" :icon="icon" /> {{title}} </h5>
-            <button v-if="closeable" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="card-header py-1 px-2 bg-whitesmoke border-0 rounded w-100 d-flex align-items-stretch">
+              <div class="w-90">
+                <span id="exampleModalLabel" class="font-weight-bold"><fa v-if="false" :icon="icon" /> {{title}}</span>
+              </div>
+              <div class="w-10">
+                <button v-if="closeable" class="btn btn-sm text-secondary float-right py-0" data-dismiss="modal" aria-label="Close">
+                  <fa icon="times"/>
+                </button>
+              </div>
+            </div>
+            <!-- <h5 class="modal-title" id="exampleModalLabel"><fa v-if="false" :icon="icon" /> {{title}} </h5>
+            <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </button> -->
           </div>
           <div class="modal-body">
             <slot name="body"></slot>
@@ -35,14 +45,23 @@ export default {
     closeable: {
       type: Boolean,
       default: true
-    }
+    },
+    bgTransparent: {
+      type: Boolean,
+      default: false
+    },
+    paddingTop: String
   },
   methods: {
     _open(){
+      let modalElement = $(this.$refs.modal)
       if(this.closeable){
-        $(this.$refs.modal).modal('show')
+        modalElement.modal('show')
       }else{
-        $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
+        modalElement.modal({ backdrop: 'static', keyboard: false })
+      }
+      if(this.bgTransparent){
+        $(modalElement.data('bs.modal')._backdrop).css('background-color','transparent')
       }
     },
     _close(){
@@ -51,3 +70,14 @@ export default {
   }
 }
 </script>
+<style scoped>
+/* .modal-backdrop {
+   background-color: transparent;
+} */
+.w-90 {
+  width: 90%;
+}
+.w-10 {
+  width: 10%;
+}
+</style>
