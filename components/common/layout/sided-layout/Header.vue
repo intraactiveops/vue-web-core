@@ -25,7 +25,7 @@
           <fa icon="ellipsis-h"  />
         </button>
         <div class="dropdown-menu w-100 dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-          <a v-for="(menu, index) in togglableMenuList" @click="toggleMenu(index, $event)" class="dropdown-item" href="javaScript:void(0)"><div @click="" class="w-100"><fa :icon="menu['icon']" /> {{menu['name']}} <fa v-if="menu['is_toggled']" class="float-right" icon="check" /></div></a>
+          <a v-for="(menu, index) in togglableMenuList" @click="toggleMenu(index, $event)" class="dropdown-item" href="javaScript:void(0)"><div class="w-100"><fa :icon="menu['icon']" /> {{menu['name']}} <fa v-if="menu['is_toggled']" class="float-right" icon="check" /></div></a>
         </div>
       </div>
       <div style="clear:both"></div>

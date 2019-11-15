@@ -91,7 +91,6 @@ export default {
       if(this.isVideo){
         setTimeout(() => {
           this.$refs.videoPlayer.play()
-
         }, 200)
       }
     },

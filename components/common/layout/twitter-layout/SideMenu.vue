@@ -41,7 +41,6 @@ export default {
     }
   },
   mounted(){
-
     let swiper = new Swipe(this.$refs.layout)
     swiper.onLeft(() => {
       if(this.leftSideBarActive){
@@ -71,7 +70,6 @@ export default {
       // this.currentRouteName = to.$route.name.toLowerCase()
     }
   },
-
 
 }
 </script>
