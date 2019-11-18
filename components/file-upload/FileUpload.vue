@@ -1,12 +1,16 @@
 <template>
   <div style="float:left">
-    <button class="btn btn-outline-primary text-dark" type="button" @click="_fileInputClicked" ><fa :icon="'paperclip'" /></button>
+    <button class="btn btn-outline-primary text-dark" type="button" @click="_fileInputClicked" ><fa-multimedia /></button>
     <input ref="fileInput" type="file" multiple="multiple" id="attachments" accept="*" @change="uploadFieldChange" style="display:none" />
   </div>
 </template>
 <script>
 import Config from '@/vue-web-core/system/config.js'
+import faMultimedia from '@/vue-web-core/components/fontawesome/Multimedia.vue'
 export default {
+  components: {
+    faMultimedia
+  },
   data() {
     return {
       uploadPercentage: null,
