@@ -4,27 +4,27 @@
       <div class="modal-dialog my-3 border-0 bg-transparent" role="document" style="">
 
         <div v-show="!isLoading" class="modal-content bg-transparent"  v-bind:style="{width: (imageElementDimension.width) + 'px', 'margin-top' : ((windowDimension.height - imageElementDimension.height) / 2) + 'px'}">
-            <div class="w-100 bg-transparent" style="margin-top:-37px"><button @click="_close" class="btn btn-lg text-white p-0 float-right"><fa icon="times" /></button></div>
-            <div v-if="typeof links !== 'undefined' && links.length > 1" style="position:absolute" class="navigation" v-bind:style="{'margin-top': ((imageElementDimension.height - 20) / 2) +'px', width: (imageElementDimension.width + 71) + 'px'}">
-              <button @click="(imageIndex > 0) ? imageIndex-- : imageIndex = links.length - 1" class="navButton btn-lg p-0 "><fa icon="chevron-left" /></button>
-              <button @click="(imageIndex < links.length - 1) ? imageIndex++ : imageIndex = 0" class="navButton  btn-lg p-0 float-right"><fa icon="chevron-right" /></button>
-              <div class="log bg-white w-100 fade">
-                {{windowDimension}}<br>
-                {{maxViewerDimension}}<br>
-                {{imageElementDimension}}<br>
-                {{links[imageIndex]}}<br>
-                {{isVideo}}<br>
-                {{windowDimension.height}} {{(imageElementDimension / 2) +'px'}}
-              </div>
+          <div class="w-100 bg-transparent" style="margin-top:-37px"><button @click="_close" class="btn btn-lg text-white p-0 float-right"><fa icon="times" /></button></div>
+          <div v-if="typeof links !== 'undefined' && links.length > 1" style="position:absolute" class="navigation" v-bind:style="{'margin-top': ((imageElementDimension.height - 20) / 2) +'px', width: (imageElementDimension.width + 71) + 'px'}">
+            <button @click="(imageIndex > 0) ? imageIndex-- : imageIndex = links.length - 1" class="navButton btn-lg p-0 "><fa icon="chevron-left" /></button>
+            <button @click="(imageIndex < links.length - 1) ? imageIndex++ : imageIndex = 0" class="navButton  btn-lg p-0 float-right"><fa icon="chevron-right" /></button>
+            <div class="log bg-white w-100 fade">
+              {{windowDimension}}<br>
+              {{maxViewerDimension}}<br>
+              {{imageElementDimension}}<br>
+              {{links[imageIndex]}}<br>
+              {{isVideo}}<br>
+              {{windowDimension.height}} {{(imageElementDimension / 2) +'px'}}
             </div>
-            <template v-if="typeof links[imageIndex] === 'undefined'">
-              undfined {{imageIndex}}
-            </template>
-            <video-player ref="videoPlayer" v-else-if="isVideo" :options="{sources: [{type: 'video/mp4', src: links[imageIndex]}]}" />
-            <img ref="image" v-bind:src="links[imageIndex]" style="width:100%; height:100%;">
-            <div class="footer w-100 p-2 transparent-dark">
-              <slot name="footer"></slot>
-            </div>
+          </div>
+          <template v-if="typeof links[imageIndex] === 'undefined'">
+            undfined {{imageIndex}}
+          </template>
+          <video-player ref="videoPlayer" v-else-if="isVideo" :options="{sources: [{type: 'video/mp4', src: links[imageIndex]}]}" />
+          <img ref="image" v-bind:src="links[imageIndex]" style="width:100%; height:100%;">
+          <div class="footer w-100 p-2 transparent-dark">
+            <slot name="footer"></slot>
+          </div>
         </div>
         <div v-if="isLoading" class="text-white">
           Loading...
@@ -99,7 +99,6 @@ export default {
       $(this.$refs.modal).modal('hide')
     },
     checkIfVideo(){
-      console.log('hey', this.links, this.links[this.imageIndex], this.links[this.imageIndex].indexOf('.mp4'))
       if(typeof this.links[this.imageIndex] !== 'undefined' && this.links[this.imageIndex].indexOf('.mp4') > 0){
         this.isVideo = true
       }else{
@@ -107,6 +106,10 @@ export default {
       }
     },
     resizeImage(){
+      if(typeof $(this.$refs.image)[0] === 'undefined'){
+        console.log('Image is undefined', this.links)
+        return false
+      }
       this.isLoading = true
       let natWidth = $(this.$refs.image)[0].naturalWidth
       let natHeight = $(this.$refs.image)[0].naturalHeight

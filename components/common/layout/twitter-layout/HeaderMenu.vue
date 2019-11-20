@@ -10,7 +10,7 @@
           <button type="button" class="btn rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <fa-layers full-width class="fa-lg">
               <fa icon="envelope"/>
-              <fa-layers-text class="bubble-style" transform="up-6  right-15 shrink-4" value="1"/>
+              <fa-layers-text class="bubble-style " transform="up-6  right-15 shrink-4" value="1"/>
             </fa-layers>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
@@ -29,6 +29,8 @@
           <div class="dropdown-menu dropdown-menu-right">
             <button class="dropdown-item py-0" type="button">Someone liked your post</button>
             <button class="dropdown-item py-0" type="button">Your post has been reported</button>
+            <div class="dropdown-divider" style=""></div>
+            <router-link to="/notification" class="dropdown-item py-0 "  title="View All Channel">Show All Notifications</router-link>
           </div>
         </div>
         <router-link class="btn centerMenuItem rounded-0" to="/newsfeed"><fa icon="user-check" class="fa-lg"/></router-link>

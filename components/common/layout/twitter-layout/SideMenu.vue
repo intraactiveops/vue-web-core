@@ -6,7 +6,7 @@
       </div>
       &nbsp; <!--Dont remove this. Sidebar dont work-->
     </div>
-    <div class="body px-1" style=" float:left">
+    <div class="body px-1" style="float:left; min-height: 20px">
       <slot name="body">
       </slot>
     </div>

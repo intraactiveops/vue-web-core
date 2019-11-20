@@ -5,6 +5,8 @@ let shortMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'S
 let formatDate = (datetime, format) => {
   let datetimeObject = new Date(datetime)
   switch(format){
+    case 'mm/dd/yy hh:mm':
+      return QuickHelper.padNumber(datetimeObject.getMonth() + 1) + '/' + QuickHelper.padNumber(datetimeObject.getDate()) + '/' + QuickHelper.padNumber(datetimeObject.getYear() - 100) + ' ' + time12HourFormat(datetimeObject.getHours(), datetimeObject.getMinutes()) //QuickHelper.padNumber(datetimeObject.getHours()) + ':' + QuickHelper.padNumber(datetimeObject.getMinutes())
     default:
       return shortMonthName[datetimeObject.getMonth()] + ' ' + datetimeObject.getDate() + ', ' + datetimeObject.getFullYear()
   }
