@@ -4,10 +4,10 @@
       <div class="header-left">
         <search-bar />
       </div>
-      <div class="header-center px-1" >
+      <div class="header-center px-1 d-flex justify-content-around" style="height: 40px;">
         <router-link class="btn centerMenuItem rounded-0" to="/newsfeed"><fa icon="home" class="fa-lg"/></router-link>
         <div class="btn-group centerMenuItem">
-          <button type="button" class="btn rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button type="button" class="btn rounded-0 pt-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <fa-layers full-width class="fa-lg">
               <fa icon="envelope"/>
               <fa-layers-text class="bubble-style " transform="up-6  right-15 shrink-4" value="1"/>
@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="btn-group centerMenuItem">
-          <button type="button" class="btn rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button type="button" class="btn rounded-0 pt-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <fa-layers full-width class="fa-lg">
               <fa icon="bell"/>
               <fa-layers-text class="bubble-style" transform="up-6  right-15 shrink-4" value="1"/>
@@ -35,7 +35,7 @@
         </div>
         <router-link class="btn centerMenuItem rounded-0" to="/newsfeed"><fa icon="user-check" class="fa-lg"/></router-link>
         <div class="btn-group centerMenuItem">
-          <button type="button" class="btn border-0 rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button type="button" class="btn border-0 rounded-0 pt-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img class="rounded-circle mr-1" v-bind:src="profilePictureLink" style="width:30px;">
           </button>
           <div class="dropdown-menu dropdown-menu-right pt-3 pb-1 ">
@@ -102,9 +102,9 @@ export default {
 }
 </script>
 <style scoped>
-.centerMenuItem{
+/* .centerMenuItem{
   width: calc(100% / 5)
-}
+} */
 .header-left{
   width: calc((100% - 500px) / 2);
   float:left;
