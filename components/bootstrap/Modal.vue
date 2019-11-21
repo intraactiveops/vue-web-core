@@ -4,12 +4,6 @@
       <div v-bind:class="'modal-' + size" class="modal-dialog" role="document" :style="paddingTop ? {'padding-top': paddingTop} : {}">
         <div class="modal-content">
           <div v-if="title" class="modal-header">
-            <template v-if="!newLayout">
-              <h5 class="modal-title" id="exampleModalLabel"><fa v-if="false" :icon="icon" /> {{title}} </h5>
-              <button v-if="closeable" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </template>
             <template v-if="newLayout">
               <div class="card-header py-1 px-2 bg-whitesmoke border-0 rounded w-100 d-flex align-items-stretch">
                 <div class="w-90">
@@ -21,6 +15,12 @@
                   </button>
                 </div>
               </div>
+            </template>
+            <template v-else>
+              <h5 class="modal-title" id="exampleModalLabel"><fa v-if="false" :icon="icon" /> {{title}} </h5>
+              <button v-if="closeable" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </template>
           </div>
           <div class="modal-body">
