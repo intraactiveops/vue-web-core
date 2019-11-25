@@ -35,7 +35,7 @@ export default{
           bubble: 0
         },
         project: {
-          text:'Projects',
+          text: 'Projects',
           icon: 'project-diagram',
           bubble: 0
         },
@@ -59,8 +59,8 @@ export default{
   },
   methods: {
     reloadSetting(){
-      let savedSetting
-      if(savedSetting = localStorage.getItem('side_menu_setting')){
+      let savedSetting = localStorage.getItem('side_menu_setting')
+      if(savedSetting){
         let sideMenuSetting = JSON.parse(savedSetting)
         SideMenuStore.commit('reset', sideMenuSetting)
       }
