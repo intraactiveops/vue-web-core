@@ -4,14 +4,22 @@
       <div class="header-left">
         <search-bar />
       </div>
-      <div class="header-center px-1" >
-        <router-link class="btn centerMenuItem rounded-0" to="/newsfeed"><fa icon="home" class="fa-lg"/></router-link>
+      <div class="header-center px-1 d-flex justify-content-around" style="height: 40px;">
+        <router-link class="btn centerMenuItem direct rounded-0" to="/newsfeed">
+          <div>
+            <fa icon="home" class="fa-lg"/>
+          </div>
+          <small class="menuItemDescription w-100">Newsfeed</small>
+        </router-link>
         <div class="btn-group centerMenuItem">
-          <button type="button" class="btn rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <fa-layers full-width class="fa-lg">
-              <fa icon="envelope"/>
-              <fa-layers-text class="bubble-style" transform="up-6  right-15 shrink-4" value="1"/>
-            </fa-layers>
+          <button type="button" class="btn rounded-0 pt-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div>
+              <fa-layers full-width class="fa-lg">
+                <fa icon="envelope"/>
+                <fa-layers-text class="bubble-style " transform="up-6  right-15 shrink-4" value="1"/>
+              </fa-layers>
+            </div>
+            <small class="menuItemDescription w-100">ME</small>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <router-link to="/channel/null" class="dropdown-item py-0"  title="Compose Message"><fa icon="paper-plane" fixed-width /> Create Channel</router-link>
@@ -20,21 +28,34 @@
           </div>
         </div>
         <div class="btn-group centerMenuItem">
-          <button type="button" class="btn rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <fa-layers full-width class="fa-lg">
-              <fa icon="bell"/>
-              <fa-layers-text class="bubble-style" transform="up-6  right-15 shrink-4" value="1"/>
-            </fa-layers>
+          <button type="button" class="btn rounded-0 pt-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            <div class="w-100">
+              <fa-layers full-width class="fa-lg">
+                <fa icon="bell"/>
+                <fa-layers-text class="bubble-style" transform="up-6  right-15 shrink-4" value="1"/>
+              </fa-layers>
+            </div>
+            <small class="menuItemDescription w-100">Notification</small>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <button class="dropdown-item py-0" type="button">Someone liked your post</button>
             <button class="dropdown-item py-0" type="button">Your post has been reported</button>
+            <div class="dropdown-divider" style=""></div>
+            <router-link to="/notification" class="dropdown-item py-0 "  title="View All Channel">Show All Notifications</router-link>
           </div>
         </div>
-        <router-link class="btn centerMenuItem rounded-0" to="/newsfeed"><fa icon="user-check" class="fa-lg"/></router-link>
+        <router-link class="btn centerMenuItem direct rounded-0" to="/newsfeed">
+          <div>
+            <fa icon="user-check" class="fa-lg"/>
+          </div>
+          <small class="menuItemDescription w-100">Following</small>
+        </router-link>
         <div class="btn-group centerMenuItem">
-          <button type="button" class="btn border-0 rounded-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img class="rounded-circle mr-1" v-bind:src="profilePictureLink" style="width:30px;">
+          <button type="button" class="btn border-0 rounded-0 pt-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div>
+              <img class="rounded-circle mr-1" v-bind:src="profilePictureLink" style="width:26px;">
+            </div>
+            <small class="menuItemDescription w-100">Profile</small>
           </button>
           <div class="dropdown-menu dropdown-menu-right pt-3 pb-1 ">
             <router-link class="px-3" to="/user">
@@ -100,9 +121,9 @@ export default {
 }
 </script>
 <style scoped>
-.centerMenuItem{
+/* .centerMenuItem{
   width: calc(100% / 5)
-}
+} */
 .header-left{
   width: calc((100% - 500px) / 2);
   float:left;
@@ -118,12 +139,12 @@ export default {
   line-height: 1.4em
 }
 .headerContainer {
-  height: 55px; /* This size is based on twiter*/
+  height: 58px; /* This size is based on twiter*/
 }
 .header {
   position: fixed;
   z-index: 2;
-  height: 48px;
+  height: 50px;
 }
 .bubble-style{
   background-color: red;
@@ -133,5 +154,17 @@ export default {
   font-size: 0.60em;
   padding: 0.3em;
   width: 1.8em
+}
+.centerMenuItem > button:first-child, .centerMenuItem.direct{
+  line-height: 11px
+}
+.centerMenuItem .menuItemDescription{
+  visibility: hidden;
+}
+.centerMenuItem:hover .menuItemDescription, .centerMenuItem > button:hover .menuItemDescription{
+  visibility: visible;
+}
+.centerMenuItem:focus .menuItemDescription, .centerMenuItem > button:focus .menuItemDescription{
+  visibility: visible;
 }
 </style>

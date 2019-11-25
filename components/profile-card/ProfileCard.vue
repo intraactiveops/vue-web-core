@@ -56,7 +56,7 @@
             </tr>
             <tr>
               <td>Address</td>
-              <td>Basak Pardo, Cebu City</td>
+              <td>{{ current_address || 'N/A' }}</td>
             </tr>
           </table>
         </div>
@@ -73,6 +73,7 @@ export default {
     profile_picture_file_name: String, // the file name of the profile picture
     full_name: String,
     job_title: String,
+    current_address: String,
     parent: String
   },
   mounted() {
@@ -121,12 +122,8 @@ export default {
     position: absolute;
     z-index: 4;
     background: #fff;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -moz-box-shadow: 0px 0px 5px #000000;
-    -webkit-box-shadow: 0px 0px 5px #000000;
-    box-shadow: 0px 0px 5px #000000;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
 }
 
 .profile-card.channel-member-list{
