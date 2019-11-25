@@ -69,7 +69,7 @@ export default {
         modalElement.modal({ backdrop: 'static', keyboard: false })
       }
       if(this.bgTransparent){
-        $(modalElement.data('bs.modal')._backdrop).css('background-color','transparent')
+        $(modalElement.data('bs.modal')._backdrop).css('background-color', 'transparent')
       }
     },
     _close(){

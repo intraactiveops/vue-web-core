@@ -20,7 +20,7 @@
 import SystemStore from '@/vue-web-core/system/store.js'
 export default{
   mounted(){
-    SystemStore.commit('setCompanyInformation', {id: this.selectedAuthorizedChannelIndex, name: this.authorizedChannels[this.selectedAuthorizedChannelIndex]['name']})
+    SystemStore.commit('setCompanyInformation', { id: this.selectedAuthorizedChannelIndex, name: this.authorizedChannels[this.selectedAuthorizedChannelIndex]['name'] })
   },
   data(){
     return {
@@ -40,7 +40,7 @@ export default{
   },
   watch: {
     selectedAuthorizedChannelIndex(newData){
-      SystemStore.commit('setCompanyInformation', {id: newData, name: this.authorizedChannels[newData]['name']})
+      SystemStore.commit('setCompanyInformation', { id: newData, name: this.authorizedChannels[newData]['name'] })
     }
   }
 }
