@@ -9,7 +9,7 @@
           <div>
             <fa icon="home" class="fa-lg"/>
           </div>
-          <small class="menuItemDescription w-100">Newsfeed</small>
+          <small :class="activeMenu === 'Newsfeed' ? 'active' : ''" class="menuItemDescription w-100">Newsfeed</small>
         </router-link>
         <div class="btn-group centerMenuItem">
           <button type="button" class="btn rounded-0 pt-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -19,7 +19,7 @@
                 <fa-layers-text class="bubble-style " transform="up-6  right-15 shrink-4" value="1"/>
               </fa-layers>
             </div>
-            <small class="menuItemDescription w-100">ME</small>
+            <small :class="activeMenu === 'ViewChannel' || activeMenu === 'Channel' ? 'active' : ''" class="menuItemDescription w-100">ME</small>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <router-link to="/channel/null" class="dropdown-item py-0"  title="Compose Message"><fa icon="paper-plane" fixed-width /> Create Channel</router-link>
@@ -35,7 +35,7 @@
                 <fa-layers-text class="bubble-style" transform="up-6  right-15 shrink-4" value="1"/>
               </fa-layers>
             </div>
-            <small class="menuItemDescription w-100">Notification</small>
+            <small :class="activeMenu === 'Notification' ? 'active' : ''" class="menuItemDescription w-100">Notification</small>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <button class="dropdown-item py-0" type="button">Someone liked your post</button>
@@ -46,16 +46,16 @@
         </div>
         <router-link class="btn centerMenuItem direct rounded-0" to="/newsfeed">
           <div>
-            <fa icon="user-check" class="fa-lg"/>
+            <fa icon="project-diagram" class="fa-lg"/>
           </div>
-          <small class="menuItemDescription w-100">Following</small>
+          <small :class="activeMenu === 'Project' ? 'active' : ''" class="menuItemDescription w-100">Project</small>
         </router-link>
         <div class="btn-group centerMenuItem">
           <button type="button" class="btn border-0 rounded-0 pt-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div>
               <img class="rounded-circle mr-1" v-bind:src="profilePictureLink" style="width:26px;">
             </div>
-            <small class="menuItemDescription w-100">Profile</small>
+            <small :class="activeMenu === 'ViewProfile' ? 'active' : ''" class="menuItemDescription w-100">Profile</small>
           </button>
           <div class="dropdown-menu dropdown-menu-right pt-3 pb-1 ">
             <router-link class="px-3" to="/user">
@@ -91,6 +91,11 @@ export default {
     PageSetting,
     AuthorizedChannel
   },
+  data(){
+    return {
+      activeMenu: 'Newsfeed'
+    }
+  },
   methods: {
     logout(){
       store.commit('setAuthToken', null)
@@ -99,6 +104,12 @@ export default {
     },
     openPageSetting(){
       this.$refs.pageSetting._open()
+    }
+  },
+  watch: {
+    '$route'(to, from){
+      this.activeMenu = to.name
+      console.log('path', to.name)
     }
   },
   computed: {
@@ -124,6 +135,9 @@ export default {
 /* .centerMenuItem{
   width: calc(100% / 5)
 } */
+.menuItemDescription.active{
+  visibility: visible!important
+}
 .header-left{
   width: calc((100% - 500px) / 2);
   float:left;
