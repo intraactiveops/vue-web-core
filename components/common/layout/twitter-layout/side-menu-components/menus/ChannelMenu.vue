@@ -2,7 +2,7 @@
   <div>
     <side-menu-container name="Media Exchange" :keep-on="currentRouteName === 'channel'">
       <template v-slot:body>
-        <channel-list-menu  />
+        <channel-list-menu :activity-toggle="activityToggle" />
       </template>
     </side-menu-container>
   </div>
@@ -14,6 +14,9 @@ export default{
   components: {
     ChannelListMenu,
     SideMenuContainer
+  },
+  props: {
+    activityToggle: Boolean
   },
   data(){
     return {
