@@ -1,10 +1,10 @@
 <template>
   <div>
-    <side-menu-container v-show="toggleMenu['dailyEvent']" name="Todays Event">
+    <!-- <side-menu-container v-show="toggleMenu['dailyEvent']" name="Todays Event">
       <template v-slot:body>
         <event-menu />
       </template>
-    </side-menu-container>
+    </side-menu-container> -->
     <channel-menu v-show="toggleMenu['channel']" />
     <side-menu-container  v-show="toggleMenu['activity']" name="Activity">
       <template v-slot:body>

@@ -5,12 +5,36 @@
         <search-bar />
       </div>
       <div class="header-center px-1 d-flex justify-content-around" style="height: 40px;">
-        <router-link class="btn centerMenuItem direct rounded-0" to="/newsfeed">
-          <div>
-            <fa icon="home" class="fa-lg"/>
+        <div class="btn-group centerMenuItem">
+          <button type="button" class="btn rounded-0 pt-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            <div class="w-100">
+              <fa-layers full-width class="fa-lg">
+                <fa icon="home"/>
+                <fa-layers-text class="bubble-style" transform="up-6  right-15 shrink-4" value="1"/>
+              </fa-layers>
+            </div>
+            <template v-if="activeMenu === 'Newsfeed'">
+              <small :class="activeMenu === 'Newsfeed' ? 'active' : ''" class="menuItemDescription w-100">Newsfeed</small>
+            </template>
+            <template v-if="activeMenu === 'Network'">
+              <small :class="activeMenu === 'Network' ? 'active' : ''" class="menuItemDescription w-100">Network</small>
+            </template>
+          </button>
+          <div class="dropdown-menu px-3" style="width: 250px">
+            <router-link class="dropdown-item py-0 px-0" to="/newsfeed">
+                <fa icon="home"/> Home
+            </router-link>
+            <div class="dropdown-divider"></div>
+            <div class="mb-0">
+              <following-menu />
+            </div>
+            <div class="dropdown-divider"></div>
+            <div>
+              <div class="form-control-label px-2">Networks</div>
+              <network-list />
+            </div>
           </div>
-          <small :class="activeMenu === 'Newsfeed' ? 'active' : ''" class="menuItemDescription w-100">Newsfeed</small>
-        </router-link>
+        </div>
         <div class="btn-group centerMenuItem">
           <button type="button" class="btn rounded-0 pt-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div>
@@ -44,12 +68,31 @@
             <router-link to="/notification" class="dropdown-item py-0 "  title="View All Channel">Show All Notifications</router-link>
           </div>
         </div>
-        <router-link class="btn centerMenuItem direct rounded-0" to="/newsfeed">
-          <div>
-            <fa icon="project-diagram" class="fa-lg"/>
+        <div class="btn-group centerMenuItem">
+          <button type="button" class="btn rounded-0 pt-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            <div class="w-100">
+              <fa-layers full-width class="fa-lg">
+                <fa icon="project-diagram" />
+                <fa-layers-text class="bubble-style" transform="up-6  right-15 shrink-4" value="1"/>
+              </fa-layers>
+            </div>
+            <small :class="activeMenu === 'Project' ? 'active' : ''" class="menuItemDescription w-100">Project</small>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right" style="width: 300px">
+            <button class="dropdown-item py-o px-2" type="button">
+              <name-tag :small-name="true" line-height="12px" class="mb-2" name="Andrea James" :profile-photo="require('@/assets/test-img/andrea.png')">
+                <template v-slot:beforeName><strong class="small font-weight-bold text-info">Vue JS Web App</strong></template>
+                <template v-slot:afterName><small >Created a new task for you</small></template>
+              </name-tag>
+              <name-tag :small-name="true" line-height="12px" class="mb-2" name="Nate Sullivan" :profile-photo="require('@/assets/test-img/nate.png')">
+                <template v-slot:beforeName><strong class="small font-weight-bold text-info">PHP Dev Phase 2</strong></template>
+                <template v-slot:afterName><small >Commented on a task</small></template>
+              </name-tag>
+            </button>
+            <div class="dropdown-divider" style=""></div>
+            <router-link to="/newsfeed" class="dropdown-item py-0 "  title="View All Channel">Show All Projects</router-link>
           </div>
-          <small :class="activeMenu === 'Project' ? 'active' : ''" class="menuItemDescription w-100">Project</small>
-        </router-link>
+        </div>
         <div class="btn-group centerMenuItem">
           <button type="button" class="btn border-0 rounded-0 pt-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div>
@@ -85,11 +128,17 @@ import store from '@/vue-web-core/system/store'
 import SearchBar from './header-menu-components/left-components/SearchBar'
 import PageSetting from './header-menu-components/PageSetting'
 import AuthorizedChannel from './header-menu-components/AuthorizedChannel'
+import NetworkList from './side-menu-components/menus/NetworkMenu'
+import FollowingMenu from './side-menu-components/menus/FollowingMenu'
+import NameTag from '@/vue-web-core/components/name-tag/NameTag'
 export default {
   components: {
     SearchBar,
     PageSetting,
-    AuthorizedChannel
+    AuthorizedChannel,
+    NetworkList,
+    FollowingMenu,
+    NameTag
   },
   data(){
     return {

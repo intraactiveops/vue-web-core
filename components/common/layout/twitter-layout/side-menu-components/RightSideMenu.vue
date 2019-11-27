@@ -5,7 +5,12 @@
         <project-menu  />
       </template>
     </side-menu-container>
-    <side-menu-container v-show="toggleMenu['following']" name="Following">
+    <side-menu-container v-show="toggleMenu['dailyEvent']" name="Todays Event">
+      <template v-slot:body>
+        <event-menu />
+      </template>
+    </side-menu-container>
+    <!-- <side-menu-container v-show="toggleMenu['following']" name="Following">
       <template v-slot:body>
         <following-menu  />
       </template>
@@ -14,7 +19,7 @@
       <template v-slot:body>
         <network-menu  />
       </template>
-    </side-menu-container>
+    </side-menu-container> -->
     <contact-menu v-show="toggleMenu['contact']" />
   </div>
 </template>
@@ -24,7 +29,7 @@ import NetworkMenu from './menus/NetworkMenu'
 import ProjectMenu from './menus/ProjectMenu'
 import FollowingMenu from './menus/FollowingMenu'
 import ContactMenu from './menus/ContactMenu'
-
+import EventMenu from './menus/EventMenu'
 import SideMenuStore from './side-menu-store.js'
 export default{
   components: {
@@ -32,7 +37,8 @@ export default{
     NetworkMenu,
     ProjectMenu,
     FollowingMenu,
-    ContactMenu
+    ContactMenu,
+    EventMenu
   },
   computed: {
     toggleMenu(){
