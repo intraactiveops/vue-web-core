@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout mb-2">
     <side-menu-container name="Media Exchange" :keep-on="currentRouteName === 'channel'">
       <template v-slot:body>
         <channel-list-menu :activity-toggle="activityToggle" />
