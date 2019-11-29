@@ -3,7 +3,7 @@
     <div class="text-center w-100 bg-whitesmoke p-1 mb-2 rounded font-weight-bold">Quick Access Menu</div>
     <label class="w-100 pb-0">
       <template v-for="(menuItem, menuName) in menus">
-        <div @click.self="menuToggle(menuName)" class="w-100 mb-2 c-pointer">
+        <div @click.self="menuToggle(menuName)" @click.stop class="w-100 mb-2 c-pointer">
           <fa  :icon="menu[menuName] ? 'check' : 'minus'" class="mr-2" /> <fa :icon="menuItem['icon']" /> {{menuItem['text']}} <span  v-if="menuItem['bubble']" class="badge badge-pill badge-danger">{{menuItem['bubble']}}</span>
         </div>
       </template>
