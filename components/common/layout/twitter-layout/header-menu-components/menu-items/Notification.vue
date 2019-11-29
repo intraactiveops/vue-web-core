@@ -10,7 +10,7 @@
       <small :class="activeMenu === 'Notification' ? 'active' : ''" class="menuItemDescription w-100">Notification</small>
     </button>
     <div class="dropdown-menu dropdown-menu-right">
-      <h6 class="dropdown-header font-weight-bold text-primary">Notification</h6>
+      <h6 class="dropdown-header font-weight-bold text-primary">Notifications</h6>
       <button class="dropdown-item py-0" type="button">Someone liked your post</button>
       <button class="dropdown-item py-0" type="button">Your post has been reported</button>
       <div class="dropdown-divider" style=""></div>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  @click.stop>
     <div class="text-center w-100 bg-whitesmoke p-1 mb-2 rounded font-weight-bold">Quick Access Menu</div>
     <label class="w-100 pb-0">
       <template v-for="(menuItem, menuName) in menus">

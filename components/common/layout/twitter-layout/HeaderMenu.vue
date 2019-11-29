@@ -17,6 +17,7 @@
             <small :class="activeMenu === 'ViewChannel' || activeMenu === 'Channel' ? 'active' : ''" class="menuItemDescription w-100">ME</small>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
+            <h6 class="dropdown-header font-weight-bold text-primary">ME</h6>
             <router-link to="/channel/null" class="dropdown-item py-0"  title="Compose Message"><fa icon="paper-plane" fixed-width /> Create Channel</router-link>
             <div class="dropdown-divider" style=""></div>
             <router-link to="/channel" class="dropdown-item py-0"  title="View All Channel">View All Channels</router-link>
@@ -33,12 +34,16 @@
             </div>
             <small :class="activeMenu === 'Project' ? 'active' : ''" class="menuItemDescription w-100">Project</small>
           </button>
-          <div class="dropdown-menu dropdown-menu-right" style="width: 300px">
-            <button class="dropdown-item py-o px-2" type="button">
+          <div class="dropdown-menu dropdown-menu-right " style="width: 300px">
+            <h6 class="dropdown-header font-weight-bold text-primary">Projects</h6>
+            <button class="dropdown-item py-o" type="button">
               <name-tag :small-name="true" line-height="12px" class="mb-2" name="Andrea James" :profile-photo="require('@/assets/test-img/andrea.png')">
                 <template v-slot:beforeName><strong class="small font-weight-bold text-info">Vue JS Web App</strong></template>
                 <template v-slot:afterName><small >Created a new task for you</small></template>
               </name-tag>
+
+            </button>
+            <button class="dropdown-item py-o" type="button">
               <name-tag :small-name="true" line-height="12px" class="mb-2" name="Nate Sullivan" :profile-photo="require('@/assets/test-img/nate.png')">
                 <template v-slot:beforeName><strong class="small font-weight-bold text-info">PHP Dev Phase 2</strong></template>
                 <template v-slot:afterName><small >Commented on a task</small></template>
