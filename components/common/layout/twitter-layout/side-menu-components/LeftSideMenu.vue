@@ -5,7 +5,7 @@
         <event-menu />
       </template>
     </side-menu-container> -->
-    <channel-menu v-show="toggleMenu['channel']" />
+    <channel-menu v-show="toggleMenu['channel']" :activity-toggle="toggleMenu['activity']" />
     <side-menu-container  v-show="toggleMenu['activity']" name="Activity">
       <template v-slot:body>
         <activity-menu />
