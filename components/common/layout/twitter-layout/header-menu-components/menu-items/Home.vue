@@ -48,3 +48,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.centerMenuItem:focus .menuItemDescription, .centerMenuItem > button:focus .menuItemDescription{
+  visibility: hidden!important;
+}
+</style>

@@ -10,11 +10,11 @@
       <small :class="activeMenu === 'Notification' ? 'active' : ''" class="menuItemDescription w-100">Notification</small>
     </button>
     <div class="dropdown-menu dropdown-menu-right">
-      <h6 class="dropdown-header font-weight-bold text-primary">Notifications</h6>
-      <button class="dropdown-item py-0" type="button">Someone liked your post</button>
-      <button class="dropdown-item py-0" type="button">Your post has been reported</button>
-      <div class="dropdown-divider" style=""></div>
-      <router-link to="/notification" class="dropdown-item py-0 "  title="View All Channel">Show All Notifications</router-link>
+      <h6 class="dropdown-header font-weight-bold text-primary px-3">Notifications</h6>
+      <button class="dropdown-item py-0 px-3" type="button">Someone liked your post</button>
+      <button class="dropdown-item py-0 px-3" type="button">Your post has been reported</button>
+      <div class="dropdown-divider px-3" style=""></div>
+      <router-link to="/notification" class="dropdown-item py-0  px-3"  title="View All Channel">Show All Notifications</router-link>
     </div>
   </div>
 </template>
@@ -25,3 +25,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.centerMenuItem:focus .menuItemDescription, .centerMenuItem > button:focus .menuItemDescription{
+  visibility: hidden!important;
+}
+</style>

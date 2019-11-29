@@ -1,13 +1,13 @@
 <template>
   <div >
-    <side-menu-container v-show="toggleMenu['project']" name="Projects">
-      <template v-slot:body>
-        <project-menu  />
-      </template>
-    </side-menu-container>
     <side-menu-container v-show="toggleMenu['dailyEvent']" name="Todays Event">
       <template v-slot:body>
         <event-menu />
+      </template>
+    </side-menu-container>
+    <side-menu-container v-show="toggleMenu['project']" name="Projects">
+      <template v-slot:body>
+        <project-menu  />
       </template>
     </side-menu-container>
     <!-- <side-menu-container v-show="toggleMenu['following']" name="Following">
