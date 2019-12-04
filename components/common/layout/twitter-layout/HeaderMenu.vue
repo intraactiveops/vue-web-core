@@ -103,9 +103,9 @@ export default {
 /deep/ .centerMenuItem .menuItemDescription{
   visibility: hidden;
 }
-/deep/ .centerMenuItem:hover .menuItemDescription, .centerMenuItem > button:hover .menuItemDescription{
+/* /deep/ .centerMenuItem:hover .menuItemDescription, .centerMenuItem > button:hover .menuItemDescription{
   visibility: visible;
-}
+} */
 /deep/ .centerMenuItem:focus .menuItemDescription, .centerMenuItem > button:focus .menuItemDescription{
   visibility: hidden!important;
 }
