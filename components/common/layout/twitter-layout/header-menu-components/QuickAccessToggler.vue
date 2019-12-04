@@ -39,16 +39,6 @@ export default{
           icon: 'project-diagram',
           bubble: 0
         },
-        following: {
-          text: 'Following',
-          icon: 'user-check',
-          bubble: 0
-        },
-        network: {
-          text: 'Network',
-          icon: 'tv',
-          bubble: 0
-        },
         contact: {
           text: 'Contacts',
           icon: 'address-book',
