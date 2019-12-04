@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div :class="['profile-card', parent]" v-show="isOpen">
+    <div class="profile-card" :style="{ marginTop: margin.top + 'px', marginLeft: margin.left + 'px' }" v-show="isOpen">
       <div class="profile-card-container p-3">
         <div class="d-flex align-items-start">
           <div class="profile-picture">
@@ -74,7 +74,7 @@ export default {
     full_name: String,
     job_title: String,
     current_address: String,
-    parent: String
+    margin: Object
   },
   mounted() {
     this._close()
@@ -124,15 +124,6 @@ export default {
     background: #fff;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0.3rem;
-}
-
-.profile-card.channel-member-list{
-  margin-left: 20px;
-}
-
-.profile-card.post-viewer{
-  margin-top: -50px;
-  margin-left: 60px;
 }
 
 .profile-card-container {
