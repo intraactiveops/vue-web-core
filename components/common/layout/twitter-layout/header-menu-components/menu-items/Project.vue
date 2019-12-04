@@ -24,7 +24,7 @@
         </name-tag>
       </button>
       <div class="dropdown-divider px-3" style=""></div>
-      <router-link to="/newsfeed" class="dropdown-item py-0  px-3"  title="View All Channel">Show All Projects</router-link>
+      <router-link to="/project-list" class="dropdown-item py-0  px-3"  title="View All Channel">Show All Projects</router-link>
     </div>
   </div>
 </template>
