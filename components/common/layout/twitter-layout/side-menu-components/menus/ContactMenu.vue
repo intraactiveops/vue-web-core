@@ -17,7 +17,7 @@
               <span class="font-weight-bold">{{ contact.name }}</span>
               <profile-card
                 ref="ProfileCard"
-                :margin="{top: -150, left: -285}"
+                :margin="margin"
                 :full_name="contact.name"
                 :profile_picture_file_name="contact.profile_picture"
               />
@@ -31,6 +31,8 @@
 <script>
 
 import ProfileCard from '@/vue-web-core/components/profile-card/ProfileCard'
+import SideMenuStore from './../side-menu-store'
+
 export default {
   components: {
     ProfileCard
@@ -64,6 +66,15 @@ export default {
   methods: {
     openProfileCard(index){
       this.$refs.ProfileCard[index]._toggle()
+    }
+  },
+  computed: {
+    margin() {
+      if (SideMenuStore.state.dailyEvent || SideMenuStore.state.project) {
+        return {top: -150, left: 35}
+      } else {
+        return {top: -60, left: 35}
+      }
     }
   }
 }
