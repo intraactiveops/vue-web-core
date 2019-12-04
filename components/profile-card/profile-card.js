@@ -31,16 +31,24 @@ let store = new Vuex.Store({
 })
 export default store
 
-$(window).click(event => {
-  if ($(event.target).hasClass('profile-card-toggler') === false) {
-    if ($(event.target).parents('div.profile-card').length === 0) { // outside profile card
-      store.commit('closeAllCards')
-    }
-  }
-})
 
-$(window).keyup(event => {
-  if (event.keyCode === 27) { // ESC key
-    store.commit('closeAllCards')
+var waitForJQuery = setInterval(function () {
+  if (typeof $ != 'undefined') {
+
+    $(window).click(event => {
+      if ($(event.target).hasClass('profile-card-toggler') === false) {
+        if ($(event.target).parents('div.profile-card').length === 0) { // outside profile card
+          store.commit('closeAllCards')
+        }
+      }
+    })
+    
+    $(window).keyup(event => {
+      if (event.keyCode === 27) { // ESC key
+        store.commit('closeAllCards')
+      }
+    })
+
+    clearInterval(waitForJQuery);
   }
-})
+}, 10);
