@@ -71,7 +71,7 @@ export default {
   computed: {
     margin() {
       if (SideMenuStore.state.dailyEvent || SideMenuStore.state.project) {
-        return {top: -160, left: -280}
+        return {top: -145, left: -280}
       } else {
         return {top: -60, left: -280}
       }
