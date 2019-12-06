@@ -4,17 +4,17 @@
       <div  style="position:fixed; width:250px" class="">
         <left-side-menu v-if="leftSideMenuOn"></left-side-menu>
       </div>
-      &nbsp; <!--Dont remove this. Sidebar dont work-->
+      <!-- &nbsp; <!--Dont remove this. Sidebar dont work--> -->
     </div>
     <div class="body px-1" style="float:left; min-height: 20px">
       <slot name="body">
       </slot>
     </div>
     <div v-bind:class="rightSideBarActive ? 'active' : ''" class="rightSideBar "  >
-      <div style="position:fixed; width:250px">
+      <div style="position:fixed; width:250px; z-index:1">
         <right-side-menu v-if="rightSideMenuOn"></right-side-menu>
       </div>
-      &nbsp;
+      <!-- &nbsp; -->
     </div>
   </div>
 </template>
