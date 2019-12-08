@@ -34,7 +34,7 @@
 
 import ProfileCard from '@/vue-web-core/components/profile-card/ProfileCard'
 import SideMenuStore from './../side-menu-store'
-import ContactStore from '@/views/contact/contact'
+import ContactStore from '@/views/contact/contact-store'
 
 export default {
   components: {
