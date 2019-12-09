@@ -4,7 +4,7 @@
       <div  style="position:fixed; width:250px" class="">
         <left-side-menu v-if="leftSideMenuOn"></left-side-menu>
       </div>
-      <!-- &nbsp; <!--Dont remove this. Sidebar dont work--> -->
+      &nbsp;
     </div>
     <div class="body px-1" style="float:left; min-height: 20px">
       <slot name="body">
