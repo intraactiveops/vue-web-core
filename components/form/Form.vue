@@ -32,6 +32,7 @@ export default {
       formData: {},
       validationMessageList: {},
       fieldList: [],
+      requiredFields: {},
       onDataChangeListener: [],
       isDeleteFormData: false,
       getFormDataHook: null
@@ -122,8 +123,12 @@ export default {
           this.setDefault(fieldSetting, 'config', {})
           // TODO dont include plurals because its foreign table. It should be added manually in the request parameter
           this.fieldList.push(fieldSetting['db_name'])
+          if(typeof fieldSetting['is_required'] !== 'undefined' && fieldSetting['is_required']){
+            this.requiredFields[fieldSetting['db_name']] = true
+          }
         }
       }
+      console.log('is required', this.requiredFields)
       return setting
     }
   },
