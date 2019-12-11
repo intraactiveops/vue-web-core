@@ -9,11 +9,17 @@
     <div class="dropdown-menu dropdown-menu-right pt-2 pb-1 px-3" style="width: 250px">
       <h6 class="dropdown-header font-weight-bold text-primary px-0">Profile</h6>
       <router-link class="px-0" to="/user" >
-        <img class="rounded-circle ml-1 mr-1" v-bind:src="profilePictureLink" style="width:40px; float:left">
-        <div style="float:left; line-height: 18px">
-          {{userFullName}}<br>
-          <small>@{{username}}</small>
+        <div class="d-flex justify-content-start">
+          <div class="mr-2">
+            <img class="rounded-circle" v-bind:src="profilePictureLink" style="width:40px;">
+          </div>
+          <div style="line-height: 18px">
+            {{userFullName}}<br>
+            <small>{{username}}</small>
+          </div>
         </div>
+       
+        
       </router-link>
       <div style="clear:both"></div>
       <div class="dropdown-divider mt-3" style=""></div>
@@ -45,7 +51,7 @@ export default {
   },
   computed: {
     username(){
-      return store.state.userInformation.firstName
+      return this.$auth.user().email
     },
     userFullName(){
       return store.state.userInformation.firstName + ' ' + store.state.userInformation.lastName

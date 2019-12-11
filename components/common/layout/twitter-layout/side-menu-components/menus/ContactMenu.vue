@@ -2,7 +2,9 @@
   <div class="mb-2">
     <div class="card w-100 mt-0 border-left-0 border-right-0 border-bottom-0  border-top ">
       <div class="card-header py-1 px-2 border-0 bg-white">
-        <label class=" font-weight-bold mb-0">Contacts</label>
+        <router-link to="/contact">
+          <label class="contacts font-weight-bold mb-0">Contacts</label>
+        </router-link>
       </div>
       <div  class="card-body p-0">
         <ul class="list-group list-group-flush">
@@ -32,36 +34,11 @@
 
 import ProfileCard from '@/vue-web-core/components/profile-card/ProfileCard'
 import SideMenuStore from './../side-menu-store'
+import ContactStore from '@/views/contact/contact-store'
 
 export default {
   components: {
     ProfileCard
-  },
-  data() {
-    return {
-      contacts: [
-        {
-          name: 'Andrea James',
-          profile_picture: require('@/assets/test-img/andrea.png')
-        },
-        {
-          name: 'Chuck Royal',
-          profile_picture: require('@/assets/test-img/chuck.png')
-        },
-        {
-          name: 'Matt Weber',
-          profile_picture: require('@/assets/test-img/matt.png')
-        },
-        {
-          name: 'Nate Sullivan',
-          profile_picture: require('@/assets/test-img/nate.png')
-        },
-        {
-          name: 'Nicolas Brunero',
-          profile_picture: require('@/assets/test-img/nicolas.png')
-        }
-      ]
-    }
   },
   methods: {
     openProfileCard(index){
@@ -75,7 +52,16 @@ export default {
       } else {
         return {top: -60, left: -280}
       }
+    },
+    contacts() {
+      return ContactStore.state.contacts
     }
   }
 }
 </script>
+<style scoped>
+.contacts:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+</style>
