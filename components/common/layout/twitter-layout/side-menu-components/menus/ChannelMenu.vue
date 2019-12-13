@@ -1,5 +1,5 @@
 <template>
-  <div class="layout mb-2">
+  <div class="mb-2">
     <side-menu-container name="Media Exchange" :keep-on="currentRouteName === 'channel'">
       <template v-slot:body>
         <channel-list-menu :activity-toggle="activityToggle" />
@@ -35,8 +35,3 @@ export default{
   }
 }
 </script>
-<style scoped>
-.layout {
-  border-bottom: 3px solid #dee2e6;
-}
-</style>
