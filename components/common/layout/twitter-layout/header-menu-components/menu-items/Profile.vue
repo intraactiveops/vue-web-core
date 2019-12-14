@@ -2,7 +2,7 @@
   <div class="btn-group centerMenuItem">
     <button type="button" class="btn border-0 rounded-0 pt-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <div>
-        <img class="rounded-circle mr-1" v-bind:src="profilePictureLink" style="width:26px;">
+        <img class="rounded-circle mr-1" v-bind:src="profilePictureLink" style="width:30px;">
       </div>
       <small :class="activeMenu === 'ViewProfile' ? 'active' : ''" class="menuItemDescription w-100">Profile</small>
     </button>
