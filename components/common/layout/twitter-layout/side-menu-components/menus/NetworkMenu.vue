@@ -3,25 +3,29 @@
     <li class="list-group-item borderless py-1 px-0 ">
       <span class="font-weight-bold">Mine</span>
     </li>
-    <li class="list-group-item borderless py-1 px-0">
-      <router-link to="/network/1"> Dev Team 51 <span class=" float-right badge text-white badge-info badge-pill">5</span></router-link>
+    <li :key="'mine' + index" v-for="(network, index) in mine" class="list-group-item borderless py-1 px-0">
+      <router-link :to="'/network/' + network.id">{{ network.name }}<span class=" float-right badge text-white badge-info badge-pill">5</span></router-link>
     </li>
-    <li class="list-group-item borderless py-1 px-0">
-      <router-link to="/network/2"> Team Leads <span class=" float-right badge text-white badge-info badge-pill">3</span></router-link>
-    </li>
-    <li class="list-group-item borderless py-1 px-0">
+    <li v-if="joined.length > 0" class="list-group-item borderless py-1 px-0">
       <span class="font-weight-bold">Joined</span>
     </li>
-    <li class="list-group-item borderless py-1 px-0">
-      <router-link to="/network/3">IT Department</router-link>
-    </li>
-    <li class="list-group-item borderless py-1 px-0">
-      <router-link to="/network/4">Designers</router-link>
+    <li :key="'joined' + index" v-for="(network, index) in joined" class="list-group-item borderless py-1 px-0">
+      <router-link :to="'/network/' + network.id">{{ network.name }}</router-link>
     </li>
   </ul>
 </template>
 <script>
-export default{
 
+import NetworkStore from '@/views/network/network-store'
+
+export default {
+  computed: {
+    mine() {
+      return NetworkStore.state.networks.filter(network => network.mine)
+    },
+    joined() {
+      return NetworkStore.state.networks.filter(network => !network.mine)
+    }
+  }
 }
 </script>
