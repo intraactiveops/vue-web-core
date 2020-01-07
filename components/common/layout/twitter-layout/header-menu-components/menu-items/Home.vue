@@ -21,6 +21,9 @@
       <router-link class="dropdown-item py-0 px-0" to="/newsfeed">
           <fa icon="home"/> Home
       </router-link>
+      <router-link class="dropdown-item py-0 px-0" to="/newsfeed">
+          <fa icon="calendar"/> Events
+      </router-link>
       <div class="dropdown-divider"></div>
       <div class="mb-0">
         <div class=" py-0 px-0 font-weight-bold"  title="View All Channel">Following</div>
@@ -28,7 +31,7 @@
       </div>
       <div class="dropdown-divider"></div>
       <div>
-        <router-link to="/network-list" class="dropdown-item py-0 px-0 font-weight-bold"  title="View All Channel">Networks</router-link>
+        <router-link to="/network-list" class="dropdown-item py-0 px-0 font-weight-bold"  title="Networks"><fa icon="network-wired"/> Networks</router-link>
         <div class="dropdown-divider"></div>
         <network-list />
       </div>
