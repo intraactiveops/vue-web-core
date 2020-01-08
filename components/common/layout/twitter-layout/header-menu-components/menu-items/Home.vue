@@ -21,6 +21,7 @@
       <router-link class="dropdown-item py-0 px-0" to="/newsfeed">
           <fa icon="home"/> Home
       </router-link>
+      <div class="dropdown-divider"></div>
       <router-link class="dropdown-item py-0 px-0" to="/newsfeed">
           <fa icon="calendar"/> Events
       </router-link>

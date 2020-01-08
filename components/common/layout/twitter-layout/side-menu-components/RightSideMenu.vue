@@ -1,6 +1,6 @@
 <template>
   <div >
-    <side-menu-container v-show="toggleMenu['dailyEvent']" name="Today's Event">
+    <side-menu-container v-show="toggleMenu['dailyEvent']" name="Today's Schedule">
       <template v-slot:body>
         <event-menu />
       </template>
