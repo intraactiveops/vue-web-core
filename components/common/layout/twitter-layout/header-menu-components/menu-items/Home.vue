@@ -19,11 +19,11 @@
     </button>
     <div class="dropdown-menu px-3" style="width: 250px">
       <router-link class="dropdown-item py-0 px-0" to="/newsfeed">
-          <fa icon="home"/> Home
+        <fa icon="home" fixed-width /> Home
       </router-link>
       <div class="dropdown-divider"></div>
       <router-link class="dropdown-item py-0 px-0" to="/newsfeed">
-          <fa icon="calendar"/> Events
+        <fa icon="calendar" fixed-width /> Events
       </router-link>
       <div class="dropdown-divider"></div>
       <div class="mb-0">
@@ -32,7 +32,9 @@
       </div>
       <div class="dropdown-divider"></div>
       <div>
-        <router-link to="/network-list" class="dropdown-item py-0 px-0 font-weight-bold"  title="Networks"><fa icon="network-wired"/> Networks</router-link>
+        <router-link to="/network-list" class="dropdown-item py-0 px-0 font-weight-bold" title="Networks">
+          <fa icon="network-wired" fixed-width /> Networks
+        </router-link>
         <div class="dropdown-divider"></div>
         <network-list />
       </div>
