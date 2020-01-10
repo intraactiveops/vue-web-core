@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 let store = new Vuex.Store({
   state: {
+    imagery: false,
     dailyEvent: true,
     channel: true,
     activity: true,
@@ -25,6 +26,9 @@ let store = new Vuex.Store({
     },
   },
   getters: {
+    imagery: (state) => {
+      return state.imagery
+    },
     dailyEvent: (state) => {
       return state.dailyEvent
     },
