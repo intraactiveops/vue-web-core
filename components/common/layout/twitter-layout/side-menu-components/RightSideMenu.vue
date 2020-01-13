@@ -1,6 +1,11 @@
 <template>
   <div >
-    <side-menu-container v-show="toggleMenu['dailyEvent']" name="Today's Event">
+    <side-menu-container v-show="toggleMenu['imagery']" name="Imagery">
+      <template v-slot:body>
+        <imagery-menu />
+      </template>
+    </side-menu-container>
+    <side-menu-container v-show="toggleMenu['dailyEvent']" name="Today's Schedule">
       <template v-slot:body>
         <event-menu />
       </template>
@@ -30,10 +35,12 @@ import ProjectMenu from './menus/ProjectMenu'
 import FollowingMenu from './menus/FollowingMenu'
 import ContactMenu from './menus/ContactMenu'
 import EventMenu from './menus/EventMenu'
+import ImageryMenu from './menus/ImageryMenu'
 import SideMenuStore from './side-menu-store.js'
 export default{
   components: {
     SideMenuContainer,
+    ImageryMenu,
     NetworkMenu,
     ProjectMenu,
     FollowingMenu,

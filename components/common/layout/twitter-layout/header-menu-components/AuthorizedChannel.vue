@@ -7,7 +7,11 @@
         </button>
         <div class="dropdown-menu dropdown-menu-right">
           <h3 class="dropdown-header">Authorized Exchanges</h3>
-          <button v-for="(channel, index) in authorizedChannels" @click="selectedAuthorizedChannelIndex = index" class="dropdown-item py-1" type="button">{{channel['name']}} <fa v-if="selectedAuthorizedChannelIndex === index" icon="check" /></button>
+          <template v-for="(channel, index) in authorizedChannels">
+            <button v-bind:key="index" @click="selectedAuthorizedChannelIndex = index" class="dropdown-item py-1" type="button">
+              {{channel['name']}} <fa v-if="selectedAuthorizedChannelIndex === index" icon="check" />
+            </button>
+          </template>
         </div>
       </div>
     </small>
@@ -27,14 +31,28 @@ export default{
       selectedAuthorizedChannelIndex: 0,
       authorizedChannels: [{
         name: 'Personal'
-      }, {
-        name: 'Deliotte'
+      // }, {
+      //   name: 'Deliotte'
       }, {
         name: 'Dept of State'
+      // }, {
+      //   name: 'Dunlap Bennett & Ludwig'
+      // }, {
+      //   name: 'NOVA Health'
       }, {
-        name: 'Dunlap Bennett & Ludwig'
+        name: 'SAIC'
       }, {
-        name: 'NOVA Health'
+        name: 'Cyber Command'
+      }, {
+        name: 'Air Force'
+      }, {
+        name: 'CBP'
+      }, {
+        name: 'NIPRNet'
+      }, {
+        name: 'SIPRNet'
+      }, {
+        name: 'JWICS'
       }]
     }
   },

@@ -128,7 +128,6 @@ export default {
           }
         }
       }
-      console.log('is required', this.requiredFields)
       return setting
     }
   },
