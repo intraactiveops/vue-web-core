@@ -18,7 +18,7 @@
             <div class="profile-links">
               <a href="#" title="Video Call"><fa class="fa-lg color-gray text-hover-primary" icon="video" /></a>&nbsp;
               <a href="#" title="Message"><fa class="fa-lg color-gray text-hover-primary" icon="pen-square" /></a>&nbsp;
-              <a href="#" title="Chatter"><fa class="fa-lg color-gray text-hover-primary" icon="comments" /></a>&nbsp;
+              <!-- <a href="#" title="Chatter"><fa class="fa-lg color-gray text-hover-primary" icon="comments" /></a>&nbsp; -->
               <fa class="fa-lg text-primary" icon="address-book" />&nbsp;
               <a href="#" title="Profile"><fa class="fa-lg color-gray text-hover-primary" icon="user" /></a>
             </div>
