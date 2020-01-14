@@ -6,7 +6,7 @@ let formatDate = (datetime, format) => {
   let datetimeObject = new Date(datetime)
   switch(format){
     case 'mm/dd/yy hh:mm':
-      return QuickHelper.padNumber(datetimeObject.getMonth() + 1) + '/' + QuickHelper.padNumber(datetimeObject.getDate()) + '/' + QuickHelper.padNumber(datetimeObject.getYear() - 100) + ' ' + time12HourFormat(datetimeObject.getHours(), datetimeObject.getMinutes()) //QuickHelper.padNumber(datetimeObject.getHours()) + ':' + QuickHelper.padNumber(datetimeObject.getMinutes())
+      return QuickHelper.padNumber(datetimeObject.getMonth() + 1) + '/' + QuickHelper.padNumber(datetimeObject.getDate()) + '/' + QuickHelper.padNumber(datetimeObject.getYear() - 100) + ' ' + time12HourFormat(datetimeObject.getHours(), datetimeObject.getMinutes()) // QuickHelper.padNumber(datetimeObject.getHours()) + ':' + QuickHelper.padNumber(datetimeObject.getMinutes())
     default:
       return shortMonthName[datetimeObject.getMonth()] + ' ' + datetimeObject.getDate() + ', ' + datetimeObject.getFullYear()
   }
@@ -20,6 +20,7 @@ let time12HourFormat = (hour, minute, seconds) => {
   }
   return hour + ':' + QuickHelper.padNumber(minute, 2) + (typeof seconds !== 'undefined' ? ':' + seconds : '') + ' ' + median
 }
+console.log('huhuhu')
 Vue.mixin({
   data(){
     return {
