@@ -21,7 +21,7 @@ let mixin = {
           if(typeof error.response !== 'undefined'){
             if(error.response.status === 401){ // net log in
               alert(401)
-              this.$router.push('/')
+              this.$router.push('/', () => {})
             }else{
               if(typeof errorCallback !== 'undefined'){
                 errorCallback(error.response.data, error.response.status)
@@ -53,7 +53,7 @@ let mixin = {
           if(typeof error.response !== 'undefined'){
             if(error.response.status === 401){ // net log in
               alert(401)
-              this.$router.push('/')
+              this.$router.push('/', () => {})
             }else{
               if(typeof errorCallback !== 'undefined'){
                 errorCallback(error.response.data, error.response.status)
