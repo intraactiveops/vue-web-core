@@ -30,9 +30,9 @@
 </template>
 <script>
 import SideMenuContainer from './SideMenuContainer'
-import NetworkMenu from './menus/NetworkMenu'
+// import NetworkMenu from './menus/NetworkMenu'
 import ProjectMenu from './menus/ProjectMenu'
-import FollowingMenu from './menus/FollowingMenu'
+// import FollowingMenu from './menus/FollowingMenu'
 import ContactMenu from './menus/ContactMenu'
 import EventMenu from './menus/EventMenu'
 import ImageryMenu from './menus/ImageryMenu'
@@ -41,9 +41,9 @@ export default{
   components: {
     SideMenuContainer,
     ImageryMenu,
-    NetworkMenu,
+    // NetworkMenu,
     ProjectMenu,
-    FollowingMenu,
+    // FollowingMenu,
     ContactMenu,
     EventMenu
   },
