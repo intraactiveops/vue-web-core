@@ -23,7 +23,7 @@
       </router-link>
       <div class="dropdown-divider"></div>
       <router-link class="dropdown-item py-0 px-0" to="/newsfeed">
-        <fa icon="calendar" fixed-width /> Events
+        <fa icon="calendar" fixed-width /> Schedule
       </router-link>
       <div class="dropdown-divider"></div>
       <div class="mb-0">

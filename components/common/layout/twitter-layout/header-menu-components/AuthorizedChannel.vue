@@ -31,10 +31,8 @@ export default{
       selectedAuthorizedChannelIndex: 0,
       authorizedChannels: [{
         name: 'Personal'
-      // }, {
-      //   name: 'Deliotte'
       }, {
-        name: 'Dept of State'
+        name: 'Customs & Border Protection'
       // }, {
       //   name: 'Dunlap Bennett & Ludwig'
       // }, {
@@ -42,11 +40,33 @@ export default{
       }, {
         name: 'SAIC'
       }, {
+        name: 'Department of State'
+      }, {
+        name: 'Department of Defense'
+      }, {
         name: 'Cyber Command'
+      }, {
+        name: 'Central Intelligence Agency'
+      }, {
+        name: 'Defense Intelligence Agency'
+      }, {
+        name: 'National Security Agency'
+      }, {
+        name: 'Marines'
+      }, {
+        name: 'Navy'
+      }, {
+        name: 'Army'
       }, {
         name: 'Air Force'
       }, {
-        name: 'CBP'
+        name: 'Coast Guard'
+      }, {
+        name: 'Homeland Security'
+      }, {
+        name: 'Drug Enforcement Admin'
+      }, {
+        name: 'Federal Bureau of Invg.'
       }, {
         name: 'NIPRNet'
       }, {
