@@ -10,11 +10,11 @@
         <ul class="list-group list-group-flush">
           <template v-for="(contact, index) in contacts">
             <li :key="index" class="list-group-item borderless py-1 px-2">
-              <img 
+              <img
                 @click="openProfileCard(index)"
                 class="rounded-circle mr-2 profile-card-toggler"
-                style="cursor: pointer;" 
-                height="30px" 
+                style="cursor: pointer;"
+                height="30px"
                 :src="contact.profile_picture">
               <span class="font-weight-bold">{{ contact.name }}</span>
               <profile-card
@@ -48,9 +48,9 @@ export default {
   computed: {
     margin() {
       if (SideMenuStore.state.dailyEvent || SideMenuStore.state.project) {
-        return {top: -145, left: -280}
+        return { top: -145, left: -280 }
       } else {
-        return {top: -60, left: -280}
+        return { top: -60, left: -280 }
       }
     },
     contacts() {

@@ -16,7 +16,7 @@
 <script>
 import SideMenuContainer from './SideMenuContainer'
 import ActivityMenu from './menus/ActivityMenu'
-import EventMenu from './menus/EventMenu'
+// import EventMenu from './menus/EventMenu'
 import ChannelMenu from './menus/ChannelMenu'
 import SideMenuStore from './side-menu-store.js'
 export default{
@@ -24,7 +24,7 @@ export default{
     ChannelMenu,
     SideMenuContainer,
     ActivityMenu,
-    EventMenu
+    // EventMenu
   },
   computed: {
     toggleMenu(){
