@@ -5,7 +5,7 @@
     <li class="list-group-item py-1 px-2"><fa icon="user" /> Followers <span class="float-right">123</span></li>
     <li class="list-group-item py-1 px-2"><fa icon="user-plus" /> Following <span class="float-right">12</span></li>
     <li class="list-group-item py-1 px-2"><fa icon="comment-slash" /> Muted <span class="float-right">4</span></li>
-    <li class="list-group-item py-1 px-2"><fa icon="history" /> Chronicle <span class="float-right">241</span></li>
+    <li class="list-group-item py-1 px-2"><fa icon="history" /> Timeline <span class="float-right">241</span></li>
     <li class="list-group-item py-1 px-2"><fa icon="project-diagram" /> Projects <span class="float-right">35</span></li>
     <li class="list-group-item py-1 px-2"><fa icon="camera" /> Photos <span class="float-right">120</span></li>
     <li class="list-group-item py-1 px-2"><fa icon="calendar" /> Events <span class="float-right">20</span></li>
