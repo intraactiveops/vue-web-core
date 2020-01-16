@@ -5,7 +5,7 @@
         <img class="rounded-circle mr-1" v-bind:src="profilePictureLink" style="width:30px;">
       </div>
       <small :class="activeMenu === 'ViewProfile' ? 'active' : ''" class="menuItemDescription w-100">Profile</small>
-      
+
     </button>
     <div class="dropdown-menu dropdown-menu-right pt-2 pb-1 px-3" style="width: 250px">
       <h6 class="dropdown-header font-weight-bold text-primary px-0"><label class="pt-2">Profile</label> <button class="btn btn-sm btn-outline-danger float-right">Emergency</button></h6>

@@ -26,12 +26,11 @@
   </div>
 </template>
 <script>
-import Modal from '@/vue-web-core/components/bootstrap/Modal'
+// import Modal from '@/vue-web-core/components/bootstrap/Modal'
 import QuickAccessToggler from './QuickAccessToggler'
 
 export default{
   components: {
-    Modal,
     QuickAccessToggler
   },
   methods: {
