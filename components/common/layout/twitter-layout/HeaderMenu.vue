@@ -22,7 +22,6 @@
 import store from '@/vue-web-core/system/store'
 import SearchBar from './header-menu-components/left-components/SearchBar'
 import AuthorizedChannel from './header-menu-components/AuthorizedChannel'
-
 import NotificationMenu from './header-menu-components/menu-items/Notification'
 import HomeMenu from './header-menu-components/menu-items/Home'
 import ChannelMenu from './header-menu-components/menu-items/Channel'
