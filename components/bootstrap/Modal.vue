@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 999">
+    <div ref="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
       <div v-bind:class="'modal-' + size" class="modal-dialog" role="document" :style="paddingTop ? {'padding-top': paddingTop} : {}">
         <div class="modal-content">
           <div v-if="title" class="modal-header">
