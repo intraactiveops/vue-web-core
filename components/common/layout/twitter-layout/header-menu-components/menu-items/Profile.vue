@@ -1,6 +1,6 @@
 <template>
   <div class="btn-group centerMenuItem">
-    <button type="button" class="btn border-0 rounded-0 pt-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn border-0 rounded-0 pt-1 shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <div>
         <img class="rounded-circle mr-1" v-bind:src="profilePictureLink" style="width:30px;">
       </div>
