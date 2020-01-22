@@ -2,10 +2,10 @@
   <div>
     <small>
       <div class="btn-group ">
-        <button type="button" @click="isLoggingIn = false" class="btn btn-sm rounded-0 pl-0 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" @click="isLoggingIn = false" class="btn btn-sm rounded-0 pl-0 py-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow:none!important">
           IntraComs <fa icon="exchange-alt"/>
         </button>
-        <div :class="isLoggingIn ? 'bg-primary p-3 login show' : ''" class="dropdown-menu dropdown-menu-right ">
+        <div :class="isLoggingIn ? 'bg-primary p-3 login show' : ''" class="dropdown-menu dropdown-menu-left mt-3">
           <div @click.stop>
             <div v-show="!isLoggingIn">
               <h3 class="dropdown-header">Authorized Exchanges</h3>
