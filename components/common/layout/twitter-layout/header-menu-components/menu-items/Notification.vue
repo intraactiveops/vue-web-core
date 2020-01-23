@@ -1,9 +1,9 @@
 <template>
   <div class="btn-group centerMenuItem">
-    <button type="button" class="btn rounded-0 pt-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+    <button type="button" class="btn rounded-0 pt-2 shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
       <div class="w-100">
         <fa-layers full-width class="fa-lg">
-          <fa icon="bell"/>
+          <fa :class="{'text-info': isNotification}" icon="bell"/>
           <fa-layers-text class="bubble-style" transform="up-6  right-15 shrink-4" value="1"/>
         </fa-layers>
       </div>
@@ -22,6 +22,19 @@
 export default {
   props: {
     activeMenu: String
+  },
+  data() {
+    return {
+      isNotification: false
+    }
+  },
+  watch: {
+    $route: {
+      handler(to) {
+        this.isNotification = to.path.includes('/notification')
+      },
+      immediate: true
+    }
   }
 }
 </script>

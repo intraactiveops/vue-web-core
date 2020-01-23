@@ -17,7 +17,7 @@
             <a class="color-blue" href="#" style="text-decoration: none;">Unfollow Me</a><br/>
             <div class="profile-links">
               <a href="#" title="Video Call"><fa class="fa-lg color-gray text-hover-primary" icon="video" /></a>&nbsp;
-              <a href="#" title="Message"><fa class="fa-lg color-gray text-hover-primary" icon="pen-square" /></a>&nbsp;
+              <a @click="sendMessage" href="#" title="Message"><fa class="fa-lg color-gray text-hover-primary" icon="pen-square" /></a>&nbsp;
               <!-- <a href="#" title="Chatter"><fa class="fa-lg color-gray text-hover-primary" icon="comments" /></a>&nbsp; -->
               <fa class="fa-lg text-primary" icon="address-book" />&nbsp;
               <a href="#" title="Profile"><fa class="fa-lg color-gray text-hover-primary" icon="user" /></a>
@@ -95,6 +95,10 @@ export default {
     },
     _close(){ // close the card
       store.commit('closeCard', this._uid)
+    },
+    sendMessage() {
+      var event = new Event('send-message')
+      window.dispatchEvent(event)
     }
   },
   computed: {

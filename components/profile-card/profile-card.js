@@ -31,10 +31,8 @@ let store = new Vuex.Store({
 })
 export default store
 
-
 var waitForJQuery = setInterval(function () {
-  if (typeof $ != 'undefined') {
-
+  if (typeof $ !== 'undefined') {
     $(window).click(event => {
       if ($(event.target).hasClass('profile-card-toggler') === false) {
         if ($(event.target).parents('div.profile-card').length === 0) { // outside profile card
@@ -42,13 +40,13 @@ var waitForJQuery = setInterval(function () {
         }
       }
     })
-    
+
     $(window).keyup(event => {
       if (event.keyCode === 27) { // ESC key
         store.commit('closeAllCards')
       }
     })
 
-    clearInterval(waitForJQuery);
+    clearInterval(waitForJQuery)
   }
-}, 10);
+}, 10)
