@@ -34,7 +34,8 @@ Vue.mixin({
     setDefault: setDefault,
     isNumeric: isNumeric,
     padNumber: padNumber,
-    cloneObject: cloneObject
+    cloneObject: cloneObject,
+    numberToMoney: numberToMoney
   },
   filters: {
     numberToMoney: numberToMoney
