@@ -22,7 +22,7 @@
         <fa icon="home" fixed-width /> Home
       </router-link>
       <div class="dropdown-divider"></div>
-      <router-link class="dropdown-item py-0 px-0" to="/newsfeed">
+      <router-link class="dropdown-item py-0 px-0" to="/schedule">
         <fa icon="calendar" fixed-width /> Schedule
       </router-link>
       <div class="dropdown-divider"></div>
@@ -60,7 +60,7 @@ export default {
   watch: {
     $route: {
       handler(to) {
-        this.isHome = to.path.includes('/newsfeed')
+        this.isHome = to.path.includes('/newsfeed') || to.path.includes('/schedule')
       },
       immediate: true
     }
