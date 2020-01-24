@@ -25,6 +25,27 @@
       <router-link :to="'/imagery/' + 1">Intelligence</router-link>
     </li>
     <li class="list-group-item py-1 px-2">
+      <router-link :to="'/imagery/' + 1">IR</router-link>
+    </li>
+    <li class="list-group-item py-1 px-2">
+      <router-link :to="'/imagery/' + 1">SAR</router-link>
+    </li>
+    <li class="list-group-item py-1 px-2">
+      <router-link :to="'/imagery/' + 1">MASINT</router-link>
+    </li>
+    <li class="list-group-item py-1 px-2">
+      <router-link :to="'/imagery/' + 1">FISINT</router-link>
+    </li>
+    <li class="list-group-item py-1 px-2">
+      <router-link :to="'/imagery/' + 1">ELINT</router-link>
+    </li>
+    <li class="list-group-item py-1 px-2">
+      <router-link :to="'/imagery/' + 1">OSINT</router-link>
+    </li>
+    <li class="list-group-item py-1 px-2">
+      <router-link :to="'/imagery/' + 1">Intelligence</router-link>
+    </li>
+    <li class="list-group-item py-1 px-2">
       <router-link :to="'/imagery/' + 1">Geo Teams</router-link>
     </li>
   </ul>
