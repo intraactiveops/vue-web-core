@@ -7,7 +7,7 @@
             <template v-if="newLayout">
               <div class="card-header py-1 px-2 bg-whitesmoke border-0 rounded w-100 d-flex align-items-stretch">
                 <div class="w-90">
-                  <span id="exampleModalLabel" class="font-weight-bold"><fa v-if="false" :icon="icon" /> {{title}}</span>
+                  <span id="exampleModalLabel" class="font-weight-bold"><fa v-if="icon" :icon="icon" />{{title}}</span>
                 </div>
                 <div class="w-10">
                   <button v-if="closeable" class="btn btn-sm text-secondary float-right py-0" data-dismiss="modal" aria-label="Close">
@@ -17,7 +17,7 @@
               </div>
             </template>
             <template v-else>
-              <h5 class="modal-title" id="exampleModalLabel"><fa v-if="false" :icon="icon" /> {{title}} </h5>
+              <h5 class="modal-title" id="exampleModalLabel"><fa v-if="icon" :color="iconColor" :icon="icon" /> {{title}} </h5>
               <button v-if="closeable" type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -34,6 +34,7 @@
 <script>
 export default {
   props: {
+    iconColor: String,
     icon: {
       type: String,
       default: null

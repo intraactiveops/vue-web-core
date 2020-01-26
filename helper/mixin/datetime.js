@@ -20,7 +20,6 @@ let time12HourFormat = (hour, minute, seconds) => {
   }
   return hour + ':' + QuickHelper.padNumber(minute, 2) + (typeof seconds !== 'undefined' ? ':' + seconds : '') + ' ' + median
 }
-console.log('huhuhu')
 Vue.mixin({
   data(){
     return {
