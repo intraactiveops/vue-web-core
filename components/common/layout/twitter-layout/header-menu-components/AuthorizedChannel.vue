@@ -21,7 +21,7 @@
                 <div class="pl-2">
                   <small>IntraNAX</small> <br> {{authorizedChannels[selectedAuthorizedChannelIndex]['name']}}
                 </div>
-                
+
                 </h6>
               <div class="form-row">
                 <div class="col-12">

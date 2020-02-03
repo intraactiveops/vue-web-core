@@ -5,6 +5,8 @@ let shortMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'S
 let formatDate = (datetime, format) => {
   let datetimeObject = new Date(datetime)
   switch(format){
+    case 'M d, yyyy hh:mm':
+      return shortMonthName[datetimeObject.getMonth()] + ' ' + datetimeObject.getDate() + ', ' + datetimeObject.getFullYear() + ' ' + time12HourFormat(datetimeObject.getHours(), datetimeObject.getMinutes())
     case 'mm/dd/yy hh:mm':
       return QuickHelper.padNumber(datetimeObject.getMonth() + 1) + '/' + QuickHelper.padNumber(datetimeObject.getDate()) + '/' + QuickHelper.padNumber(datetimeObject.getYear() - 100) + ' ' + time12HourFormat(datetimeObject.getHours(), datetimeObject.getMinutes()) // QuickHelper.padNumber(datetimeObject.getHours()) + ':' + QuickHelper.padNumber(datetimeObject.getMinutes())
     default:
@@ -63,7 +65,7 @@ Vue.mixin({
     toReadableDateTime(someDate){
       let date = new Date(someDate)
       if(someDate && !isNaN(date.getTime() * 1)){
-        return QuickHelper.padNumber(date.getMonth()) + '/' + QuickHelper.padNumber(date.getDate()) + '/' + date.getFullYear() + ' ' + time12HourFormat(date.getHours(), date.getMinutes())
+        return QuickHelper.padNumber(date.getMonth() + 1) + '/' + QuickHelper.padNumber(date.getDate()) + '/' + date.getFullYear() + ' ' + time12HourFormat(date.getHours(), date.getMinutes())
       }else{
         return ''
       }
