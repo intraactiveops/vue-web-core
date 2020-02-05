@@ -45,7 +45,10 @@ Vue.mixin({
     padNumber: padNumber,
     cloneObject: cloneObject,
     numberToMoney: numberToMoney,
-    generateRandomNumber: generateRandomNumber
+    generateRandomNumber: generateRandomNumber,
+    thread: (functionToRun, delay = 10) => {
+      setTimeout(functionToRun, delay)
+    }
   },
   filters: {
     numberToMoney: numberToMoney
