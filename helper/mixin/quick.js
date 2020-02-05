@@ -28,6 +28,15 @@ let numberToMoney = (number) => {
   number = typeof number === 'undefined' ? 0 : number * 1
   return (number.toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
+let generateRandomNumber = (min, max, wholeNumber = true) => {
+  if(wholeNumber){
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }else{
+    return min + Math.random() * (max - min)
+  }
+}
 Vue.mixin({
   methods: {
     isset: isset,
@@ -35,7 +44,8 @@ Vue.mixin({
     isNumeric: isNumeric,
     padNumber: padNumber,
     cloneObject: cloneObject,
-    numberToMoney: numberToMoney
+    numberToMoney: numberToMoney,
+    generateRandomNumber: generateRandomNumber
   },
   filters: {
     numberToMoney: numberToMoney
@@ -47,5 +57,6 @@ export default{
   isNumeric: isNumeric,
   padNumber: padNumber,
   cloneObject: cloneObject,
-  numberToMoney: numberToMoney
+  numberToMoney: numberToMoney,
+  generateRandomNumber: generateRandomNumber
 }

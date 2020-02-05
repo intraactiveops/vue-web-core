@@ -39,7 +39,8 @@ Vue.mixin({
       let hourString = !noHours ? this.padNumber(jsDate.getHours(), 2) + ':' + this.padNumber(jsDate.getMinutes(), 2) + ':' + this.padNumber(jsDate.getSeconds(), 2) : '00:00:00'
       return dateString + hourString
     },
-    time12HourFormat: time12HourFormat
+    time12HourFormat: time12HourFormat,
+    formatDate: formatDate
   },
   filters: {
     formatDate: formatDate,

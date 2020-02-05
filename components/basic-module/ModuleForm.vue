@@ -4,7 +4,7 @@
       <div v-bind:class="typeof config['form_setting']['modal_size'] !== 'undefined' ? 'modal-' + config['form_setting']['modal_size'] : ''" class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{config['module_name']}} </h5>
+            <h5 class="modal-title" id="exampleModalLabel">{{config['module_name']}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -190,11 +190,11 @@ export default {
         this.resetForm()
       }
       this.currentMode = 'create'
-      $(this.$refs.modal).modal('show')
+      $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
     },
     openViewModal(){
       this.currentMode = 'update'
-      $(this.$refs.modal).modal('show')
+      $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
       setTimeout(() => {
         if(this.formOpenListener){
           this.formOpenListener()
