@@ -16,7 +16,7 @@ let formatDate = (datetime, format) => {
 
 let time12HourFormat = (hour, minute, seconds) => {
   let median = 'am'
-  if(hour * 1 > 12){
+  if(hour * 1 >= 12){
     hour = hour - 12
     median = 'pm'
   }
