@@ -8,11 +8,16 @@ import store from '@/vue-web-core/system/store'
 Vue.router = Router
 Vue.use(VueAxios, Axios)
 Vue.axios.defaults.baseURL = CONFIG.BASE_URL
+const vueRouterDriver = require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
+vueRouterDriver._routerGo = function (data) {
+  // var router = this.options.Vue.$router
+  // (router.push || router.go).call(router, data).catch((err) => {})
+}
 // Vue.http.options.root = CONFIG.API_URL
 Vue.use(require('@websanova/vue-auth'), {
   auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
   http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
-  router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
+  router: vueRouterDriver,
   loginData: {
     url: 'auth/login',
     // fetchUser: false
