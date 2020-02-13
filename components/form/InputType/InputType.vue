@@ -9,6 +9,9 @@
     <template v-if="type === 'text'">
       <text-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :validationMessage="validationMessage" />
     </template>
+    <template v-if="type === 'checkbox'">
+      <checkbox-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :validationMessage="validationMessage" />
+    </template>
     <template v-if="type === 'number'">
       <number-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :validationMessage="validationMessage" />
     </template>
@@ -33,6 +36,7 @@ import HiddenInput from './HiddenInput'
 import DateInput from './DateInput'
 import NumberInput from './NumberInput'
 import TextInput from './TextInput'
+import CheckboxInput from './CheckboxInput'
 export default {
   name: 'InputType',
   components: {
@@ -43,7 +47,8 @@ export default {
     HiddenInput,
     DateInput,
     NumberInput,
-    TextInput
+    TextInput,
+    CheckboxInput
   },
   props: {
     index: { type: String, required: true },

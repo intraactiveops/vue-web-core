@@ -22,8 +22,8 @@
         <fa icon="home" fixed-width /> Home
       </router-link>
       <div class="dropdown-divider"></div>
-      <router-link class="dropdown-item py-0 px-0" to="/schedule">
-        <fa icon="calendar" fixed-width /> Schedule
+      <router-link class="dropdown-item py-0 px-0" to="/event">
+        <fa icon="calendar" fixed-width /> Schedule and Events
       </router-link>
       <div class="dropdown-divider"></div>
       <div class="mb-0">

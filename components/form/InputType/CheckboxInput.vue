@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pt-2">
     <input v-bind:value="value" type="checkbox">
   </div>
 </template>
