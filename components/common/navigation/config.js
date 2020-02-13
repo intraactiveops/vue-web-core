@@ -1,5 +1,5 @@
 var navConfig = {
   sidebarToggled: !(window.innerWidth <= 768),
-  noSideBar: false
+  noSideBar: true
 }
 export default navConfig

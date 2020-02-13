@@ -10,6 +10,7 @@ let mixin = {
     ajaxRequest: request.ajaxRequest,
     checkConnectivity: () => {
       return new Promise((resolve, reject) => {
+        // reject(404)
         let testStart = (new Date()).getTime()
         apiRequest.request('test-connnection', { limit: 1 }, response => {
           resolve((new Date()).getTime() - testStart)

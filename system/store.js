@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Config from '@/vue-web-core/system/config'
-
+import User from '@/database/controller/user'
 import apiRequest from '@/vue-web-core/system/http-request-handling/apiRequest'
 Vue.use(Vuex)
 
@@ -11,7 +11,9 @@ let store = new Vuex.Store({
     authToken: null,
     companyInformation: {
       id: null,
-      name: null
+      name: null,
+      address: null,
+      contact_number: null
     },
     userInformation: {
       id: null,
@@ -35,15 +37,32 @@ let store = new Vuex.Store({
     },
     setUserInformation(state, userInformation){
       Vue.set(state.userInformation, 'id', userInformation.id)
-      Vue.set(state.userInformation, 'profilePictureLink', userInformation.profilePictureLink)
+      Vue.set(state.userInformation, 'profilePictureLink', typeof userInformation.profilePictureLink !== 'undefined' ? userInformation.profilePictureLink : null)
       Vue.set(state.userInformation, 'firstName', userInformation.first_name)
       Vue.set(state.userInformation, 'lastName', userInformation.last_name)
     },
     setUserRoles(state, userRoles){
       state.userRoles = userRoles
+    },
+    logout(state){
+      Vue.set(state, 'authToken', null)
+      Vue.set(state.companyInformation, 'id', null)
+      Vue.set(state.companyInformation, 'name', null)
+      Vue.set(state.userInformation, 'id', null)
+      Vue.set(state.userInformation, 'profilePictureLink', null)
+      Vue.set(state.userInformation, 'firstName', null)
+      Vue.set(state.userInformation, 'lastName', null)
+      localStorage.removeItem('user_id')
     }
   },
   getters: {
+    user: (state) => {
+      if(state.userInformation.id){
+        return state.userInformation
+      }else{
+        return null
+      }
+    },
     authToken: (state) => {
       return state.authToken
     },
@@ -58,6 +77,39 @@ let store = new Vuex.Store({
     }
   },
   actions: {
+    setCompanyInformationOffline({ commit }){
+    },
+    setUserInformationOffline({ commit }){
+      let userId = localStorage.getItem('user_id')
+      if(!userId){
+        return false
+      }
+      let userDB = new User()
+      let param = {
+        where: {
+          db_id: userId * 1
+        }
+      }
+      let userInformation = {
+        id: userId,
+        first_name: null,
+        last_name: null
+      }
+      userDB.get(param).then(response => {
+        let userRoles = {}
+        if(response.length){
+          response = response[0]
+          // userInformation['id'] = response['db_id']
+          userInformation['first_name'] = response['first_name']
+          userInformation['last_name'] = response['last_name']
+          for(let x = 0; x < response['user_roles'].length; x++){
+            userRoles[response['user_roles'][x]['role_id']] = true
+          }
+        }
+        commit('setUserRoles', userRoles)
+        commit('setUserInformation', userInformation)
+      })
+    },
     setCompanyInformation({ commit }){
       if(!localStorage.getItem('default_auth_token')){
         localStorage.removeItem('company_id')
@@ -78,7 +130,9 @@ let store = new Vuex.Store({
     },
     setUserInformation({ commit }){
       if(!localStorage.getItem('default_auth_token')){
+        console.log('firreed')
         localStorage.removeItem('user_id')
+        return false
       }
       let userID = localStorage.getItem('user_id')
       let companyID = localStorage.getItem('company_id')

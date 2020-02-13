@@ -13,13 +13,12 @@ let formatDate = (datetime, format) => {
       return shortMonthName[datetimeObject.getMonth()] + ' ' + datetimeObject.getDate() + ', ' + datetimeObject.getFullYear()
   }
 }
-
 let time12HourFormat = (hour, minute, seconds) => {
   let median = 'am'
   if(hour * 1 > 12){
     hour = hour - 12
     median = 'pm'
-  }else if(hour * 1 == 12){
+  }else if(hour * 1 === 12){
     median = 'pm'
   }
   return hour + ':' + QuickHelper.padNumber(minute, 2) + (typeof seconds !== 'undefined' ? ':' + seconds : '') + ' ' + median

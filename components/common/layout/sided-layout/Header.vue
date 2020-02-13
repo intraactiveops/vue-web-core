@@ -67,7 +67,7 @@ export default{
       this.selectedMenuIcon = icon
     },
     logout(){
-      store.commit('setAuthToken', null)
+      store.commit('logout')
       this.$auth.logout()
       window.location.reload()
     }

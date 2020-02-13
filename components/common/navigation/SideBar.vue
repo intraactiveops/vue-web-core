@@ -17,7 +17,7 @@
 import '@/assets/style/simple-sidebar.scss'
 import SideBarItem from './SideBarItem.vue'
 import navigationConfig from './config.js'
-
+import User from '@/vue-web-core/system/store'
 export default {
   components: {
     SideBarItem
@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     roles(){
-      if(this.$auth.user() && localStorage.getItem('roles')){
+      if(User.user() && localStorage.getItem('roles')){
         return JSON.parse(localStorage.getItem('roles'))
       }
       return null
