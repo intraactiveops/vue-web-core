@@ -7,7 +7,8 @@ Vue.use(Vuex)
 
 let store = new Vuex.Store({
   state: {
-    isModuleLoading: false,
+    isModuleLoading: null,
+    hasInitialized: false,
     authToken: null,
     companyInformation: {
       id: null,
@@ -34,6 +35,9 @@ let store = new Vuex.Store({
     setCompanyInformation(state, companyInformation){
       Vue.set(state.companyInformation, 'id', companyInformation.id)
       Vue.set(state.companyInformation, 'name', companyInformation.name)
+      Vue.set(state.companyInformation, 'code', companyInformation.code)
+      Vue.set(state.companyInformation, 'address', companyInformation.address)
+      Vue.set(state.companyInformation, 'contact_number', companyInformation.contact_number)
     },
     setUserInformation(state, userInformation){
       Vue.set(state.userInformation, 'id', userInformation.id)
@@ -43,6 +47,24 @@ let store = new Vuex.Store({
     },
     setUserRoles(state, userRoles){
       state.userRoles = userRoles
+    },
+    setHasInitialized(state, hasInitialized){
+      state.hasInitialized = hasInitialized
+    },
+    isReady(state, callback){
+      let interval
+      console.log('state', state.hasInitialized)
+      if(state.hasInitialized){
+        callback()
+      }else{
+        interval = setInterval(() => {
+          if(state.hasInitialized){
+            callback()
+            clearInterval(interval)
+          }
+          console.log('state2', state.hasInitialized)
+        }, 100)
+      }
     },
     logout(state){
       Vue.set(state, 'authToken', null)
@@ -77,11 +99,10 @@ let store = new Vuex.Store({
     }
   },
   actions: {
-    setCompanyInformationOffline({ commit }){
-    },
     setUserInformationOffline({ commit }){
       let userId = localStorage.getItem('user_id')
       if(!userId){
+        commit('setHasInitialized', true)
         return false
       }
       let userDB = new User()
@@ -108,30 +129,15 @@ let store = new Vuex.Store({
         }
         commit('setUserRoles', userRoles)
         commit('setUserInformation', userInformation)
+        commit('setHasInitialized', true)
       })
-    },
-    setCompanyInformation({ commit }){
-      if(!localStorage.getItem('default_auth_token')){
-        localStorage.removeItem('company_id')
-        localStorage.removeItem('roles')
-      }
-      let companyID = localStorage.getItem('company_id')
-      if(companyID){
-        let param = {
-          id: companyID,
-          select: ['name']
-        }
-        apiRequest.request('company/retrieve', param, (response) => {
-          commit('setCompanyInformation', { id: companyID, name: response.data.name })
-        }, (errorResponse) => {
-          console.error('Error in store company information', errorResponse)
-        })
-      }
     },
     setUserInformation({ commit }){
       if(!localStorage.getItem('default_auth_token')){
-        console.log('firreed')
         localStorage.removeItem('user_id')
+        localStorage.removeItem('company_id')
+        localStorage.removeItem('roles')
+        commit('setHasInitialized', true)
         return false
       }
       let userID = localStorage.getItem('user_id')
@@ -153,6 +159,20 @@ let store = new Vuex.Store({
             },
             user_profile_picture: {
               select: ['thumbnail_file_name']
+            },
+            company_user: {
+              select: {
+                0: 'id',
+                company: {
+                  select: {
+                    0: 'name',
+                    1: 'code',
+                    company_detail: {
+                      select: ['address', 'contact_number']
+                    }
+                  }
+                }
+              }
             }
           },
         }
@@ -174,10 +194,24 @@ let store = new Vuex.Store({
               userRoles[response['data']['user_roles'][x]['role_id']] = {}
             }
           }
+          if(response['data']['company_user'] && response['data']['company_user']['company']){
+            commit('setCompanyInformation', {
+              id: response['data']['company_user']['company']['id'],
+              name: response['data']['company_user']['company']['name'],
+              code: response['data']['company_user']['company']['code'],
+              address: response['data']['company_user']['company']['company_detail']['address'],
+              contact_number: response['data']['company_user']['company']['company_detail']['contact_number'],
+            })
+          }
+
           commit('setUserRoles', userRoles)
+          commit('setHasInitialized', true)
         }, (errorResponse) => {
+          commit('setHasInitialized', true)
           console.error('Error in store company information', errorResponse)
         })
+      }else{
+        commit('setHasInitialized', true)
       }
     },
   }

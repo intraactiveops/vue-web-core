@@ -16,7 +16,7 @@
     <button id="menuToggleBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div v-if="!isLoadingModule" class="collapse navbar-collapse navbar-right">
+    <div v-if="!isLoadingModule && isLoadingModule !== null" class="collapse navbar-collapse navbar-right">
       <ul class="navbar-nav ml-auto">
         <template v-for="item in menu">
           <li v-if="typeof item['offline_only'] === 'undefined' || (item['offline_only'] && !userID) || (item['offline_only'] === false && userID)" class="nav-item pr-1">
@@ -83,7 +83,6 @@ export default {
       return store.state.companyInformation.name
     },
     userName(){
-      console.log('store.state.userInformation.firstName', store.state.userInformation.firstName)
       return store.state.userInformation.firstName
     },
     userID(){

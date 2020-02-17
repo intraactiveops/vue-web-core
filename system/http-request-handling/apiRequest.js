@@ -17,21 +17,19 @@ let mixin = {
           callback(response.data)
         }).catch((error) => {
           if(typeof error.response !== 'undefined'){
-            if(error.response.status === 401){ // net log in
-              window.location = '/'
+            if(typeof errorCallback === 'function') {
+              errorCallback(error.response.data, error.response.status)
             }else{
-              if(typeof errorCallback !== 'undefined') {
-                errorCallback(error.response.data, error.response.status)
+              if(error.response.status === 401){ // net log in
+                window.location = '/'
               }
             }
           }else{
-            if(typeof errorCallback !== 'undefined') {
+            if(typeof errorCallback === 'function') {
               errorCallback(error)
             }
           }
-        })
-        .finally(() => { this.loading = false })
-
+        }).finally(() => { this.loading = false })
       return requestInstance
     }
   }
