@@ -87,7 +87,16 @@ export default {
         this.filterConditionParameter = filter
       }
       this.list().then((rowList) => {
-        this.$refs.table._updateList(rowList)
+        if(typeof this.$refs.table === 'undefined'){
+          let interval
+          interval = setTimeout(() => {
+            if(typeof this.$refs.table !== 'undefined'){
+              clearTimeout(interval)
+            }
+          }, 300)
+        }else{
+          this.$refs.table._updateList(rowList)
+        }
       })
     },
     _remoteFilter(){

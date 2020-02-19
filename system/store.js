@@ -53,7 +53,6 @@ let store = new Vuex.Store({
     },
     isReady(state, callback){
       let interval
-      console.log('state', state.hasInitialized)
       if(state.hasInitialized){
         callback()
       }else{
@@ -62,7 +61,6 @@ let store = new Vuex.Store({
             callback()
             clearInterval(interval)
           }
-          console.log('state2', state.hasInitialized)
         }, 100)
       }
     },
@@ -96,6 +94,21 @@ let store = new Vuex.Store({
     },
     companyInformation: (state) => {
       return state.companyInformation
+    },
+    devConfig(){
+      let devConfig = localStorage.getItem('dev-config')
+      if(devConfig){
+        return JSON.parse(devConfig)
+      }else{
+        return null
+      }
+    },
+    sessionConnection(){
+      if(localStorage.getItem('default_auth_token')){
+        return 'online'
+      }else{
+        return 'offline'
+      }
     }
   },
   actions: {
