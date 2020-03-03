@@ -50,6 +50,7 @@ export default {
       this.$refs.form.openCreateModal()
     },
     updateRowFromForm(rowData){
+      this.$emit('form-update')
       this.$refs.table._updateRow(this.currentRowViewedIndex, rowData)
     },
     deleteRow(){

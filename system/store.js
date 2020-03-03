@@ -113,6 +113,9 @@ let store = new Vuex.Store({
   },
   actions: {
     setUserInformationOffline({ commit }){
+      if(localStorage.getItem('is_terminal')){
+        return false
+      }
       let userId = localStorage.getItem('user_id')
       if(!userId){
         commit('setHasInitialized', true)
@@ -129,6 +132,7 @@ let store = new Vuex.Store({
         first_name: null,
         last_name: null
       }
+      localStorage.removeItem('default_auth_token')
       userDB.get(param).then(response => {
         let userRoles = {}
         if(response.length){
@@ -148,13 +152,12 @@ let store = new Vuex.Store({
     setUserInformation({ commit }){
       if(!localStorage.getItem('default_auth_token')){
         localStorage.removeItem('user_id')
-        localStorage.removeItem('company_id')
         localStorage.removeItem('roles')
         commit('setHasInitialized', true)
         return false
       }
-      let userID = localStorage.getItem('user_id')
-      let companyID = localStorage.getItem('company_id')
+      let userID = localStorage.getItem('user_id') * 1
+      let companyID = localStorage.getItem('company_id') * 1
       if(userID){
         let param = {
           id: userID,
@@ -193,35 +196,48 @@ let store = new Vuex.Store({
           let userInformation = {
             id: userID,
             first_name: null,
-            last_name: null
+            last_name: null,
+            profilePictureLink: null
           }
-          userInformation.profilePictureLink = response.data.user_profile_picture ? Config.FILE_SERVER_URL + '/files/' + response.data.user_profile_picture.thumbnail_file_name : require('@/vue-web-core/assets/img/no-profile-pic.jpg')
-          if(response['data']['user_basic_information']){
-            userInformation.first_name = response['data']['user_basic_information']['first_name']
-            userInformation.last_name = response['data']['user_basic_information']['last_name']
-          }
-          commit('setUserInformation', userInformation)
           let userRoles = {}
-          if(response['data']['user_roles']){
-            for(let x = 0; x < (response['data']['user_roles']).length; x++){
-              userRoles[response['data']['user_roles'][x]['role_id']] = {}
+          let companyInformation = {
+            id: null,
+            name: null,
+            code: null,
+            address: null,
+            contact_number: null
+          }
+          if(response.data){
+            if(typeof response.data.user_profile_picture !== 'undefined'){
+              userInformation.profilePictureLink = response.data.user_profile_picture ? Config.FILE_SERVER_URL + '/files/' + response.data.user_profile_picture.thumbnail_file_name : require('@/vue-web-core/assets/img/no-profile-pic.jpg')
+            }
+            if(response['data']['user_basic_information']){
+              userInformation.first_name = response['data']['user_basic_information']['first_name']
+              userInformation.last_name = response['data']['user_basic_information']['last_name']
+            }
+            if(response['data']['user_roles']){
+              for(let x = 0; x < (response['data']['user_roles']).length; x++){
+                userRoles[response['data']['user_roles'][x]['role_id']] = {}
+              }
+            }
+            if(response['data']['company_user'] && response['data']['company_user']['company']){
+              companyInformation = {
+                id: response['data']['company_user']['company']['id'],
+                name: response['data']['company_user']['company']['name'],
+                code: response['data']['company_user']['company']['code'],
+                address: response['data']['company_user']['company']['company_detail']['address'],
+                contact_number: response['data']['company_user']['company']['company_detail']['contact_number'],
+              }
             }
           }
-          if(response['data']['company_user'] && response['data']['company_user']['company']){
-            commit('setCompanyInformation', {
-              id: response['data']['company_user']['company']['id'],
-              name: response['data']['company_user']['company']['name'],
-              code: response['data']['company_user']['company']['code'],
-              address: response['data']['company_user']['company']['company_detail']['address'],
-              contact_number: response['data']['company_user']['company']['company_detail']['contact_number'],
-            })
-          }
-
+          commit('setUserInformation', userInformation)
           commit('setUserRoles', userRoles)
-          commit('setHasInitialized', true)
+          commit('setCompanyInformation', companyInformation)
+          setTimeout(() => {
+            commit('setHasInitialized', true)
+          }, 300)
         }, (errorResponse) => {
           commit('setHasInitialized', true)
-          console.error('Error in store company information', errorResponse)
         })
       }else{
         commit('setHasInitialized', true)

@@ -126,6 +126,9 @@ export default {
         let savedData = formDataRaw
         if(this.currentMode === 'create'){
           savedData = { ...{ id: response.data.id }, ...formDataRaw }
+          this.$emit('form-created', savedData)
+        }else{
+          this.$emit('form-updated', savedData)
         }
         this.$emit('form-save', savedData)
       }, (errorResponse) => {
