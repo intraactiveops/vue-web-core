@@ -15,7 +15,7 @@ let iconUsed = ['faCoffee', 'faList', 'faUsers', 'faComments', 'faUserTie', 'faD
   'faSignOutAlt', 'faClock', 'faSms', 'faNetworkWired', 'faExternalLinkAlt', 'faSatelliteDish', 'faVial', 'faStar', 'faKey', 'faFingerprint', 'faCalendarPlus', 'faEllipsisV', 'faFlag', 'faExclamationTriangle', 'faDesktop', 'faArrowUp', 'faFlagCheckered', 'faMicrophoneAlt',
   'faChartLine', 'faCalendarCheck', 'faCalendarAlt', 'faHourglassHalf'
 ]
-let fileIcon = ['faFile', 'faFileWord', 'faTable', 'faFileExcel', 'faFileCsv', 'faFilePdf', 'faFilePowerpoint', 'faFileImage', 'faFileVideo', 'faFileVideo', 'faMagnet']
+let fileIcon = ['faFile', 'faFileWord', 'faTable', 'faFileExcel', 'faFileCsv', 'faFilePdf', 'faFilePowerpoint', 'faFileImage', 'faFileVideo', 'faFileVideo', 'faMagnet', 'faFileArchive']
 iconUsed = iconUsed.concat(fileIcon)
 for(let x = 0; x < iconUsed.length; x++){
   library.add(freeSolid[iconUsed[x]])
