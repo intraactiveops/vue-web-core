@@ -23,47 +23,46 @@ let time12HourFormat = (hour, minute, seconds) => {
   }
   return hour + ':' + QuickHelper.padNumber(minute, 2) + (typeof seconds !== 'undefined' ? ':' + seconds : '') + ' ' + median
 }
-Vue.mixin({
-  data(){
-    return {
-
+let serverDatetimeFormat = (date, userServerTime, noHours) => {
+  noHours = typeof noHours === 'undefined' ? false : noHours
+  let jsDate = new Date(date)
+  if(userServerTime){
+    jsDate.setHours(jsDate.getHours() - 8)
+  }
+  let dateString = jsDate.getFullYear() + '-' + QuickHelper.padNumber(jsDate.getMonth() + 1, 2) + '-' + QuickHelper.padNumber(jsDate.getDate(), 2) + ' '
+  let hourString = !noHours ? QuickHelper.padNumber(jsDate.getHours(), 2) + ':' + QuickHelper.padNumber(jsDate.getMinutes(), 2) + ':' + QuickHelper.padNumber(jsDate.getSeconds(), 2) : '00:00:00'
+  return dateString + hourString
+}
+let datetimeLapse = (actualDate) => {
+  let date = new Date(actualDate)
+  let dateTimestamp = ((date).getTime() / 1000) + 28800
+  let currentTimestamp = (new Date()).getTime() / 1000
+  let timeDifference = currentTimestamp - dateTimestamp
+  if(timeDifference < 604800){
+    if(timeDifference < 60){
+      return Math.floor(timeDifference) + ' seconds ago'
+    }else if(timeDifference < 3600){
+      return Math.floor(timeDifference / 60) + ' minutes ago'
+    }else if(timeDifference < 86400){
+      return Math.floor(timeDifference / 3600) + ' hours ago'
+    }else{
+      return Math.floor(timeDifference / 86400) + ' days ago'
     }
-  },
-  methods: {
-    serverDatetimeFormat(date, userServerTime, noHours){
-      noHours = typeof noHours === 'undefined' ? false : noHours
-      let jsDate = new Date(date)
-      if(userServerTime){
-        jsDate.setHours(jsDate.getHours() - 8)
-      }
-      let dateString = jsDate.getFullYear() + '-' + this.padNumber(jsDate.getMonth() + 1, 2) + '-' + this.padNumber(jsDate.getDate(), 2) + ' '
-      let hourString = !noHours ? this.padNumber(jsDate.getHours(), 2) + ':' + this.padNumber(jsDate.getMinutes(), 2) + ':' + this.padNumber(jsDate.getSeconds(), 2) : '00:00:00'
-      return dateString + hourString
-    },
-    time12HourFormat: time12HourFormat,
-    formatDate: formatDate
-  },
+  }else{
+    return shortMonthName[date.getMonth()] + ' ' + date.getDate()
+  }
+}
+let methods = {
+  serverDatetimeFormat: serverDatetimeFormat,
+  time12HourFormat: time12HourFormat,
+  formatDate: formatDate,
+  datetimeLapse: datetimeLapse
+}
+Vue.mixin({
+  methods: methods,
   filters: {
     formatDate: formatDate,
-    datetimeLapse(actualDate){
-      let date = new Date(actualDate)
-      let dateTimestamp = ((date).getTime() / 1000) + 28800
-      let currentTimestamp = (new Date()).getTime() / 1000
-      let timeDifference = currentTimestamp - dateTimestamp
-      if(timeDifference < 604800){
-        if(timeDifference < 60){
-          return Math.floor(timeDifference) + ' seconds ago'
-        }else if(timeDifference < 3600){
-          return Math.floor(timeDifference / 60) + ' minutes ago'
-        }else if(timeDifference < 86400){
-          return Math.floor(timeDifference / 3600) + ' hours ago'
-        }else{
-          return Math.floor(timeDifference / 86400) + ' days ago'
-        }
-      }else{
-        return shortMonthName[date.getMonth()] + ' ' + date.getDate()
-      }
-    },
+    datetimeLapse: datetimeLapse,
     toReadableDateTime(someDate){
       let date = new Date(someDate)
       if(someDate && !isNaN(date.getTime() * 1)){
@@ -74,3 +73,5 @@ Vue.mixin({
     }
   }
 })
+
+export default methods

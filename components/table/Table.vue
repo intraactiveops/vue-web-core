@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table-responsive">
     <table class="table">
       <thead>
         <tr><th v-for="head in header[0]" v:bind:span="head['sub_colument'].length">{{head}}</th><th></th></tr>

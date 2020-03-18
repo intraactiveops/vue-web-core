@@ -75,6 +75,12 @@ export default {
     },
     _close(){
       $(this.$refs.modal).modal('hide')
+      if(($(this.$refs.modal).data('bs.modal') || {})._isShown){
+        setTimeout(() => {
+          this._close()
+        }, 200)
+      }
+      return true
     }
   }
 }

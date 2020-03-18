@@ -96,6 +96,7 @@ let input = new InputType({
           param = this.config['api_before_search_hook'](search, param)
         }
         this.apiRequest(this.config['api_link'], param, (response) => {
+          alert('ya A')
           if(response['data']){
             let newOptions = []
             for(let x = 0; x < response['data'].length; x++){
@@ -154,6 +155,7 @@ let input = new InputType({
       }else if(value && typeof this.options[this.optionValueLookUp[value]] === 'undefined'){
         if(this.source === 'api'){
           this.apiRequest(this.config['api_link'], { select: ['id', this.apiOptionText], id: value }, (response) => {
+            alert('ya b')
             text = response['data'][this.apiOptionText]
             this.setOptions([{ text: text, value: value }])
             this.text = !this.text

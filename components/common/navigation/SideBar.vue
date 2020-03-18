@@ -1,14 +1,6 @@
 <template>
   <div id="sidebar-wrapper" >
       <ul class="sidebar-nav pt-4">
-      <!-- <li class="text-right px-4" v-if="!navConfig.noSideBar">
-        <span @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="btn btn-light text-center sideNavToggler"><fa icon="arrow-left" /> Close</span>
-
-      </li> -->
-
-        <!-- <li class="mb-4 text-white font-weight-bold">
-          1075 Dormitel
-        </li> -->
         <side-bar-item @link-clicked="hideSideBar" :items="menu" />
       </ul>
   </div>

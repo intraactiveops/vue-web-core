@@ -23,7 +23,8 @@ let store = new Vuex.Store({
       lastName: null,
     },
     userRoles: {
-    }
+    },
+    mode: 'online'
   },
   mutations: {
     setModuleLoading(state, isLoading){
@@ -31,6 +32,10 @@ let store = new Vuex.Store({
     },
     setAuthToken(state, token){
       Vue.set(state, 'authToken', token)
+    },
+    setMode(state, mode){
+      localStorage.setItem('mode', mode)
+      Vue.set(state, 'mode', mode)
     },
     setCompanyInformation(state, companyInformation){
       Vue.set(state.companyInformation, 'id', companyInformation.id)
@@ -86,6 +91,9 @@ let store = new Vuex.Store({
     authToken: (state) => {
       return state.authToken
     },
+    mode: (state) => {
+      return state.mode
+    },
     userRoles: (state) => {
       return state.userRoles
     },
@@ -113,7 +121,7 @@ let store = new Vuex.Store({
   },
   actions: {
     setUserInformationOffline({ commit }){
-      if(localStorage.getItem('is_terminal')){
+      if(localStorage.getItem('is_terminal') === null){
         return false
       }
       let userId = localStorage.getItem('user_id')
@@ -144,13 +152,19 @@ let store = new Vuex.Store({
             userRoles[response['user_roles'][x]['role_id']] = true
           }
         }
+        commit('setMode', 'offline')
         commit('setUserRoles', userRoles)
         commit('setUserInformation', userInformation)
-        commit('setHasInitialized', true)
+        if(localStorage.getItem('company_detail')){
+          commit('setCompanyInformation', JSON.parse(localStorage.getItem('company_detail')))
+        }
+        setTimeout(() => {
+          commit('setHasInitialized', true)
+        }, 300)
       })
     },
     setUserInformation({ commit }){
-      if(!localStorage.getItem('default_auth_token')){
+      if(!localStorage.getItem('default_auth_token') && localStorage.getItem('mode') !== 'offline'){
         localStorage.removeItem('user_id')
         localStorage.removeItem('roles')
         commit('setHasInitialized', true)
@@ -230,6 +244,7 @@ let store = new Vuex.Store({
               }
             }
           }
+          commit('setMode', 'online')
           commit('setUserInformation', userInformation)
           commit('setUserRoles', userRoles)
           commit('setCompanyInformation', companyInformation)
@@ -237,6 +252,7 @@ let store = new Vuex.Store({
             commit('setHasInitialized', true)
           }, 300)
         }, (errorResponse) => {
+          console.log('Error retrieving user')
           commit('setHasInitialized', true)
         })
       }else{

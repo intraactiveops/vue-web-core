@@ -1,45 +1,47 @@
 <template>
   <nav id="header-wrapper" class="fixed-top navbar navbar-expand-md navbar-dark bg-primary">
-    <router-link class="navbar-brand mr-0" to="/">{{companyName ? companyName : defaultCompanyName}}</router-link>
-    <template v-if="noSidebar !== true">
-      <button
-        v-if="!navConfig.sidebarToggled && !navConfig.noSideBar"
-        @click="navConfig.sidebarToggled = !navConfig.sidebarToggled"
-        class="sideButtonToggler float-left btn text-white"
-        type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
-        <fa :icon="'toggle-on'" />
+    <div>
+      <router-link class="navbar-brand mr-0 float-left text-truncate" to="/">{{companyName ? companyName : defaultCompanyName}}</router-link>
+      <template v-if="noSidebar !== true">
+        <button
+          v-if="!navConfig.sidebarToggled && !navConfig.noSideBar"
+          @click="navConfig.sidebarToggled = !navConfig.sidebarToggled; headerMenuToggled = false"
+          class="sideButtonToggler float-left btn text-white"
+          type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
+          <fa :icon="'toggle-on'" />
+        </button>
+        <button v-else-if="!navConfig.noSideBar && navConfig.sidebarToggled" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="sideButtonToggler float-left btn text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
+          <fa :icon="'toggle-off'" />
+        </button>
+      </template>
+      <button @click="headerMenuToggled = !headerMenuToggled; navConfig.sidebarToggled = false" id="menuToggleBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
-      <button v-else-if="!navConfig.noSideBar && navConfig.sidebarToggled" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="sideButtonToggler float-left btn text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
-        <fa :icon="'toggle-off'" />
-      </button>
-    </template>
-    <button id="menuToggleBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div v-if="!isLoadingModule && isLoadingModule !== null" class="collapse navbar-collapse navbar-right">
+    </div>
+    <div v-if="!isLoadingModule && isLoadingModule !== null" :class="headerMenuToggled ? '' : 'collapse'" class="collapsed navbar-collapse navbar-right">
       <ul class="navbar-nav ml-auto">
         <template v-for="item in menu">
-          <li v-if="typeof item['offline_only'] === 'undefined' || (item['offline_only'] && !userID) || (item['offline_only'] === false && userID)" class="nav-item pr-1">
+          <li v-if="typeof item['offline_only'] === 'undefined' || (item['offline_only'] && !userID) || (item['offline_only'] === false && userID)" class="nav-item pr-1" @click="menuClicked(typeof item['no_sidebar'] === 'undefined' ? false : item['no_sidebar'])">
             <router-link
-              @click="navConfig.noSideBar = typeof item['no_sidebar'] === 'undefined' ? false : item['no_sidebar']"
-              :class="typeof item['class'] !== 'undefined' ? item['class'] : ''"
+              :class="(typeof item['class'] !== 'undefined' ? item['class'] : '') + (headerMenuToggled ? 'py-3' : '')"
               class="nav-link py-1 text-center"
               style="line-height:16px"
               :to="typeof item['link'] === 'undefined' ? ((item['name']).toLowerCase()).replace(/ /g, '_') : item['link']"
             >
               <template v-if="item['icon']">
-                <big><fa :icon="item['icon']" /></big><br><small>{{item['name']}}</small>
+                <big><fa :icon="item['icon']" /></big> <br class="icon-br">  <small> {{item['name']}}</small>
               </template>
               <template v-else> {{item['name']}}</template>
             </router-link>
           </li>
         </template>
-        <li v-if="userID" class="nav-item">
+        <!-- <li v-if="userID" class="nav-item">
           <router-link class=" nav-link"  :to="'/user'"></router-link>
-        </li>
-        <li v-if="userID" class="nav-item dropdown">
+        </li> -->
+        <li v-if="userID" class="nav-item dropdown text-center">
           <a class="nav-link py-3"  id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="line-height: 0px; cursor: pointer">Hello <strong class="mr-2 text-uppercase">{{userName}}</strong> <fa :icon="'sort-down'" /></a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
+            <small v-if="mode === 'offline'" class="dropdown-item font-weight-bold text-secondary">Offline Mode</small>
             <router-link class="dropdown-item" to="/account-setting">Account Setting</router-link>
             <a class="dropdown-item" href="#" @click="logout">Logout</a>
           </div>
@@ -63,14 +65,18 @@ export default {
   },
   data(){
     return {
+      headerMenuToggled: false,
       navConfig: navigationConfig,
     }
   },
   mounted(){
   },
   methods: {
+    menuClicked(noSidebar){
+      this.navConfig.noSideBar = noSidebar
+      this.headerMenuToggled = false
+    },
     logout(){
-      store.commit('setAuthToken', null)
       this.$auth.logout()
       store.commit('logout')
       this.$router.push({
@@ -85,6 +91,9 @@ export default {
     userName(){
       return store.state.userInformation.firstName
     },
+    mode(){
+      return store.state.mode
+    },
     userID(){
       return store.state.userInformation ? store.state.userInformation.id : null
     },
@@ -97,7 +106,7 @@ export default {
 <style scoped>
 
 .navbar-brand{
-  width: 250px
+  min-width: 240px
 }
 #menuToggleBtn{
   position:absolute;
@@ -105,13 +114,24 @@ export default {
   top: 8px
 }
 .sideButtonToggler{
-  position:absolute;
+  /* position:absolute; */
   font-size: 1.8em;
-  margin-left: 230px;
+  /* margin-left: 230px; */
 }
-@media(max-width:768px) {
+@media(max-width:767px) {
   .sideButtonToggler{
-    margin-left: calc(100% - 150px);
+    float: right;
+    /* margin-left: calc(100% - 200px); */
+  }
+  .navbar-brand{
+    width: calc(100% - 250px)
+  }
+  .icon-br{
+    display: none
+  }
+  .navbar-collapse{
+    width: 100%;
+    height: 80vh;
   }
 }
 .fixed-top {
