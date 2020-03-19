@@ -19,6 +19,7 @@
         </tr>
       </tbody>
     </table>
+    <div v-if="isLoading" class="mt-2 text-center"><fa icon="hourglass-half" /> Retrieving data...</div>
   </div>
 </template>
 <script>
@@ -28,6 +29,7 @@ import APIUtil from '@/vue-web-core/helper/api/util.js'
 export default {
   name: 'Table',
   props: {
+    isLoading: Boolean,
     config: {
       type: Object,
       required: true

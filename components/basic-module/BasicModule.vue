@@ -10,7 +10,7 @@
       <button v-if="typeof config['no_create'] === 'undefined' || !config['no_create']" @click="_openCreateForm" class="btn btn-primary"><fa icon="plus" /> Create</button>
     </div>
     <module-table ref="table"  @view-row="viewRow" :config="config" />
-    <module-form ref="form" @form-save="updateRowFromForm" @form-deleted="deleteRow" :config="config">
+    <module-form ref="form" @form-save="updateRowFromForm" @form-deleted="deleteRow" :config="config" >
       <template v-slot:additionalFormField="slotProps">
         <slot name="additionalFormField" v-bind:formData="slotProps.formData"></slot>
       </template>
@@ -46,12 +46,15 @@ export default {
     },
     _openCreateForm(){
       this.currentRowViewedIndex = null
-      console.log(this.$refs)
       this.$refs.form.openCreateModal()
     },
-    updateRowFromForm(rowData){
+    updateRowFromForm(rowData, createMore = false){
       this.$emit('form-update')
+      console.log(createMore)
       this.$refs.table._updateRow(this.currentRowViewedIndex, rowData)
+      if(!createMore){
+        this.currentRowViewedIndex = this.currentRowViewedIndex || 0
+      }
     },
     deleteRow(){
       console.log(this.currentRowViewedIndex)

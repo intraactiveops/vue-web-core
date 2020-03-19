@@ -4,13 +4,13 @@
       <div v-bind:class="typeof config['form_setting']['modal_size'] !== 'undefined' ? 'modal-' + config['form_setting']['modal_size'] : ''" class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{config['module_name']}}</h5>
+            <h5 class="modal-title" id="exampleModalLabel">{{formName}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <div v-if="formMessage.type" class="text-center mt-3 mb-5">
+            <div v-if="formMessage.type" class="text-center mt-3 mb-4">
               <span v-bind:class="'alert-' + formMessage.type" class="alert" role="alert">
                 <fa v-bind:icon="formMessage.type === 'success' ? 'check-circle' : 'exclamation-circle'" />
                 {{formMessage.message}}
@@ -34,6 +34,7 @@
             </template>
             <template v-else>
               <button @click="isVerifyDelete = true" v-if="currentMode === 'update'" type="button" class="btn btn-sm btn-outline-danger mr-auto" ><fa :icon="'trash-alt'" /> Delete</button>
+              <button @click="createMore" v-if="hasCreateMore && currentMode === 'create'" type="button" class="btn btn-outline-success ml- mr-auto" ><fa icon="list" /> Create More</button>
               <button @click="closeForm" type="button" class="btn btn-sm btn-outline-dark" >Close</button>
               <button @click="save" type="button" class="btn btn-success"><fa :icon="'check'" /> {{currentMode === 'create' ? 'Create' : 'Update'}}</button>
             </template>
@@ -49,6 +50,7 @@ import Vue from 'vue'
 import FormComponent from '@/vue-web-core/components/form/Form'
 import ResponseUtil from '@/vue-web-core/helper/api/response-util.js'
 import APIUtil from '@/vue-web-core/helper/api/util.js'
+import TextTransform from '@/vue-web-core/helper/text-transform.js'
 
 export default {
   name: 'Table',
@@ -78,12 +80,17 @@ export default {
       },
       selectParameter: {},
       formOpenListener: null,
-      formResetListener: null
+      formResetListener: null,
+      hasCreateMore: false,
+      formName: TextTransform.toPhrase(this.config['api'])
     }
   },
   methods: {
     save(){
       this.saveForm()
+    },
+    createMore(){
+      this.saveForm(true)
     },
     formReady(){
       this.selectParameter = APIUtil.generateSelecParameter(this.$refs.form._getFieldList())
@@ -106,7 +113,7 @@ export default {
       }, (errorResponse) => {
       })
     },
-    saveForm(){
+    saveForm(createMore = false){
       this.isLoading = true
       this.loadingMessage = 'Talking to the server... please wait...'
       this.validationMessages = {}
@@ -119,10 +126,8 @@ export default {
         link = this.config['api'] + '/create'
       }
       this.apiRequest(link, formData, (response) => {
-        this.showForm(response.data.id)
         Vue.set(this.formMessage, 'type', 'success')
         Vue.set(this.formMessage, 'message', 'Saved successfully!')
-        this.isLoading = false
         let savedData = formDataRaw
         if(this.currentMode === 'create'){
           savedData = { ...{ id: response.data.id }, ...formDataRaw }
@@ -130,7 +135,17 @@ export default {
         }else{
           this.$emit('form-updated', savedData)
         }
-        this.$emit('form-save', savedData)
+        this.$emit('form-save', savedData, createMore)
+        if(createMore){
+          setTimeout(() => {
+            this.resetForm()
+            this.openCreateModal()
+            this.isLoading = false
+          }, 800)
+        }else{
+          this.showForm(response.data.id)
+          this.isLoading = false
+        }
       }, (errorResponse) => {
         if(errorResponse.error.code === 1){
           let errorMessages = errorResponse.error.message
@@ -208,6 +223,7 @@ export default {
       $(this.$refs.modal).modal('hide')
     },
     initConfig(){
+      this.hasCreateMore = typeof this.config['has_create_more'] !== 'undefined' && this.config['has_create_more']
       this.formConfig = this.config['form_setting']['form_field_setting']
       if(typeof this.config['form_setting']['listeners'] !== 'undefined'){
         this.formOpenListener = typeof this.config['form_setting']['listeners']['form_open'] !== 'undefined' ? this.config['form_setting']['listeners']['form_open'] : nulll

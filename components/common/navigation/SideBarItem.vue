@@ -8,7 +8,7 @@
         </router-link>
         <template v-else>
           <a v-bind:href="'#'+ ((menu['name']).replace(/ /g, '_')) + 'SideBarItem'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-            <fa :icon="menu['icon']" /> {{menu['name']}} 
+            <fa :icon="menu['icon']" /> {{menu['name']}}
           </a>
           <ul class="subMenu collapse list-unstyled pl-3" v-bind:id="((menu['name']).replace(' ', '_'))  + 'SideBarItem'">
               <li  v-for="subItem in menu['sub_item']">

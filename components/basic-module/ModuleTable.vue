@@ -1,7 +1,7 @@
 <template>
   <div>
     <table-filter ref="filter" @ready="componentReady" @filter="filterTable" />
-    <table-component ref="table" @row-view-clicked="viewRow" @ready="componentReady" :config="tableConfig"></table-component>
+    <table-component ref="table" @row-view-clicked="viewRow" @ready="componentReady" :config="tableConfig" :is-loading="isLoading"></table-component>
     <div v-if="resultPerPage" class="">
       <small class="float-left">{{totalResult}} results</small>
       <div class="btn-group float-right" role="group" aria-label="Button group with nested dropdown">
@@ -14,12 +14,8 @@
           </div>
         </div>
         <button type="button" class="btn btn-outline-secondary">Next <fa :icon="'chevron-right'"/></button>
-
       </div>
     </div>
-    <br>
-    <br>
-    <button @click="filterTable(undefined)">test row</button>
   </div>
 </template>
 <script>
@@ -49,7 +45,8 @@ export default {
       currentPage: null,
       totalPage: null,
       totalResult: 0,
-      componentReadyCount: 0 // 2 is all
+      componentReadyCount: 0, // 2 is all
+      isLoading: false
     }
   },
   mounted(){
@@ -132,6 +129,7 @@ export default {
           parameter['limit'] = this.resultPerPage
           parameter['offset'] = (this.currentPage - 1) * this.resultPerPage
         }
+        this.isLoading = true
         this.apiRequest(this.config['api'] + '/retrieve', parameter, (response) => {
           // this.$refs.table._updateList(response.data)
           resolve(response.data)
@@ -140,7 +138,9 @@ export default {
             this.totaResult = response['additional_data']['total_result'] * 1
           }
           //
+          this.isLoading = false
         }, (errorResponse, status) => {
+          this.isLoading = false
           reject(errorResponse)
           console.error('error', errorResponse)
         })
