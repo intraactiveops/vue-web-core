@@ -26,7 +26,7 @@
               :class="(typeof item['class'] !== 'undefined' ? item['class'] : '') + (headerMenuToggled ? 'py-3' : '')"
               class="nav-link py-1 text-center"
               style="line-height:16px"
-              :to="typeof item['link'] === 'undefined' ? ((item['name']).toLowerCase()).replace(/ /g, '_') : item['link']"
+              :to="typeof item['link'] === 'undefined' ?  '/' + ((item['name']).toLowerCase()).replace(/ /g, '_') : item['link']"
             >
               <template v-if="item['icon']">
                 <big><fa :icon="item['icon']" /></big> <br class="icon-br">  <small> {{item['name']}}</small>

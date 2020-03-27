@@ -35,6 +35,9 @@ Vue.use(require('@websanova/vue-auth'), {
   authRedirect: {
     path: '/'
   },
+  forbiddenRedirect: {
+    path: '/403'
+  },
   notFoundRedirect: {
     path: '/error/not-found'
   },

@@ -20,7 +20,6 @@ let mixin = {
           console.log(error.response.status)
           if(typeof error.response !== 'undefined'){
             if(error.response.status === 401){ // net log in
-              alert(401)
               this.$router.push('/', () => {})
             }else{
               if(typeof errorCallback !== 'undefined'){
