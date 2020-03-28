@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Config from '@/vue-web-core/system/config.js'
-import UserStore from '@/vue-web-core/system/store'
 let mixin = {
   methods: {
     request(link, parameter, callback, errorCallback){
@@ -14,23 +13,23 @@ let mixin = {
         }
       }
       let requestInstance = axios(options)
-      .then(response => {
-        callback(response.data)
-      }).catch((error) => {
-        if(typeof error.response !== 'undefined'){
-          if(typeof errorCallback === 'function') {
-            errorCallback(error.response.data, error.response.status)
+        .then(response => {
+          callback(response.data)
+        }).catch((error) => {
+          if(typeof error.response !== 'undefined'){
+            if(typeof errorCallback === 'function') {
+              errorCallback(error.response.data, error.response.status)
+            }else{
+              if(error.response.status === 401){ // net log in
+                window.location = '/'
+              }
+            }
           }else{
-            if(error.response.status === 401){ // net log in
-              window.location = '/'
+            if(typeof errorCallback === 'function') {
+              errorCallback(error.response)
             }
           }
-        }else{
-          if(typeof errorCallback === 'function') {
-            errorCallback(error.response)
-          }
-        }
-      }).finally(() => { this.loading = false })
+        }).finally(() => { this.loading = false })
       return requestInstance
     }
   }
