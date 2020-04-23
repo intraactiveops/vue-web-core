@@ -78,6 +78,8 @@ let input = new InputType({
           }
           this.setOptions(newOptions)
         }
+      }, () => {
+        console.error('API Request error', this.config['api_link'])
       })
     },
     setOptions(newOptions){

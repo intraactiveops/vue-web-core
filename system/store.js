@@ -24,7 +24,7 @@ let store = new Vuex.Store({
     },
     userRoles: {
     },
-    mode: 'online'
+    mode: null
   },
   mutations: {
     setModuleLoading(state, isLoading){
@@ -92,6 +92,13 @@ let store = new Vuex.Store({
       return state.authToken
     },
     mode: (state) => {
+      if(state.mode === null){
+        if(localStorage.getItem('mode')){
+          Vue.set(state, 'mode', localStorage.getItem('mode'))
+        }else{
+          Vue.set(state, 'mode', 'online')
+        }
+      }
       return state.mode
     },
     userRoles: (state) => {
