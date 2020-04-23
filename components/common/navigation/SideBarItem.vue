@@ -1,7 +1,7 @@
 <template>
   <div>
     <li  v-for="menu in menus">
-        <router-link v-on:click="linkClicked" v-if="menu['sub_item'] === null" :to="(mode === 'offline' && !menu['has_offline']) ? '/error/online-only' : menu['route']">
+        <router-link v-if="menu['sub_item'] === null || (!isTerminal() && menu['not_terminal_link'])" v-on:click="linkClicked" :to="generateLink(menu)">
           <div v-on:click="linkClicked" style="width:100%">
             <fa v-bind:icon="menu['icon']" /> {{menu['name']}}
           </div>
@@ -37,6 +37,9 @@ export default{
     }
   },
   methods: {
+    isTerminal(){
+      return localStorage.getItem('is_terminal')
+    },
     linkClicked(){
       this.$emit('link-clicked')
     },
@@ -47,6 +50,7 @@ export default{
         newItem['route'] = (typeof newItem['route'] === 'undefined') ? '/' + ((newItem['name']).toLowerCase()).replace(/ /g, '-') : newItem['route']
         newItem['icon'] = (typeof newItem['icon'] === 'undefined') ? 'dot-circle' : newItem['icon']
         newItem['has_offline'] = (typeof newItem['has_offline'] === 'undefined') ? false : newItem['has_offline']
+        newItem['not_terminal_link'] = (typeof newItem['not_terminal_link'] === 'undefined') ? false : newItem['not_terminal_link']
         if(typeof newItem['sub_item'] !== 'undefined'){
           newItem['sub_item'] = this.initItems(newItem['sub_item'])
         }else{
@@ -55,12 +59,29 @@ export default{
         newItems.push(newItem)
       }
       return newItems
+    },
+    generateLink(menu){
+      let mode = this.mode
+      if(menu['not_terminal_link'] && localStorage.getItem('is_terminal') === null){
+        if(menu['not_terminal_link'] === true){
+          return '/error/terminal-only'
+        }else{
+          return menu['not_terminal_link']
+        }
+      }else if(mode === 'offline' && !menu['has_offline']){
+        return '/error/online-only'
+      }else{
+        return menu['route']
+      }
     }
   },
   computed: {
     mode(){
       return User.state.mode
     }
+  },
+  filters: {
+    
   }
 }
 </script>
