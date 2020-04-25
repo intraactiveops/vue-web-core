@@ -79,9 +79,6 @@ export default{
     mode(){
       return User.state.mode
     }
-  },
-  filters: {
-    
   }
 }
 </script>
