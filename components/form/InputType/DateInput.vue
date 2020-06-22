@@ -40,7 +40,6 @@ let input = new InputType({
         value = this.formData[this.index]
       }
       if(value === null){
-        // console.log('clearing',$(this.$refs.datepicker), $(this.$refs.datepicker).datetimepicker('DateTimePicker').clear())
         // $(this.$refs.datepicker)[0].clear()
       }
       return value

@@ -28,7 +28,6 @@ export default{
       let name = this.$route.name
       if(!name){
         name = ''
-        console.log('name', name, this.$route)
       }
       return name.toLowerCase()
     }

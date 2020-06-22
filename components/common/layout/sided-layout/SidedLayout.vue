@@ -81,7 +81,6 @@ export default {
       this.$emit('right-side-bar-toggled', newData)
     },
     $route: (to, from) => {
-      console.log('route', this.$route.name)
       // this.currentRouteName = to.$route.name.toLowerCase()
     }
   },

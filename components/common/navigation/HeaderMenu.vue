@@ -14,9 +14,9 @@
           <fa :icon="'toggle-off'" />
         </button>
       </template>
-      <button @click="headerMenuToggled = !headerMenuToggled; navConfig.sidebarToggled = false" id="menuToggleBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+      <a @click="headerMenuToggled = !headerMenuToggled; navConfig.sidebarToggled = false" id="menuToggleBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </a>
     </div>
     <div v-if="!isLoadingModule && isLoadingModule !== null" :class="headerMenuToggled ? '' : 'collapse'" class="collapsed navbar-collapse navbar-right">
       <ul class="navbar-nav ml-auto">
@@ -108,10 +108,16 @@ export default {
 .navbar-brand{
   min-width: 240px
 }
+.navbar-brand{
+  padding: 10px 0 10px 0
+}
 #menuToggleBtn{
   position:absolute;
   right: 16px;
   top: 8px
+}
+#menuToggleBtn:focus {
+  border-color: red!important
 }
 .sideButtonToggler{
   /* position:absolute; */
@@ -124,7 +130,10 @@ export default {
     /* margin-left: calc(100% - 200px); */
   }
   .navbar-brand{
-    width: calc(100% - 250px)
+    min-width: 100px
+  }
+  .navbar-brand{
+    width: calc(100vw - 138px)!important /* (padding x) + (width of two buttons) - 5*/
   }
   .icon-br{
     display: none

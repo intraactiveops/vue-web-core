@@ -82,7 +82,7 @@ export default {
       formOpenListener: null,
       formResetListener: null,
       hasCreateMore: false,
-      formName: TextTransform.toPhrase(this.config['api'])
+      formName: typeof this.config['module_name'] === 'undefined' ? TextTransform.toPhrase((this.config['api']).replace(/-/g, ' ')) : this.config['module_name']
     }
   },
   methods: {

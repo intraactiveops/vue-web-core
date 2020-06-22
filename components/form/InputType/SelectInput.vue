@@ -56,7 +56,7 @@ let input = new InputType({
     getLatestAPIOption(){
       let param = {
         select: {
-          0: 'description',
+          0: typeof this.config['api_option_text'] === 'undefined' ? 'description' : this.config['api_option_text'],
           1: 'deleted_at'
         }
       }

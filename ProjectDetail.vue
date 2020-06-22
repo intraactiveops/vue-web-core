@@ -44,7 +44,6 @@ export default {
     },
     save(){
       this.$emit('created', this.$refs.form._getFormData())
-      console.log(this.$refs.form._getFormData())
     }
   }
 }

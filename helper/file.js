@@ -79,7 +79,6 @@ export default{
       //   resolve(e.target.result)
       // }
       // reader.onerror = function(e) {
-      //   console.log('failed to load image')
       //   reject(false)
       // }
     })

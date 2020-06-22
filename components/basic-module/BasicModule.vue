@@ -50,14 +50,12 @@ export default {
     },
     updateRowFromForm(rowData, createMore = false){
       this.$emit('form-update')
-      console.log(createMore)
       this.$refs.table._updateRow(this.currentRowViewedIndex, rowData)
       if(!createMore){
         this.currentRowViewedIndex = this.currentRowViewedIndex || 0
       }
     },
     deleteRow(){
-      console.log(this.currentRowViewedIndex)
       this.$refs.table._deleteRow(this.currentRowViewedIndex)
     },
     _filterTable(){

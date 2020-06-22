@@ -30,7 +30,6 @@ let mixin = {
           errorCallback(response.error)
         }
       }).fail((response) => {
-        console.log('error status------------', response.status, response)
         switch(response.status * 1){
           case 404:
             console.error('Upload location not found')

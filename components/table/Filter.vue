@@ -50,7 +50,6 @@ export default{
       }
     },
     formReady(){
-      console.log('form ready')
     },
     _filter(){
       let conditionParameter = []

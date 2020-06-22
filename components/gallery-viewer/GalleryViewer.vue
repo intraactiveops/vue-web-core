@@ -107,7 +107,6 @@ export default {
     },
     resizeImage(){
       if(typeof $(this.$refs.image)[0] === 'undefined'){
-        console.log('Image is undefined', this.links)
         return false
       }
       this.isLoading = true

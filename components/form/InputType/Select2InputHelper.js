@@ -59,7 +59,6 @@ export default class Select2InputHelper{
   }
   requestNewOptions(search, done){
     let ids = []
-    console.log('ops', this.options)
     for(let x = 0; x < this.options.length; x++){
       ids.push(this.options[x]['value'])
     }

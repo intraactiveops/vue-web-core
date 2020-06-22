@@ -61,7 +61,6 @@ export default{
       }
     },
     menuToggle(menu){
-      console.log('menu changed', menu)
       SideMenuStore.commit('toggleMenu', menu)
     }
   },

@@ -41,7 +41,6 @@ let mixin = {
         data: parameter,
         url: link
       }
-      console.log('options', options)
       return axios(options)
         .then(response => {
           callback(response)

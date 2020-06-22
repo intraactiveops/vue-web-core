@@ -1,23 +1,25 @@
 <template>
   <div>
     <li  v-for="menu in menus">
-        <router-link v-if="menu['sub_item'] === null || (!isTerminal() && menu['not_terminal_link'])" v-on:click="linkClicked" :to="generateLink(menu)">
-          <div v-on:click="linkClicked" style="width:100%">
-            <fa v-bind:icon="menu['icon']" /> {{menu['name']}}
-          </div>
-        </router-link>
-        <template v-else>
-          <a v-bind:href="'#'+ ((menu['name']).replace(/ /g, '_')) + 'SideBarItem'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-            <fa :icon="menu['icon']" /> {{menu['name']}}
-          </a>
-          <ul class="subMenu collapse list-unstyled pl-3" v-bind:id="((menu['name']).replace(' ', '_'))  + 'SideBarItem'">
-              <li  v-for="subItem in menu['sub_item']">
-                <router-link v-if="subItem['sub_item'] === null" :to="(mode === 'offline' && !subItem['has_offline']) ? '/error/online-only' : subItem['route']">
-                  <fa v-bind:icon="subItem['icon']" /> {{subItem['name']}}
-                </router-link>
-              </li>
-          </ul>
-        </template>
+      <router-link v-if="menu['sub_item'] === null" v-on:click="linkClicked" :to="generateLink(menu)">
+        <div v-on:click="linkClicked" style="width:100%">
+          <fa v-bind:icon="menu['icon']" /> {{menu['name']}}
+        </div>
+      </router-link>
+      <template v-else>
+        <a v-bind:href="'#'+ ((menu['name']).replace(/ /g, '_')) + 'SideBarItem'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <fa :icon="menu['icon']" /> {{menu['name']}}
+        </a>
+        <ul class="subMenu collapse list-unstyled pl-3" v-bind:id="((menu['name']).replace(' ', '_'))  + 'SideBarItem'">
+          <template v-for="subItem in menu['sub_item']">
+            <li>
+              <router-link v-if="subItem['sub_item'] === null" :to="(mode === 'offline' && !subItem['has_offline']) ? '/error/online-only' : subItem['route']">
+                <fa v-bind:icon="subItem['icon']" /> {{subItem['name']}}
+              </router-link>
+            </li>
+          </template>
+        </ul>
+      </template>
     </li>
   </div>
 </template>
@@ -29,11 +31,10 @@ export default{
     items: Array
   },
   mounted(){
-    this.menus = this.initItems(this.items)
   },
   data(){
     return {
-      menus: []
+      menus: [],
     }
   },
   methods: {
@@ -43,20 +44,30 @@ export default{
     linkClicked(){
       this.$emit('link-clicked')
     },
+    _initialize(){
+      this.menus = []
+      this.menus = this.initItems(JSON.parse(JSON.stringify(this.items)))
+    },
     initItems(items){
       let newItems = []
       for(let item in items){
         let newItem = items[item]
+        if(!this.hasRoleAccessList(newItem)){
+          continue
+        }
         newItem['route'] = (typeof newItem['route'] === 'undefined') ? '/' + ((newItem['name']).toLowerCase()).replace(/ /g, '-') : newItem['route']
         newItem['icon'] = (typeof newItem['icon'] === 'undefined') ? 'dot-circle' : newItem['icon']
         newItem['has_offline'] = (typeof newItem['has_offline'] === 'undefined') ? false : newItem['has_offline']
         newItem['not_terminal_link'] = (typeof newItem['not_terminal_link'] === 'undefined') ? false : newItem['not_terminal_link']
-        if(typeof newItem['sub_item'] !== 'undefined'){
+        if(typeof newItem['sub_item'] !== 'undefined' && newItem['sub_item'] !== null && (newItem['sub_item']).length){
           newItem['sub_item'] = this.initItems(newItem['sub_item'])
+          if(newItem['sub_item'].length){ // only add this menu item if it has one active sub link
+            newItems.push(newItem)
+          }
         }else{
           newItem['sub_item'] = null
+          newItems.push(newItem)
         }
-        newItems.push(newItem)
       }
       return newItems
     },
@@ -73,11 +84,27 @@ export default{
       }else{
         return menu['route']
       }
+    },
+    hasRoleAccessList(item){
+      if(typeof item['role_access_list'] !== 'undefined'){
+        let hasAccess = false
+        for(let role in item['role_access_list']){
+          if(typeof this.userRoles[role] !== 'undefined'){
+            hasAccess = true
+          }
+        }
+        return hasAccess
+      }else{
+        return true
+      }
     }
   },
   computed: {
     mode(){
       return User.state.mode
+    },
+    userRoles(){
+      return User.getters.userRoles
     }
   }
 }

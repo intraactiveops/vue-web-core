@@ -20,7 +20,6 @@ let store = new Vuex.Store({
       }
     },
     toggleMenu(state, menu){
-      // console.log(menu, 'menu',state[menu])
       Vue.set(state, menu, !state[menu])
       localStorage.setItem('side_menu_setting', JSON.stringify(this.state))
     },

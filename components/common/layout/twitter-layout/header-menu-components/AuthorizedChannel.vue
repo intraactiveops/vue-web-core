@@ -126,7 +126,6 @@ export default{
   },
   methods: {
     connect(index){
-      console.log(index)
       this.isLoggingIn = true
       this.selectedAuthorizedChannelIndex = index
     }
