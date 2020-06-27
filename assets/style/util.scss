@@ -32,6 +32,9 @@ li.borderless { border-top: 0 none; }
 .text-hover-underline:hover {
   text-decoration: underline
 }
+.text-sm-center{
+  text-align: inherit!important;
+}
 @media(max-width:768px) { /*SM Screen*/
   .w-sm-100 {
     width: 100%
@@ -39,5 +42,8 @@ li.borderless { border-top: 0 none; }
   .px-sm-0 {
     padding-left: 0px!important;
     padding-right: 0p!important;
+  }
+  .text-sm-center {
+    text-align: center
   }
 }

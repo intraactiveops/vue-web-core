@@ -1,13 +1,13 @@
 <template>
-  <div class="row mb-2">
-    <template v-if="hasFilter">
-      <div class="col-12 col-lg-10">
-        <form-component ref="form" @form-ready="formReady" :config="formConfig"  />
-      </div>
-      <div class="col-12 col-lg-2 text-center">
-        <button @click="_filter" class="btn btn-outline-secondary"> <fa :icon="'filter'" />Filter</button>
-      </div>
-    </template>
+  <div class="">
+    <div v-if="hasFilter" class="row mb-2" >
+        <div class="col-12 col-lg-10">
+          <form-component ref="form" @form-ready="formReady" :config="formConfig"  />
+        </div>
+        <div class="col-12 col-lg-2 text-center">
+          <button @click="_filter" class="btn btn-outline-secondary"> <fa :icon="'filter'" />Filter</button>
+        </div>
+    </div>
   </div>
 </template>
 <script>
