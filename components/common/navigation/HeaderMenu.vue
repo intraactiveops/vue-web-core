@@ -14,11 +14,11 @@
           <fa :icon="'toggle-off'" />
         </button>
       </template>
-      <a @click="headerMenuToggled = !headerMenuToggled; navConfig.sidebarToggled = false" id="menuToggleBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+      <a ref="headerMenuToggler" @click="headerMenuToggled = !headerMenuToggled; navConfig.sidebarToggled = false"  id="menuToggleBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </a>
     </div>
-    <div v-if="!isLoadingModule && isLoadingModule !== null" :class="headerMenuToggled ? '' : 'collapse'" class="collapsed navbar-collapse navbar-right">
+    <div v-if="!isLoadingModule && isLoadingModule !== null" :class="headerMenuToggled ? '' : 'collapse'" class="navbar-collapse navbar-right">
       <ul class="navbar-nav ml-auto">
         <template v-for="item in menu">
           <li v-if="typeof item['offline_only'] === 'undefined' || (item['offline_only'] && !userID) || (item['offline_only'] === false && userID)" class="nav-item pr-1" @click="menuClicked(typeof item['no_sidebar'] === 'undefined' ? false : item['no_sidebar'])">
@@ -77,6 +77,7 @@ export default {
       this.headerMenuToggled = false
     },
     logout(){
+      this.$refs.headerMenuToggler.click()
       this.$auth.logout()
       store.commit('logout')
       this.$router.push({

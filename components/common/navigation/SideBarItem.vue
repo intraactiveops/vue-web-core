@@ -12,8 +12,8 @@
         </a>
         <ul class="subMenu collapse list-unstyled pl-3" v-bind:id="((menu['name']).replace(' ', '_'))  + 'SideBarItem'">
           <template v-for="subItem in menu['sub_item']">
-            <li>
-              <router-link v-if="subItem['sub_item'] === null" :to="(mode === 'offline' && !subItem['has_offline']) ? '/error/online-only' : subItem['route']">
+            <li @click="linkClicked">
+              <router-link v-if="subItem['sub_item'] === null"  :to="generateLink(subItem)">
                 <fa v-bind:icon="subItem['icon']" /> {{subItem['name']}}
               </router-link>
             </li>
@@ -47,6 +47,7 @@ export default{
     _initialize(){
       this.menus = []
       this.menus = this.initItems(JSON.parse(JSON.stringify(this.items)))
+      return this.menus.length
     },
     initItems(items){
       let newItems = []
@@ -73,6 +74,7 @@ export default{
     },
     generateLink(menu){
       let mode = this.mode
+      console.log(menu['name'], menu['not_terminal_link'], localStorage.getItem('is_terminal') )
       if(menu['not_terminal_link'] && localStorage.getItem('is_terminal') === null){
         if(menu['not_terminal_link'] === true){
           return '/error/terminal-only'

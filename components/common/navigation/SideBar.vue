@@ -23,7 +23,11 @@ export default {
   },
   methods: {
     _initialize(){
-      this.$refs.sideBarItem._initialize()
+      if(!this.$refs.sideBarItem._initialize()){
+        // this.navConfig.sidebarToggled = false
+        this.navConfig.noSideBar = true
+      }
+      
     },
     hideSideBar(){
       if(window.innerWidth <= 768){
