@@ -74,6 +74,9 @@ export default {
   methods: {
     menuClicked(noSidebar){
       this.navConfig.noSideBar = noSidebar
+      if(!noSidebar){
+        this.navConfig.sidebarToggled = true
+      }
       this.headerMenuToggled = false
     },
     logout(){
@@ -104,7 +107,8 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
+@import "@/assets/style/custom-theme";
 
 .navbar-brand{
   min-width: 240px
@@ -115,10 +119,9 @@ export default {
 #menuToggleBtn{
   position:absolute;
   right: 16px;
-  top: 8px
-}
-#menuToggleBtn:focus {
-  border-color: red!important
+  top: 8px;
+  background-color: $primary;
+  -webkit-appearance: none;
 }
 .sideButtonToggler{
   /* position:absolute; */
@@ -149,6 +152,6 @@ export default {
     top: 0;
     right: 0;
     left: 0;
-    z-index: 1030;
+    z-index: 1000;
 }
 </style>

@@ -48,6 +48,15 @@ Vue.mixin({
     generateRandomNumber: generateRandomNumber,
     thread: (functionToRun, delay = 10) => {
       setTimeout(functionToRun, delay)
+    },
+    blurOnEnter(e){
+      if(typeof e.which === 'undefined' || typeof e.target === 'undefined'){ // check if key $event
+        return false
+      }
+      if(e.which === 13){ // 13 is ascii for enter
+        e.target.blur()
+      }
+      console.log(e)
     }
   },
   filters: {

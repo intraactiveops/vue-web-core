@@ -74,7 +74,6 @@ export default{
     },
     generateLink(menu){
       let mode = this.mode
-      console.log(menu['name'], menu['not_terminal_link'], localStorage.getItem('is_terminal') )
       if(menu['not_terminal_link'] && localStorage.getItem('is_terminal') === null){
         if(menu['not_terminal_link'] === true){
           return '/error/terminal-only'
