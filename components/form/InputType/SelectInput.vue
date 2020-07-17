@@ -1,7 +1,7 @@
 <template>
   <div>
-    <select ref="select" @change="dataChanged($event.target.value)" v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" class="custom-select">
-      <option v-for="option in options" v-bind:value="option['value']" v-bind:selected="(value + '') === (option['value'] + '')" >{{option['text']}}</option>
+    <select ref="select" @change="dataChanged($event.target.value)" v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" class="custom-select" :value="value === null ? 'NULL' : value">
+      <option v-for="option in options" v-bind:value="option['value']" >{{option['text']}}</option>
     </select>
     <div class="invalid-feedback">
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
@@ -9,8 +9,9 @@
   </div>
 </template>
 <script>
-import InputType from './InputTypeCore.js'
-let input = new InputType({
+import InputTypeMixIn from './InputTypeMixIn.js'
+export default {
+  mixins: [InputTypeMixIn],
   name: 'Select',
   components: {
   },
@@ -26,7 +27,6 @@ let input = new InputType({
       }
     }
   },
-
   mounted(){
     this.initConfig()
   },
@@ -107,6 +107,5 @@ let input = new InputType({
   },
   watch: {
   }
-})
-export default input.generate()
+}
 </script>

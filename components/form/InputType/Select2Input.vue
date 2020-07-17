@@ -9,10 +9,11 @@
   </div>
 </template>
 <script>
-import InputType from './InputTypeCore.js'
+import InputTypeMixIn from './InputTypeMixIn.js'
 import 'vue-select/dist/vue-select.css'
 import select2 from 'vue-select'
-let input = new InputType({
+export default {
+  mixins: [InputTypeMixIn],
   name: 'Select2',
   components: {
     select2
@@ -174,8 +175,7 @@ let input = new InputType({
   },
   watch: {
   }
-})
-export default input.generate()
+}
 </script>
 <style>
   .component-form-input-type-select-2 .v-select .vs__dropdown-toggle{

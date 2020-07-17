@@ -5,8 +5,9 @@
 </template>
 <script>
 
-import InputType from './InputTypeCore.js'
-let input = new InputType({
+import InputTypeMixIn from './InputTypeMixIn.js'
+export default {
+  mixins: [InputTypeMixIn],
   name: 'HiddenInput',
   data(){
     return {
@@ -18,7 +19,6 @@ let input = new InputType({
   },
   methods: {
     valueChanger(newValue){
-
     },
     init(){
       this.inputValue = this.value
@@ -30,6 +30,5 @@ let input = new InputType({
       }
     }
   }
-})
-export default input.generate()
+}
 </script>

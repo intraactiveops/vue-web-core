@@ -4,8 +4,9 @@
   </div>
 </template>
 <script>
-import InputType from './InputTypeCore.js'
-let input = new InputType({
+import InputTypeMixIn from './InputTypeMixIn.js'
+export default {
+  mixins: [InputTypeMixIn],
   name: 'Checkbox',
   data(){
     return {
@@ -18,6 +19,5 @@ let input = new InputType({
   },
   mounted(){
   }
-})
-export default input.generate()
+}
 </script>

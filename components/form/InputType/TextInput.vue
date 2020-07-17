@@ -10,8 +10,9 @@
   </div>
 </template>
 <script>
-import InputType from './InputTypeCore.js'
-let input = new InputType({
+import InputTypeMixIn from './InputTypeMixIn.js'
+export default {
+  mixins: [InputTypeMixIn],
   name: 'TextInput',
   data(){
     return {
@@ -31,6 +32,5 @@ let input = new InputType({
     value(newData){
     }
   }
-})
-export default input.generate()
+}
 </script>

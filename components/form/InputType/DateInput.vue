@@ -5,10 +5,11 @@
   </div>
 </template>
 <script>
-import InputType from './InputTypeCore.js'
+import InputTypeMixIn from './InputTypeMixIn.js'
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css'
 import DatePicker from 'vue-bootstrap-datetimepicker'
-let input = new InputType({
+export default {
+  mixins: [InputTypeMixIn],
   name: 'DateInput',
   components: {
     DatePicker
@@ -47,6 +48,5 @@ let input = new InputType({
   },
   mounted(){
   }
-})
-export default input.generate()
+}
 </script>
