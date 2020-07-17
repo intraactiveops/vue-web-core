@@ -1,5 +1,3 @@
-import ObjectHelper from '@/vue-web-core/helper/object.js'
-
 export default {
   props: {
     config: { type: Object, required: false },

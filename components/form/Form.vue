@@ -63,7 +63,7 @@ export default {
     },
     dataChanged(index, value){
       Vue.set(this.formData, index, value)
-      this.formData[index]
+      this.$emit('data-changed', index, this.formData[index])
       // TODO call back change
       for(let x = 0; x < this.onDataChangeListener.length; x++){
         let result = this.onDataChangeListener[x](index, this.formData)

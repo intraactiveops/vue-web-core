@@ -33,10 +33,8 @@ export default {
     dpValue(){
       let value = null
       if(typeof this.formData[this.index] === 'undefined' || this.formData[this.index] === null){
-        this.defaultValue = this.defaultValue ? this.defaultValue : null
         // this.$emit('data-changed', this.index, this.defaultValue)
-
-        value = this.defaultValue
+        value = this.defaultValue ? this.defaultValue : null
       }else{
         value = this.formData[this.index]
       }
