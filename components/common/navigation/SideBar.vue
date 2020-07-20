@@ -29,7 +29,7 @@ export default {
       }
     },
     hideSideBar(){
-      if(window.innerWidth <= 992){
+      if(window.innerWidth <= 768){
         this.navConfig.sidebarToggled = false
       }
     }

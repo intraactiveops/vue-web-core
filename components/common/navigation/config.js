@@ -1,5 +1,5 @@
 var navConfig = {
-  sidebarToggled: !(window.innerWidth <= 992),
+  sidebarToggled: !(window.innerWidth <= 768),
   noSideBar: true,
   noHeaderMenu: false
 }
