@@ -143,8 +143,10 @@ export default {
             this.isLoading = false
           }, 800)
         }else{
-          this.showForm(response.data.id)
-          this.isLoading = false
+          setTimeout(() => {
+            this.showForm(response.data.id)
+            this.isLoading = false
+          }, 500)
         }
       }, (errorResponse) => {
         if(errorResponse.error.code === 1){
