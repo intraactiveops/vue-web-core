@@ -129,6 +129,7 @@ let store = new Vuex.Store({
   actions: {
     setUserInformationOffline({ commit }){
       if(localStorage.getItem('is_terminal') === null){
+        commit('setHasInitialized', true)
         return false
       }
       let userId = localStorage.getItem('user_id')

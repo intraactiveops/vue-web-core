@@ -7,11 +7,11 @@
       <tbody>
         <tr v-for="(row, index) in rowData">
           <td v-for="column in columnSetting">
-            <template v-if="column['type'] === 'text'">{{row[column['index']]}}</template>
-            <div v-else-if="column['type'] === 'number'" class="text-right">{{row[column['index']]}}</div>
-            <div v-else-if="column['type'] === 'decimal'" class="text-right">{{(row[column['index']]).toFixed(2)}}</div>
-            <div v-else-if="column['type'] === 'html'" v-html="column['value_function'](row)"></div>
-            <div v-else-if="column['type'] === 'yesno'">{{row[column['index']] ? 'Yes' : 'No'}}</div>
+            <template v-if="column['type'] === 'text'">{{getValue(column, column['index'], row)}}</template>
+            <div v-else-if="column['type'] === 'number'" class="text-right">{{getValue(column, column['index'], row)}}</div>
+            <div v-else-if="column['type'] === 'decimal'" class="text-right">{{(getValue(column, column['index'], row)).toFixed(2)}}</div>
+            <div v-else-if="column['type'] === 'html'" v-html="getValue(column, column['index'], row)"></div>
+            <div v-else-if="column['type'] === 'yesno'">{{getValue(column, column['index'], row) ? 'Yes' : 'No'}}</div>
           </td>
           <td>
             <button @click="$emit('row-view-clicked', index, row['id'])" type="button" class="btn btn-sms btn-outline-primary "><fa icon="edit" /></button>
@@ -56,6 +56,13 @@ export default {
   methods: {
     _getFieldList(){
       return this.fieldList
+    },
+    getValue(column, columnIndex, rowData){
+      if(typeof column['value_function'] === 'function'){
+        return column['value_function'](rowData)
+      }else if(columnIndex){
+        return rowData[columnIndex]
+      }
     },
     initConfig () {
       this.header = [

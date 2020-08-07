@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input @change="dataChanged($event.target.value)" v-bind:maxlength="config['maxlength']" v-bind:value="value"  v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" v-bind:placeholder="placeholder" :readonly="readOnly" class="form-control" type="text">
+    <input @change="dataChanged($event.target.value)" v-bind:maxlength="config['maxlength']" v-bind:value="value"  v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" v-bind:placeholder="placeholder" :readonly="readOnly" class="form-control" type="email">
     <div class="invalid-feedback">
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
     </div>

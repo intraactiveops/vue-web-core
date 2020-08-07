@@ -6,6 +6,10 @@ export default {
     formData: Object,
     placeholder: String,
     helpText: String,
+    readOnly: {
+      type: Boolean,
+      default: false
+    },
     defaultValue: {
       type: [Number, String],
       default: null

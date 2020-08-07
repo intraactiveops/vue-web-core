@@ -1,7 +1,7 @@
 <template>
   <div>
     <form class="">
-      <input-group @data-removed="removeData" @data-changed="dataChanged" @has-field-default-value="setFieldDeaultValue" :config="fieldGroup" :form-data="formData" :validation-message="validationMessages"/>
+      <input-group @data-removed="removeData" @data-changed="dataChanged" @has-field-default-value="setFieldDeaultValue" :config="fieldGroup" :form-data="formData" :validation-message="validationMessages" :mode="mode" />
     </form>
     <slot name="additionalFormField" v-bind:formData="formData"></slot>
   </div>
@@ -22,7 +22,10 @@ export default {
       type: Object,
       required: true
     },
-    mode: String,
+    mode: {
+      type: String,
+      default: ''
+    },
     validationMessages: Object
   },
   data(){
@@ -35,7 +38,8 @@ export default {
       requiredFields: {},
       onDataChangeListener: [],
       isDeleteFormData: false,
-      getFormDataHook: null
+      getFormDataHook: null,
+      retainableValueFields: {}
     }
   },
   mounted(){
@@ -61,10 +65,19 @@ export default {
     _fillFormData(data){
       this.formData = APIUtil.arrayToTextKey(data)
     },
+    _resetForm(retainValue = false){
+      let resetValue = {}
+      if(retainValue){
+        resetValue = this.retainableValueFields
+      }
+      this.formData = APIUtil.arrayToTextKey(resetValue)
+    },
     dataChanged(index, value){
       Vue.set(this.formData, index, value)
+      if(typeof this.retainableValueFields[index] !== 'undefined'){
+        Vue.set(this.retainableValueFields, index, value)
+      }
       this.$emit('data-changed', index, this.formData[index])
-      // TODO call back change
       for(let x = 0; x < this.onDataChangeListener.length; x++){
         let result = this.onDataChangeListener[x](index, this.formData)
         if(result){
@@ -113,13 +126,16 @@ export default {
           this.setDefault(fieldSetting, 'placeholder', fieldSetting['name'])
           this.setDefault(fieldSetting, 'help_text', fieldSetting['help_text'])
           this.setDefault(fieldSetting, 'type', 'text')
+          this.setDefault(fieldSetting, 'read_only', false)
           this.setDefault(fieldSetting, 'label_col_span', fieldSetting['type'] !== 'label' ? setting['default_label_col_span'] : 12)
           this.setDefault(fieldSetting, 'label_style', setting['default_label_style'])
           this.setDefault(fieldSetting, 'field_col_style_class', setting['field_col_style_class'])
-          if(this.isset(fieldSetting, 'on_form_data_change')){
+          if(typeof fieldSetting['on_form_data_change'] === 'function'){
             this.onDataChangeListener.push(fieldSetting['on_form_data_change'])
           }
-
+          if(this.isset(fieldSetting, 'is_retained_on_create')){
+            Vue.set(this.retainableValueFields, field, null)
+          }
           // TODO should handle config defaults
           this.setDefault(fieldSetting, 'config', {})
           // TODO dont include plurals because its foreign table. It should be added manually in the request parameter

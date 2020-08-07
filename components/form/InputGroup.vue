@@ -23,7 +23,7 @@
                     {{field['help_text']}}
                   </small>
                 </template>
-                <input-type v-else @data-removed="$emit('data-removed', $event)" @data-changed="formDataChanged" :validation-message="validationMessage" :type="field['type']" :index="field['index']"  :config="field['config']" :default-value="field['default_value']" :help-text="field['help_text']" :placeholder="field['placeholder']" :form-data="formData"  />
+                <input-type v-else @data-removed="$emit('data-removed', $event)" @data-changed="formDataChanged" :validation-message="validationMessage" :type="field['type']" :index="field['index']"  :config="field['config']" :default-value="field['default_value']" :help-text="field['help_text']" :placeholder="field['placeholder']" :read-only="mode === 'view' ? true : field['read_only']" :form-data="formData"  />
               </div>
             </div>
           </div>
@@ -44,7 +44,8 @@ export default {
   props: {
     config: Object,
     formData: Object,
-    validationMessage: Object
+    validationMessage: Object,
+    mode: String
   },
   methods: {
     hasDefaultValue(field){

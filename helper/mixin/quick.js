@@ -56,7 +56,6 @@ Vue.mixin({
       if(e.which === 13){ // 13 is ascii for enter
         e.target.blur()
       }
-      console.log(e)
     }
   },
   filters: {

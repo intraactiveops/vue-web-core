@@ -1,6 +1,6 @@
 <template>
   <div>
-    <select ref="select" @change="dataChanged($event.target.value)" v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" class="custom-select" :value="value === null ? 'NULL' : value">
+    <select ref="select" @change="dataChanged($event.target.value)" v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" class="custom-select" :value="value === null ? 'NULL' : value" :disabled="readOnly">
       <option v-for="option in options" v-bind:value="option['value']" >{{option['text']}}</option>
     </select>
     <div class="invalid-feedback">

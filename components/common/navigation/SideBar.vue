@@ -1,5 +1,5 @@
 <template>
-  <div id="sidebar-wrapper" >
+  <div id="sidebar-wrapper" class="slim-scrollbar">
       <ul class="sidebar-nav pt-4">
         <side-bar-item ref="sideBarItem" @link-clicked="hideSideBar" :items="menu" />
       </ul>

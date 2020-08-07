@@ -4,12 +4,13 @@
       <div v-bind:class="typeof config['form_setting']['modal_size'] !== 'undefined' ? 'modal-' + config['form_setting']['modal_size'] : ''" class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{formName}}</h5>
+            <h5 class="modal-title" id="exampleModalLabel">{{currentMode === 'create' ? 'Create ' + formName : formName + ' Details'}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
+            <div v-if="formDescription" v-html="formDescription" class="mb-3"></div>
             <div v-if="formMessage.type" class="text-center mt-3 mb-4">
               <span v-bind:class="'alert-' + formMessage.type" class="alert" role="alert">
                 <fa v-bind:icon="formMessage.type === 'success' ? 'check-circle' : 'exclamation-circle'" />
@@ -17,7 +18,7 @@
               </span>
               <br>
             </div>
-            <form-component ref="form" @form-ready="formReady" :config="formConfig" :validation-messages="validationMessages" >
+            <form-component ref="form" @form-ready="formReady" :config="formConfig" :validation-messages="validationMessages" :mode="isLoading ? 'view' : null">
               <template v-slot:additionalFormField="slotProps">
                 <slot name="additionalFormField" v-bind:formData="slotProps.formData"></slot>
               </template>
@@ -34,9 +35,9 @@
             </template>
             <template v-else>
               <button @click="isVerifyDelete = true" v-if="currentMode === 'update'" type="button" class="btn btn-sm btn-outline-danger mr-auto" ><fa :icon="'trash-alt'" /> Delete</button>
-              <button @click="createMore" v-if="hasCreateMore && currentMode === 'create'" type="button" class="btn btn-outline-success ml- mr-auto" ><fa icon="list" /> Create More</button>
+              <button @click="createMore" v-if="hasCreateMore && currentMode === 'create'" type="button" class="btn btn-outline-success ml- mr-auto" ><fa icon="plus" /> Save and Add More</button>
               <button @click="closeForm" type="button" class="btn btn-sm btn-outline-dark" >Close</button>
-              <button @click="save" type="button" class="btn btn-success"><fa :icon="'check'" /> {{currentMode === 'create' ? 'Create' : 'Update'}}</button>
+              <button @click="save" type="button" class="btn btn-success"><fa :icon="'check'" /> {{currentMode === 'create' ? 'Save' : 'Update'}}</button>
             </template>
           </div>
         </div>
@@ -82,6 +83,7 @@ export default {
       formOpenListener: null,
       formResetListener: null,
       hasCreateMore: false,
+      formDescription: null,
       formName: typeof this.config['module_name'] === 'undefined' ? TextTransform.toPhrase((this.config['api']).replace(/-/g, ' ')) : this.config['module_name']
     }
   },
@@ -106,9 +108,9 @@ export default {
       }else{
         parameter.select = this.selectParameter
       }
+      this.openViewModal()
       this.apiRequest(this.config['api'] + '/retrieve', parameter, (response) => {
         this.$refs.form._fillFormData(response.data)
-        this.openViewModal()
         this.isLoading = false
       }, (errorResponse) => {
       })
@@ -138,7 +140,7 @@ export default {
         this.$emit('form-save', savedData, createMore)
         if(createMore){
           setTimeout(() => {
-            this.resetForm()
+            this.resetForm(true)
             this.openCreateModal()
             this.isLoading = false
           }, 800)
@@ -168,10 +170,11 @@ export default {
       this.isLoading = true
       this.loadingMessage = 'Talking to the server... please wait...'
       this.validationMessages = {}
-      this.apiRequest(this.config['api'] + '/delete', { id: this.$refs.form._getFormData().id }, (response) => {
+      let id = this.$refs.form._getFormData().id
+      this.apiRequest(this.config['api'] + '/delete', { id: id }, (response) => {
         Vue.set(this.formMessage, 'type', 'success')
         Vue.set(this.formMessage, 'message', 'Deleted successfully!')
-        this.$emit('form-deleted')
+        this.$emit('form-delete', id)
         this.isVerifyDelete = false
         setTimeout(() => {
           $(this.$refs.modal).modal('hide')
@@ -194,12 +197,13 @@ export default {
         this.isLoading = false
       })
     },
-    resetForm(){
+    resetForm(retainValue = false){
       Vue.set(this.formMessage, 'type', null)
       Vue.set(this.formMessage, 'message', null)
       this.isLoading = false
       this.isVerifyDelete = false
-      this.$refs.form._fillFormData({})
+
+      this.$refs.form._resetForm(retainValue)
       this.validationMessages = {}
       if(this.formResetListener){
         this.formResetListener()
@@ -227,13 +231,20 @@ export default {
     initConfig(){
       this.hasCreateMore = typeof this.config['has_create_more'] !== 'undefined' && this.config['has_create_more']
       this.formConfig = this.config['form_setting']['form_field_setting']
+      this.formDescription = this.config['form_setting']['form_description'] || null
       if(typeof this.config['form_setting']['listeners'] !== 'undefined'){
         this.formOpenListener = typeof this.config['form_setting']['listeners']['form_open'] !== 'undefined' ? this.config['form_setting']['listeners']['form_open'] : nulll
         this.formResetListener = typeof this.config['form_setting']['listeners']['form_reset'] !== 'undefined' ? this.config['form_setting']['listeners']['form_reset'] : nulll
       }
       this.setDefault(this.config, 'retrieve_parameter', {})
     }
-
+  },
+  watch: {
+    isLoading(newData){
+      if(!newData){
+        this.loadingMessage = ''
+      }
+    }
   }
 }
 </script>
