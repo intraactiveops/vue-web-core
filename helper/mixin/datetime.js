@@ -1,16 +1,20 @@
 import Vue from 'vue'
 import QuickHelper from './quick'
 let shortMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+let shortDayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+let dayName = ['Sunday', 'Monday', 'Tueday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 let formatDate = (datetime, format) => {
   let datetimeObject = new Date(datetime)
   switch(format){
-    case 'M yyyy': 
+    case 'M yyyy':
       return shortMonthName[datetimeObject.getMonth()] + ' ' + datetimeObject.getFullYear()
     case 'M d, yyyy hh:mm':
       return shortMonthName[datetimeObject.getMonth()] + ' ' + datetimeObject.getDate() + ', ' + datetimeObject.getFullYear() + ' ' + time12HourFormat(datetimeObject.getHours(), datetimeObject.getMinutes())
     case 'mm/dd/yy hh:mm':
       return QuickHelper.padNumber(datetimeObject.getMonth() + 1) + '/' + QuickHelper.padNumber(datetimeObject.getDate()) + '/' + QuickHelper.padNumber(datetimeObject.getYear() - 100) + ' ' + time12HourFormat(datetimeObject.getHours(), datetimeObject.getMinutes()) // QuickHelper.padNumber(datetimeObject.getHours()) + ':' + QuickHelper.padNumber(datetimeObject.getMinutes())
+    case 'M d, yyyy (Day)':
+      return `${shortMonthName[datetimeObject.getMonth()]} ${datetimeObject.getDate()}, ${datetimeObject.getFullYear()} (${dayName[datetimeObject.getDay()]})`
     default:
       return shortMonthName[datetimeObject.getMonth()] + ' ' + datetimeObject.getDate() + ', ' + datetimeObject.getFullYear()
   }
