@@ -5,6 +5,8 @@ let shortMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'S
 let formatDate = (datetime, format) => {
   let datetimeObject = new Date(datetime)
   switch(format){
+    case 'M yyyy': 
+      return shortMonthName[datetimeObject.getMonth()] + ' ' + datetimeObject.getFullYear()
     case 'M d, yyyy hh:mm':
       return shortMonthName[datetimeObject.getMonth()] + ' ' + datetimeObject.getDate() + ', ' + datetimeObject.getFullYear() + ' ' + time12HourFormat(datetimeObject.getHours(), datetimeObject.getMinutes())
     case 'mm/dd/yy hh:mm':
