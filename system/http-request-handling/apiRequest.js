@@ -26,6 +26,7 @@ let mixin = {
             }
           }else{
             if(typeof errorCallback === 'function') {
+              
               errorCallback(error.response)
             }
           }

@@ -43,8 +43,8 @@ export default{
     }
   },
   mounted(){
-    store.dispatch('setCompanyInformation')
-    store.dispatch('setUserInformation')
+    // store.commit('setCompanyInformation')
+    // store.commit('setUserInformation')
   },
   data(){
     return {

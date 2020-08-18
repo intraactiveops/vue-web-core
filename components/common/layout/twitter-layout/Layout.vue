@@ -19,7 +19,6 @@ export default{
     HeaderMenu
   },
   mounted(){
-    store.dispatch('setCompanyInformation')
     store.dispatch('setUserInformation')
   },
   computed: {

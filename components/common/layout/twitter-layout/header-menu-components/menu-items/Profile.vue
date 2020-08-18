@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     username(){
-      return store.user().email
+      return store.state.userInformation.email
     },
     userFullName(){
       return store.state.userInformation.firstName + ' ' + store.state.userInformation.lastName
