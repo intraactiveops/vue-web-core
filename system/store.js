@@ -249,7 +249,6 @@ let store = new Vuex.Store({
                 userRoles[response['data']['user_roles'][x]['role_id']] = {}
               }
             }
-            console.log(response['data']['company_user']['company'])
             if(response['data']['company_user'] && response['data']['company_user']['company']){
               companyInformation = {
                 id: response['data']['company_user']['company']['id'],
