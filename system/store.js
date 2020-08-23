@@ -183,6 +183,7 @@ let store = new Vuex.Store({
       }
       let userID = localStorage.getItem('user_id') * 1
       let companyID = localStorage.getItem('company_id') * 1
+      
       if(userID){
         let param = {
           id: userID,

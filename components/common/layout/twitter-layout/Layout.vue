@@ -1,5 +1,5 @@
 <template>
-  <div>test
+  <div>
     <header-menu />
     <side-menu :left-side-menu-on="userName ? true: false" :right-side-menu-on="userName ? true: false" >
       <template v-slot:body>
