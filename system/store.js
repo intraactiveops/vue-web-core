@@ -18,6 +18,7 @@ let store = new Vuex.Store({
     },
     userInformation: {
       id: null,
+      email: null,
       profilePictureLink: null,
       firstName: null,
       lastName: null,
@@ -46,6 +47,7 @@ let store = new Vuex.Store({
     },
     setUserInformation(state, userInformation){
       Vue.set(state.userInformation, 'id', userInformation.id)
+      Vue.set(state.userInformation, 'email', userInformation.email)
       Vue.set(state.userInformation, 'profilePictureLink', typeof userInformation.profilePictureLink !== 'undefined' ? userInformation.profilePictureLink : null)
       Vue.set(state.userInformation, 'firstName', userInformation.first_name)
       Vue.set(state.userInformation, 'lastName', userInformation.last_name)
@@ -77,6 +79,7 @@ let store = new Vuex.Store({
       Vue.set(state.userInformation, 'profilePictureLink', null)
       Vue.set(state.userInformation, 'firstName', null)
       Vue.set(state.userInformation, 'lastName', null)
+      Vue.set(state.userInformation, 'email', null)
       localStorage.removeItem('user_id')
     }
   },
@@ -180,11 +183,13 @@ let store = new Vuex.Store({
       }
       let userID = localStorage.getItem('user_id') * 1
       let companyID = localStorage.getItem('company_id') * 1
+      
       if(userID){
         let param = {
           id: userID,
           select: {
             0: 'username',
+            1: 'email',
             user_roles: {
               select: ['role_id'],
               condition: [{
@@ -215,11 +220,13 @@ let store = new Vuex.Store({
           },
         }
         apiRequest.request('user/retrieve', param, (response) => {
+          console.log(response)
           let userInformation = {
             id: userID,
             first_name: null,
             last_name: null,
-            profilePictureLink: null
+            profilePictureLink: null,
+            email: null
           }
           let userRoles = {}
           let companyInformation = {
@@ -236,6 +243,7 @@ let store = new Vuex.Store({
             if(response['data']['user_basic_information']){
               userInformation.first_name = response['data']['user_basic_information']['first_name']
               userInformation.last_name = response['data']['user_basic_information']['last_name']
+              userInformation.email = response['data']['email']
             }
             if(response['data']['user_roles']){
               for(let x = 0; x < (response['data']['user_roles']).length; x++){
@@ -247,8 +255,10 @@ let store = new Vuex.Store({
                 id: response['data']['company_user']['company']['id'],
                 name: response['data']['company_user']['company']['name'],
                 code: response['data']['company_user']['company']['code'],
-                address: response['data']['company_user']['company']['company_detail']['address'],
-                contact_number: response['data']['company_user']['company']['company_detail']['contact_number'],
+              }
+              if(typeof response['data']['company_user']['company']['company_detail'] !== 'undefined'){
+                companyInformation['address'] = response['data']['company_user']['company']['company_detail']['address']
+                companyInformation['contact_number'] = response['data']['company_user']['company']['company_detail']['contact_number']
               }
             }
           }
@@ -260,7 +270,7 @@ let store = new Vuex.Store({
             commit('setHasInitialized', true)
           }, 300)
         }, (errorResponse) => {
-          console.log('Error retrieving user')
+          console.log('Error retrieving user', errorResponse)
           commit('setHasInitialized', true)
         })
       }else{

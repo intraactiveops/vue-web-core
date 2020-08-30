@@ -42,7 +42,6 @@ export default {
       activeMenu: 'Newsfeed'
     }
   },
-
   watch: {
     '$route'(to, from){
       this.activeMenu = to.name
