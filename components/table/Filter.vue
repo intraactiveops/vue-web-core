@@ -5,7 +5,7 @@
           <form-component ref="form" @form-ready="formReady" :config="formConfig"  />
         </div>
         <div class="col-12 col-lg-2 text-center">
-          <button @click="_filter" class="btn btn-outline-secondary"> <fa :icon="'filter'" />Filter</button>
+          <button @click="_filter" class="btn btn-outline-secondary"> <fa :icon="'filter'" /> Filter</button>
         </div>
     </div>
   </div>
@@ -36,7 +36,7 @@ export default{
         this.generateFormClause()
         setTimeout(() => {
           this.$emit('ready', true)
-          if(typeof readyCallback !== 'function'){
+          if(typeof readyCallback === 'function'){
             readyCallback()
           }
         }, 300)
@@ -56,19 +56,21 @@ export default{
       if(this.hasFilter){
         let formData = this.$refs.form._getFormData()
         for(let x in formData){
-          switch(this.formClauses[x]){
-            case 'like':
-              conditionParameter.push({
-                column: x,
-                clause: 'like',
-                value: '%' + formData[x] + '%'
-              })
-              break
-            default:
-              conditionParameter.push({
-                column: x,
-                value: formData[x]
-              })
+          if(formData[x] !== null && formData[x] !== ''){
+            switch(this.formClauses[x]){
+              case 'like':
+                conditionParameter.push({
+                  column: x,
+                  clause: 'like',
+                  value: '%' + formData[x] + '%'
+                })
+                break
+              default:
+                conditionParameter.push({
+                  column: x,
+                  value: formData[x]
+                })
+            }
           }
         }
       }
