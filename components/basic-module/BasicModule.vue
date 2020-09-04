@@ -2,8 +2,7 @@
   <div class="content">
     <h2>{{config['module_name'] ? config['module_name'] : defaultModuleName}}</h2>
     <div v-html="description"></div>
-    <slot name="customSection1">
-    </slot>
+    <slot name="customSection1"></slot>
     <div class="text-right py-2 mb-2">
       <slot name="customButtons"></slot>
       <button v-if="config['can_print']" class="btn btn-outline-dark mr-2 btn-sm"><fa icon="print" /> Print</button>
