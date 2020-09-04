@@ -22,6 +22,14 @@
         <fa icon="home" fixed-width /> Home
       </router-link>
       <div class="dropdown-divider"></div>
+      <router-link class="dropdown-item py-0 px-0" to="/newsfeed">
+        <fa icon="home" fixed-width /> Public
+      </router-link>
+      <div class="dropdown-divider"></div>
+      <router-link class="dropdown-item py-0 px-0" to="/network">
+        <fa icon="home" fixed-width /> Mine
+      </router-link>
+      <div class="dropdown-divider"></div>
       <router-link class="dropdown-item py-0 px-0" to="/event">
         <fa icon="calendar" fixed-width /> Schedule and Events
       </router-link>
