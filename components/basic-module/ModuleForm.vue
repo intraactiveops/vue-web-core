@@ -112,6 +112,11 @@ export default {
       this.apiRequest(this.config['api'] + '/retrieve', parameter, (response) => {
         this.$refs.form._fillFormData(response.data)
         this.isLoading = false
+        setTimeout(() => {
+          if(this.formOpenListener){
+            this.formOpenListener()
+          }
+        }, 300)
       }, (errorResponse) => {
       })
     },
@@ -219,11 +224,7 @@ export default {
     openViewModal(){
       this.currentMode = 'update'
       $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
-      setTimeout(() => {
-        if(this.formOpenListener){
-          this.formOpenListener()
-        }
-      }, 300)
+      
     },
     closeForm(){
       $(this.$refs.modal).modal('hide')

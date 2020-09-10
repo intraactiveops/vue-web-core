@@ -16,6 +16,8 @@ export default {
   props: {
     menu: Array
   },
+  mounted(){
+  },
   data(){
     return {
       navConfig: navigationConfig
@@ -26,6 +28,8 @@ export default {
       if(!this.$refs.sideBarItem._initialize()){
         // this.navConfig.sidebarToggled = false
         this.navConfig.noSideBar = true
+      }else{
+        this.navConfig.noSideBar = false
       }
     },
     hideSideBar(){
@@ -38,10 +42,6 @@ export default {
   },
   destroy(){
     $('#menu-toggle').off('click')
-  },
-  mounted(){
-    // console.log(this.$router.)
-
   }
 
 }
