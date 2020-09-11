@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group list-group-flush">
     <li class="list-group-item borderless py-1 px-0 ">
-      <span class="font-weight-bold">Mine</span>
+      <span class="font-weight-bold">Created</span>
     </li>
     <li :key="'mine' + index" v-for="(network, index) in mine" class="list-group-item borderless py-1 px-0">
       <router-link :to="'/network/' + network.id">{{ network.name }}<span class=" float-right badge text-white badge-info badge-pill">5</span></router-link>

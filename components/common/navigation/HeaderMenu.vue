@@ -1,16 +1,16 @@
 <template>
   <nav id="header-wrapper" class="fixed-top navbar navbar-expand-md navbar-dark bg-primary">
     <div>
-      <router-link class="navbar-brand mr-0 float-left text-truncate" to="/">{{companyName ? companyName : defaultCompanyName}}</router-link>
-      <template v-if="noSidebar !== true">
+      <router-link class="navbar-brand mr-0 float-left text-truncate" to="/">{{companyName ? companyName : defaultCompanyName}} {{navConfig.noSideBar}}</router-link>
+      <template v-if="!noSidebar && !navConfig.noSideBar">
         <button
-          v-if="!navConfig.sidebarToggled && !navConfig.noSideBar"
+          v-if="!navConfig.sidebarToggled"
           @click="navConfig.sidebarToggled = !navConfig.sidebarToggled; headerMenuToggled = false"
           class="sideButtonToggler float-left btn text-white"
           type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
           <fa :icon="'toggle-on'" />
         </button>
-        <button v-else-if="!navConfig.noSideBar && navConfig.sidebarToggled" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="sideButtonToggler float-left btn text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
+        <button v-else-if="navConfig.sidebarToggled" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="sideButtonToggler float-left btn text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
           <fa :icon="'toggle-off'" />
         </button>
       </template>
