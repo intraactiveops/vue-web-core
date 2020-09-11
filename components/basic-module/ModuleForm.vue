@@ -36,8 +36,9 @@
             <template v-else>
               <button @click="isVerifyDelete = true" v-if="currentMode === 'update'" type="button" class="btn btn-sm btn-outline-danger mr-auto" ><fa :icon="'trash-alt'" /> Delete</button>
               <button @click="createMore" v-if="hasCreateMore && currentMode === 'create'" type="button" class="btn btn-outline-success ml- mr-auto" ><fa icon="plus" /> Save and Add More</button>
-              <button @click="closeForm" type="button" class="btn btn-sm btn-outline-dark" >Close</button>
-              <button @click="save" type="button" class="btn btn-success"><fa :icon="'check'" /> {{currentMode === 'create' ? 'Save' : 'Update'}}</button>
+              <button @click="closeForm" type="button" class="btn btn-sm btn-outline-dark d-none  d-sm-block" >Close</button>
+              <button v-if="currentMode === 'view'" @click="currentMode = 'update'" class="btn btn-outline-dark"><fa icon="edit" /> Edit</button>
+              <button v-else @click="save" type="button" class="btn btn-success"><fa :icon="'check'" /> {{currentMode === 'create' ? 'Save' : 'Update'}}</button>
             </template>
           </div>
         </div>
@@ -69,7 +70,7 @@ export default {
   },
   data(){
     return {
-      currentMode: 'create', // create, view, edit
+      currentMode: 'create', // create, view, update
       formConfig: {},
       isVerifyDelete: false,
       validationMessages: {},
@@ -97,7 +98,7 @@ export default {
     formReady(){
       this.selectParameter = APIUtil.generateSelecParameter(this.$refs.form._getFieldList())
     },
-    showForm(id){
+    showForm(id, view = false){
       this.resetForm()
       this.isLoading = true
       this.loadingMessage = 'Asking data from the server... please wait...'
@@ -108,7 +109,7 @@ export default {
       }else{
         parameter.select = this.selectParameter
       }
-      this.openViewModal()
+      this.openViewModal(view)
       this.apiRequest(this.config['api'] + '/retrieve', parameter, (response) => {
         this.$refs.form._fillFormData(response.data)
         this.isLoading = false
@@ -146,7 +147,8 @@ export default {
           }, 800)
         }else{
           setTimeout(() => {
-            this.showForm(response.data.id)
+            const toEdit = this.currentMode === 'create'
+            this.showForm(response.data.id, toEdit)
             this.isLoading = false
           }, 500)
         }
@@ -216,8 +218,8 @@ export default {
       this.currentMode = 'create'
       $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
     },
-    openViewModal(){
-      this.currentMode = 'update'
+    openViewModal(view = false){
+      this.currentMode = view ? 'view' : 'update'
       $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
       setTimeout(() => {
         if(this.formOpenListener){

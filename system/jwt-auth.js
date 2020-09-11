@@ -26,7 +26,7 @@ Vue.use(require('@websanova/vue-auth'), {
   refreshData: {
     url: 'auth/refresh',
     method: 'POST',
-    interval: 59
+    interval: 100
   },
   fetchData: {
     url: 'auth/user',

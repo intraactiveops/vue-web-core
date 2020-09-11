@@ -12,7 +12,7 @@
         </a>
         <ul class="subMenu collapse list-unstyled pl-3" v-bind:id="((menu['name']).replace(' ', '_'))  + 'SideBarItem'">
           <template v-for="subItem in menu['sub_item']">
-            <li @click="linkClicked">
+            <li v-if="typeof subItem['dev'] === 'undefined' || !subItem['dev']" @click="linkClicked">
               <router-link v-if="subItem['sub_item'] === null"  :to="generateLink(subItem)">
                 <fa v-bind:icon="subItem['icon']" /> {{subItem['name']}}
               </router-link>
