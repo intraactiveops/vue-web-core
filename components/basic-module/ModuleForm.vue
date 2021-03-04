@@ -226,7 +226,6 @@ export default {
     openViewModal(view = false){
       this.currentMode = view ? 'view' : 'update'
       $(this.$refs.modal).modal({ backdrop: 'static', keyboard: false })
-      
     },
     closeForm(){
       $(this.$refs.modal).modal('hide')

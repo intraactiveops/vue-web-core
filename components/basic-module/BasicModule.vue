@@ -1,15 +1,20 @@
 <template>
-  <div class="content">
-    <h2>{{config['module_name'] ? config['module_name'] : defaultModuleName}}</h2>
-    <div v-html="description"></div>
-    <slot name="customSection1"></slot>
-    <div class="text-right py-2 mb-2">
-      <slot name="customButtons"></slot>
-      <button v-if="config['can_print']" class="btn btn-outline-dark mr-2 btn-sm"><fa icon="print" /> Print</button>
-      <button v-if="config['can_print']" class="btn btn-outline-success mr-2 btn-sm"><fa icon="download" /> Export to Excel</button>
-      <button v-if="typeof config['no_create'] === 'undefined' || !config['no_create']" @click="_openCreateForm" class="btn btn-primary"><fa icon="plus" /> Add</button>
+  <div class="p-3">
+    <div class="p-3 border shadow-sm bg-white mb-2">
+      <h2 class="font-weight-bold">{{config['module_name'] ? config['module_name'] : defaultModuleName}}</h2>
+      <div v-html="description"></div>
+      <slot name="customSection1"></slot>
     </div>
-    <module-table ref="table"  @view-row="viewRow" :config="config" />
+    <div class="p-3 border shadow-sm bg-white mb-3">
+      <div class="text-right mb-3">
+        <slot name="customButtons"></slot>
+        <button v-if="config['can_print']" class="btn btn-outline-dark mr-2 btn-sm"><fa icon="print" /> Print</button>
+        <button v-if="config['can_print']" class="btn btn-outline-success mr-2 btn-sm"><fa icon="download" /> Export to Excel</button>
+        <button v-if="typeof config['no_create'] === 'undefined' || !config['no_create']" @click="_openCreateForm" class="btn btn-primary"><fa icon="plus" /> Add</button>
+      </div>
+      <module-table ref="table"  @view-row="viewRow" :config="config" />
+    </div>
+
     <module-form ref="form" @form-save="updateRowFromForm" @form-delete="deleteRow" :config="config" >
       <template v-slot:additionalFormField="slotProps">
         <slot name="additionalFormField" v-bind:formData="slotProps.formData"></slot>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
+import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
 
 let freeSolid = require('@fortawesome/free-solid-svg-icons')
 let iconUsed = ['faCoffee', 'faList', 'faUsers', 'faComments', 'faUserTie', 'faDotCircle', 'faPlus', 'faPrint', 'faDownload', 'faTrash', 'faTrashAlt', 'faSave', 'faCheck', 'faEdit',
@@ -13,14 +14,15 @@ let iconUsed = ['faCoffee', 'faList', 'faUsers', 'faComments', 'faUserTie', 'faD
   'faVideo', 'faPenSquare', 'faFlag', 'faDoorOpen', 'faArchive', 'faBell', 'faExchangeAlt', 'faBold', 'faItalic', 'faStrikethrough', 'faUnderline', 'faCode', 'faParagraph', 'faListOl', 'faQuoteRight', 'faUndo', 'faRetweet',
   'faBookmark', 'faCode', 'faQuoteRight', 'faUserPlus', 'faCommentSlash', 'faCommentAlt', 'faCamera', 'faCalendar', 'faLink', 'faChevronDown', 'faUserCheck', 'faEllipsisV', 'faSmile', 'faClipboardList', 'faShare',
   'faSignOutAlt', 'faClock', 'faSms', 'faNetworkWired', 'faExternalLinkAlt', 'faSatelliteDish', 'faVial', 'faStar', 'faKey', 'faFingerprint', 'faCalendarPlus', 'faEllipsisV', 'faFlag', 'faExclamationTriangle', 'faDesktop', 'faArrowUp', 'faFlagCheckered', 'faMicrophoneAlt',
-  'faChartLine', 'faCalendarCheck', 'faCalendarAlt', 'faHourglassHalf', 'faCheckSquare', 'faLock', 'faCartPlus', 'faTimesCircle', 'faHeadset', 'faQuestionCircle', 'faTachometerAlt', 'faUserFriends', 'faCircleNotch', 'faTabletAlt', 'faExclamation'
+  'faChartLine', 'faCalendarCheck', 'faCalendarAlt', 'faHourglassHalf', 'faCheckSquare', 'faLock', 'faCartPlus', 'faTimesCircle', 'faHeadset', 'faQuestionCircle', 'faTachometerAlt', 'faUserFriends', 'faCircleNotch', 'faTabletAlt', 'faExclamation', 'faUserClock',
+  'faBarcode', 'faClipboard'
 ]
 let fileIcon = ['faFile', 'faFileWord', 'faTable', 'faFileExcel', 'faFileCsv', 'faFilePdf', 'faFilePowerpoint', 'faFileImage', 'faFileVideo', 'faFileVideo', 'faMagnet', 'faFileArchive']
 iconUsed = iconUsed.concat(fileIcon)
 for(let x = 0; x < iconUsed.length; x++){
   library.add(freeSolid[iconUsed[x]])
 }
-
+library.add(faFacebookSquare)
 Vue.component('fa', FontAwesomeIcon)
 Vue.component('fa-layers', FontAwesomeLayers)
 Vue.component('fa-layers-text', FontAwesomeLayersText)

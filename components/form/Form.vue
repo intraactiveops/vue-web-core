@@ -1,7 +1,7 @@
 <template>
   <div>
     <form class="">
-      <input-group @data-removed="removeData" @data-changed="dataChanged" @has-field-default-value="setFieldDeaultValue" :config="fieldGroup" :form-data="formData" :validation-message="validationMessages" :mode="mode" />
+      <input-group @data-removed="removeData" @data-changed="dataChanged" @has-field-default-value="setFieldDeaultValue" :config="fieldGroup" :form-data="formData" :validation-message="validationMessageList" :mode="mode" />
     </form>
     <slot name="additionalFormField" v-bind:formData="formData"></slot>
   </div>
@@ -59,6 +59,18 @@ export default {
       }
       return formData
     },
+    _validate(){
+      const formData = this._getFormData()
+      let allRequiredFieldPass = true
+      this.validationMessageList = {}
+      for(let requireField in this.requiredFields){
+        if(typeof formData[requireField] === 'undefined' || formData[requireField] === null || formData[requireField] === ''){
+          allRequiredFieldPass = false
+          Vue.set(this.validationMessageList, requireField, { type: 'error', message: 'This is required' })
+        }
+      }
+      return allRequiredFieldPass
+    },
     _getFieldList(){
       return this.fieldList
     },
@@ -86,16 +98,21 @@ export default {
           }
         }
       }
-      // TODO validation
+      // TODO validationselectExisting
     },
     setFieldDeaultValue(index, value){
       Vue.set(fieldDefaultValue, index, value)
     },
     removeData(formDataField){ // remove array data base on the given formDataField
+      let hasRemoved = false
       for(let field in this.formData){
         if(field.indexOf(formDataField) === 0){
+          hasRemoved = true
           Vue.delete(this.formData, field)
         }
+      }
+      if(hasRemoved){
+        this.$emit('data-removed')
       }
     },
     initConfig(){

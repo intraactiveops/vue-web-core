@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input @change="dataChanged($event.target.value)" v-bind:maxlength="config['maxlength']" v-bind:value="value"  v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" v-bind:placeholder="placeholder" :readonly="readOnly" class="form-control" type="text">
+    <input ref="input" @keydown.enter="focusout" @change="dataChanged($event.target.value)" v-bind:maxlength="config['maxlength']" v-bind:value="value"  v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" v-bind:placeholder="placeholder" :readonly="readOnly" class="form-control" type="text">
     <div class="invalid-feedback">
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
     </div>
@@ -20,6 +20,9 @@ export default {
     }
   },
   methods: {
+    focusout(){ // focus out when enter is sent. This is for the barcode since it disables the onscreen keyboard
+      this.$refs.input.blur()
+    },
     dataChanged(value){
       if(value !== 'NULL' && value !== null){
         this.$emit('data-changed', this.index, value)

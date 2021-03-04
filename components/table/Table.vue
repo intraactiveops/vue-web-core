@@ -20,7 +20,7 @@
       </tbody>
     </table>
     <div v-if="isLoading" class="mt-2 text-center"><fa icon="hourglass-half" /> Retrieving data...</div>
-    <div v-else-if="!rowData.length" class="alert bg-light rounded text-center"><fa icon="exclamation-triangle" /> No data to show</div>
+    <div v-else-if="!rowData.length" class="bg-light py-2 rounded text-center"><fa icon="exclamation-triangle" /> No data to show</div>
   </div>
 </template>
 <script>

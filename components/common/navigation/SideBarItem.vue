@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <li  v-for="menu in menus">
       <router-link v-if="menu['sub_item'] === null" v-on:click="linkClicked" :to="generateLink(menu)">
         <div v-on:click="linkClicked" style="width:100%">

@@ -1,11 +1,14 @@
 <template>
   <div>
     <select ref="select" @change="dataChanged($event.target.value)" v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" class="custom-select" :value="value === null ? 'NULL' : value" :disabled="readOnly">
-      <option v-for="option in options" v-bind:value="option['value']" >{{option['text']}}</option>
+      <option v-for="option in options" v-bind:value="option['value']" :selected="value + '' === option['value'] + ''">{{option['text']}}</option>
     </select>
     <div class="invalid-feedback">
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
     </div>
+    <small v-if="typeof helpText !== 'undefined'" class="form-text text-muted">
+      {{helpText}}
+    </small>
   </div>
 </template>
 <script>
@@ -54,11 +57,13 @@ export default {
       }
     },
     getLatestAPIOption(){
-      let param = {
-        select: {
-          0: typeof this.config['api_option_text'] === 'undefined' ? 'description' : this.config['api_option_text'],
-          1: 'deleted_at'
-        }
+      let param = {}
+      if(typeof this.config['api_parameter'] !== 'undefined'){
+        param = this.config['api_parameter']
+      }
+      param['select'] = {
+        0: typeof this.config['api_option_text'] === 'undefined' ? 'description' : this.config['api_option_text'],
+        1: 'deleted_at'
       }
       if(this.latestAPIData){
         param['condition'] = [{
@@ -67,6 +72,7 @@ export default {
           value: this.latestAPIData
         }]
       }
+      console.log('param', param)
       this.apiRequest(this.config['api_link'], param, (response) => {
         if(response['data']){
           let newOptions = []

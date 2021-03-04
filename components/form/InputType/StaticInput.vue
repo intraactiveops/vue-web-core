@@ -1,8 +1,11 @@
 <template>
   <div>
-    <textarea @change="dataChanged($event.target.value)" v-bind:value="formData[index]" v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" :readonly="readOnly" class="form-control" rows="3">
-
-    </textarea>
+    <input
+      v-bind:value="value | formatValue(config)"
+      v-bind:class="classes"
+      :readonly="readOnly"
+      class="form-control-plaintext"
+      >
     <div class="invalid-feedback">
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
     </div>
@@ -15,33 +18,35 @@
 import InputTypeMixIn from './InputTypeMixIn.js'
 export default {
   mixins: [InputTypeMixIn],
-  name: 'TextAreaInput',
-  components: {
-  },
-  props: {
-    config: Object,
-    validationMessage: Object,
-    index: String,
-    formData: Object
-  },
+  name: 'TextInput',
   data(){
     return {
-      options: [], // object containing text, value, is_default.
+      valueTrigger: false,
+      classes: {
+        'text-right': typeof this.config['decimal_place'] !== 'undefined'
+      }
     }
   },
-  mounted(){
-    this.initConfig()
-  },
   methods: {
-    initConfig(){
-      this.options = this.config['options']
-    },
     dataChanged(value){
       if(value !== 'NULL' && value !== null){
         this.$emit('data-changed', this.index, value)
       }else{
         this.$emit('data-changed', this.index, '')
       }
+    },
+  },
+  filters: {
+    formatValue: function(value, config){
+      if(typeof config['decimal_place'] !== 'undefined'){
+        return (value * 1).toFixed(config['decimal_place'])
+      }else{
+        return value
+      }
+    }
+  },
+  watch: {
+    value(newData){
     }
   }
 }

@@ -1,7 +1,14 @@
 <template>
   <div>
     <!-- <input v-bind:value="value" type="date"> -->
-    <date-picker ref="datepicker" @dp-change="dateChanged" :name="placeholder" :placeholder="placeholder" :value="dpValue !== null ? new Date(dpValue) : null" :config="datepickerConfig"/>
+    {{dpValue}}
+    <date-picker ref="datepicker" @dp-change="dateChanged" :name="placeholder" :placeholder="placeholder" :value="dpValue !== null ? new Date(dpValue) : null" :config="datepickerConfig" :readOnly="readOnly"/>
+    <div class="invalid-feedback">
+      {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
+    </div>
+    <small v-if="typeof helpText !== 'undefined'" class="form-text text-muted">
+      {{helpText}}
+    </small>
   </div>
 </template>
 <script>
@@ -24,8 +31,10 @@ export default {
   },
   methods: {
     dateChanged(date){
-      if(date.date){
+      if(date.date && (new Date(date.date)).getFullYear > 1970){
         this.$emit('data-changed', this.index, this.serverDatetimeFormat(date.date))
+      }else{
+        this.$emit('data-changed', this.index, null)
       }
     },
   },
@@ -38,13 +47,8 @@ export default {
       }else{
         value = this.formData[this.index]
       }
-      if(value === null){
-        // $(this.$refs.datepicker)[0].clear()
-      }
       return value
     }
-  },
-  mounted(){
   }
 }
 </script>

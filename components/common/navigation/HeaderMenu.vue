@@ -1,46 +1,64 @@
 <template>
-  <nav id="header-wrapper" class="fixed-top navbar navbar-expand-md navbar-dark bg-primary">
-    <div>
-      <router-link class="navbar-brand mr-0 float-left text-truncate" to="/">{{companyName ? companyName : defaultCompanyName}} {{navConfig.noSideBar}}</router-link>
-      <template v-if="!noSidebar && !navConfig.noSideBar">
+  <nav id="header-wrapper" class="fixed-top navbar navbar-expand-md navbar-dark shadow-sm p-0" >
+    <div class="d-flex align-items-center align-items-stretch" >
+      <div :class="noSidebar ? '' : 'bg-primary'" class="navbar-brand px-3 mr-0 py-3 d-flex align-items-center">
+        <router-link :class="noSidebar ? 'text-primary font-weight-bold' : 'text-white'" class=" mr-0 float-left text-truncate" to="/">{{companyName ? companyName : defaultCompanyName}}</router-link>
+      </div>
+      <div v-if="!noSidebar && !navConfig.noSideBar" class="bg-md-white py-2">
         <button
           v-if="!navConfig.sidebarToggled"
           @click="navConfig.sidebarToggled = !navConfig.sidebarToggled; headerMenuToggled = false"
-          class="sideButtonToggler float-left btn text-white"
-          type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
+          class="sideButtonToggler float-left btn shadow-none py-0 text-primary"
+          type="button" data-toggle="collapse" aria-label="Toggle Sidebar" title="Open Sidebar">
           <fa :icon="'toggle-on'" />
         </button>
-        <button v-else-if="navConfig.sidebarToggled" @click="navConfig.sidebarToggled = !navConfig.sidebarToggled" class="sideButtonToggler float-left btn text-white"  type="button" data-toggle="collapse" aria-label="Toggle Sidebar">
+        <button
+          v-else-if="navConfig.sidebarToggled"
+          @click="navConfig.sidebarToggled = !navConfig.sidebarToggled"
+          class="sideButtonToggler float-left btn shadow-none py-0 text-primary"
+          type="button" data-toggle="collapse" aria-label="Toggle Sidebar" title="Close Sidebar">
           <fa :icon="'toggle-off'" />
         </button>
-      </template>
-      <a ref="headerMenuToggler" @click="headerMenuToggled = !headerMenuToggled; navConfig.sidebarToggled = false"  id="menuToggleBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+      </div>
+      <a ref="headerMenuToggler" @click="headerMenuToggled = !headerMenuToggled; navConfig.sidebarToggled = false" id="menuToggleBtn" class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </a>
     </div>
-    <div v-if="!isLoadingModule && isLoadingModule !== null" :class="headerMenuToggled ? '' : 'collapse'" class="navbar-collapse navbar-right">
+    <div
+      v-if="!isLoadingModule && isLoadingModule !== null" :class="headerMenuToggled ? '' : 'collapse'"
+      class="navbar-collapse navbar-right">
       <ul class="navbar-nav ml-auto">
         <template v-for="item in menu">
-          <li v-if="typeof item['offline_only'] === 'undefined' || (item['offline_only'] && !userID) || (item['offline_only'] === false && userID)" class="nav-item pr-1" @click="menuClicked(typeof item['no_sidebar'] === 'undefined' ? false : item['no_sidebar'])">
+          <li
+            v-if="typeof item['offline_only'] === 'undefined' || (item['offline_only'] && !userID) || (item['offline_only'] === false && userID)"
+            @click="menuClicked(typeof item['no_sidebar'] === 'undefined' ? false : item['no_sidebar'])"
+            class="nav-item pr-1 mb-sm-1 pt-1"
+          >
             <router-link
-              :class="(typeof item['class'] !== 'undefined' ? item['class'] : '') + (headerMenuToggled ? 'py-3' : '')"
-              class="nav-link py-1 text-center"
-              style="line-height:16px"
+              :class="(typeof item['class'] !== 'undefined' ? item['class'] : '') + (headerMenuToggled ? '' : '')"
+              class="nav-link py-0 text-center"
               :to="typeof item['link'] === 'undefined' ?  '/' + ((item['name']).toLowerCase()).replace(/ /g, '_') : item['link']"
             >
               <template v-if="item['icon']">
-                <big><fa :icon="item['icon']" /></big> <br class="icon-br">  <small> {{item['name']}}</small>
+                <!-- desktop display -->
+                <span class="d-none d-md-block">
+                  <big ><fa :icon="item['icon']" /></big>
+                  <br class="icon-br">
+                  <small class="d-none d-md-block mt-1"> {{item['name']}}</small>
+                </span>
+                <!-- for phone display -->
+                <span class="d-md-none">
+                  <fa :icon="item['icon']" class="" />
+                  <span > {{item['name']}}</span>
+                </span>
               </template>
               <template v-else> {{item['name']}}</template>
             </router-link>
           </li>
         </template>
-        <!-- <li v-if="userID" class="nav-item">
-          <router-link class=" nav-link"  :to="'/user'"></router-link>
-        </li> -->
-        <li v-if="userID" class="nav-item dropdown text-center">
-          <a class="nav-link py-3"  id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="line-height: 0px; cursor: pointer">Hello <strong class="mr-2 text-uppercase">{{userName}}</strong> <fa :icon="'sort-down'" /></a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
+        <li v-if="userID" class="nav-item dropdown text-center pt-md-2">
+          <a class="nav-link "  id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer">Hello <strong class="mr-2 text-uppercase">{{userName}}</strong> <fa :icon="'sort-down'" /></a>
+          <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdown06">
             <small v-if="mode === 'offline'" class="dropdown-item font-weight-bold text-secondary">Offline Mode</small>
             <router-link class="dropdown-item" to="/account-setting">Account Setting</router-link>
             <a class="dropdown-item" href="#" @click="logout">Logout</a>
@@ -109,12 +127,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/style/custom-theme";
-
-.navbar-brand{
-  min-width: 240px
+.navbar-brand a {
+  text-decoration: none;
 }
 .navbar-brand{
-  padding: 10px 0 10px 0
+  width: calc(100vw - 120px)
 }
 #menuToggleBtn{
   position:absolute;
@@ -126,11 +143,19 @@ export default {
 .sideButtonToggler{
   /* position:absolute; */
   font-size: 1.8em;
+  color: $dark
   /* margin-left: 230px; */
+}
+.navbar {
+  background: white
+}
+.nav-link {
+  color: white
 }
 @media(max-width:767px) {
   .sideButtonToggler{
     float: right;
+    color: white!important
     /* margin-left: calc(100% - 200px); */
   }
   .navbar-brand{
@@ -146,12 +171,24 @@ export default {
     width: 100%;
     height: 80vh;
   }
+  .navbar {
+    background: $primary
+  }
+
+}
+@media(min-width:767px) {
+  .nav-link {
+    color: $dark!important
+  }
+  .navbar-brand{
+    max-width: 250px
+  }
 }
 .fixed-top {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
 }
 </style>

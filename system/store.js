@@ -91,6 +91,13 @@ let store = new Vuex.Store({
         return null
       }
     },
+    userId: (state) => {
+      if(state.userInformation.id){
+        return state.userInformation['id']
+      }else{
+        return null
+      }
+    },
     authToken: (state) => {
       return state.authToken
     },
@@ -135,7 +142,7 @@ let store = new Vuex.Store({
         commit('setHasInitialized', true)
         return false
       }
-      let userId = localStorage.getItem('user_id')
+      let userId = localStorage.getItem('user_id') * 1
       if(!userId){
         commit('setHasInitialized', true)
         return false

@@ -9,6 +9,9 @@
     <template v-if="type === 'text'">
       <text-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :read-only="readOnly" :validationMessage="validationMessage" />
     </template>
+    <template v-if="type === 'static'">
+      <static-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :read-only="readOnly" :validationMessage="validationMessage" />
+    </template>
     <template v-if="type === 'email'">
       <email-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :default-value="defaultValue" :placeholder="placeholder" :help-text="helpText" :read-only="readOnly" :validationMessage="validationMessage" />
     </template>
@@ -27,7 +30,7 @@
     <template v-if="type === 'table'">
       <table-input @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)" :form-data="formData" :config="config" :index="index" :validationMessage="validationMessage" />
     </template>
-    <text-area-input v-else-if="type === 'textarea'" @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)"  :form-data="formData" :config="config" :default-value="defaultValue" :index="index" :placeholder="placeholder" :validationMessage="validationMessage" />
+    <text-area-input v-else-if="type === 'textarea'" @data-changed="formDataChanged" @data-removed="$emit('data-removed', $event)"  :form-data="formData" :config="config" :default-value="defaultValue" :index="index" :placeholder="placeholder" :help-text="helpText" :validationMessage="validationMessage" />
   </div>
 </template>
 <script>
@@ -41,6 +44,7 @@ import NumberInput from './NumberInput'
 import TextInput from './TextInput'
 import EmailInput from './EmailInput'
 import CheckboxInput from './CheckboxInput'
+import StaticInput from './StaticInput'
 export default {
   name: 'InputType',
   components: {
@@ -53,7 +57,8 @@ export default {
     NumberInput,
     TextInput,
     EmailInput,
-    CheckboxInput
+    CheckboxInput,
+    StaticInput
   },
   props: {
     index: { type: String, required: true },

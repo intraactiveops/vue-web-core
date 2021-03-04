@@ -1,6 +1,6 @@
 <template>
-  <div id="sidebar-wrapper" class="slim-scrollbar">
-      <ul class="sidebar-nav pt-4">
+  <div id="sidebar-wrapper" class="slim-scrollbar header-padding shadow">
+      <ul class="sidebar-nav pt-2">
         <side-bar-item ref="sideBarItem" @link-clicked="hideSideBar" :items="menu" />
       </ul>
   </div>
@@ -28,8 +28,6 @@ export default {
       if(!this.$refs.sideBarItem._initialize()){
         // this.navConfig.sidebarToggled = false
         this.navConfig.noSideBar = true
-      }else{
-        this.navConfig.noSideBar = false
       }
     },
     hideSideBar(){
