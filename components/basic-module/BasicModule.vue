@@ -1,7 +1,7 @@
 <template>
   <div class="p-3">
     <div class="p-3 border shadow-sm bg-white mb-2">
-      <h2 class="font-weight-bold">{{config['module_name'] ? config['module_name'] : defaultModuleName}}</h2>
+      <h3 class="font-weight-bold">{{config['module_name'] ? config['module_name'] : defaultModuleName}}</h3>
       <div v-html="description"></div>
       <slot name="customSection1"></slot>
     </div>

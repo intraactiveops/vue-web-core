@@ -6,7 +6,7 @@
     <div class="invalid-feedback">
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
     </div>
-    <small v-if="typeof helpText !== 'undefined'" class="form-text text-muted">
+    <small v-if="hasHelpText" class="form-text text-muted">
       {{helpText}}
     </small>
   </div>
@@ -72,7 +72,6 @@ export default {
           value: this.latestAPIData
         }]
       }
-      console.log('param', param)
       this.apiRequest(this.config['api_link'], param, (response) => {
         if(response['data']){
           let newOptions = []
@@ -112,6 +111,11 @@ export default {
     }
   },
   watch: {
+  },
+  computed: {
+    hasHelpText(){
+      return typeof this.helpText !== 'undefined'
+    }
   }
 }
 </script>

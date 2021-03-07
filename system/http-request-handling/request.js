@@ -57,7 +57,6 @@ let mixin = {
                 errorCallback(error.response.data, error.response.status)
               }
             }
-          }else{
           }
         })
         .finally(() => { this.loading = false })

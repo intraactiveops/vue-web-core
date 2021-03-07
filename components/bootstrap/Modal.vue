@@ -10,7 +10,8 @@
                   <span class="font-weight-bold"><fa v-if="icon" :icon="icon" />{{title}}</span>
                 </div>
                 <div class="w-10">
-                  <button v-if="closeable" class="btn btn-sm text-secondary float-right py-0" data-dismiss="modal" aria-label="Close">
+
+                  <button v-if="closeable || hasClose" class="btn btn-sm text-secondary float-right py-0" data-dismiss="modal" aria-label="Close">
                     <fa icon="times"/>
                   </button>
                 </div>
@@ -18,7 +19,7 @@
             </template>
             <template v-else>
               <h5 class="modal-title"><fa v-if="icon" :color="iconColor" :icon="icon" /> {{title}} </h5>
-              <button v-if="closeable" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button v-if="closeable || hasClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </template>
@@ -50,6 +51,10 @@ export default {
     closeable: {
       type: Boolean,
       default: true
+    },
+    hasClose: { // show the close button even if its not closeable
+      type: Boolean,
+      default: false
     },
     bgTransparent: {
       type: Boolean,
