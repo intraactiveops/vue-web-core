@@ -4,15 +4,14 @@ let shortMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'S
 // let shortDayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 let dayName = ['Sunday', 'Monday', 'Tueday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-let formatDate = (datetime, format, convertToLocal) => {
+let formatDate = (datetime, format, convertToLocal = false) => {
   if(typeof datetime === 'undefined' || datetime === null){
     return null
   }
   let datetimeObject = new Date(datetime)
   if(convertToLocal){
-
+    datetimeObject.setHours(datetimeObject.getHours() + 8)
   }
-  datetimeObject.setHours(datetimeObject.getHours() + 8)
   switch(format){
     case 'M yyyy':
       return shortMonthName[datetimeObject.getMonth()] + ' ' + datetimeObject.getFullYear()

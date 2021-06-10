@@ -1,7 +1,20 @@
 <template>
   <div>
-    <select ref="select" @change="dataChanged($event.target.value)" v-bind:class="isset(validationMessage, index) ? 'is-invalid' : ''" class="custom-select" :value="value === null ? 'NULL' : value" :disabled="readOnly">
-      <option v-for="option in options" v-bind:value="option['value']" :selected="value + '' === option['value'] + ''">{{option['text']}}</option>
+    <select
+      ref="select"
+      @click="checkLatestAPIOption"
+      @change="dataChanged($event.target.value)"
+      :value="value === null ? 'NULL' : value"
+      :class="isset(validationMessage, index) ? 'is-invalid' : ''"
+      :disabled="readOnly"
+      class="custom-select"
+    >
+      <!-- <template v-if="source === 'api' && isLoadingAPI">
+        <option value="NULL" selected="selected">Please wait...</option>
+      </template> -->
+      <template >
+        <option v-for="option in options" v-bind:value="option['value']" :selected="value + '' === option['value'] + ''">{{option['text']}}</option>
+      </template>
     </select>
     <div class="invalid-feedback">
       {{isset(validationMessage, index) ? validationMessage[index]['message'] : ''}}
@@ -21,6 +34,7 @@ export default {
   data(){
     return {
       options: [], // object containing text, value, is_default.
+      isLoadingAPI: false,
       source: 'option',
       latestAPIData: 0,
       optionValueLookUp: {},
@@ -56,7 +70,13 @@ export default {
         this.setOptions(this.config['options'])
       }
     },
+    checkLatestAPIOption(){
+      if(this.source === 'api'){
+        this.getLatestAPIOption()
+      }
+    },
     getLatestAPIOption(){
+      this.isLoadingAPI = true
       let param = {}
       if(typeof this.config['api_parameter'] !== 'undefined'){
         param = this.config['api_parameter']
@@ -83,8 +103,10 @@ export default {
           }
           this.setOptions(newOptions)
         }
+        this.isLoadingAPI = false
       }, () => {
         console.error('API Request error', this.config['api_link'])
+        this.isLoadingAPI = false
       })
     },
     setOptions(newOptions){

@@ -1,7 +1,15 @@
 <template>
   <div>
     <form class="">
-      <input-group @data-removed="removeData" @data-changed="dataChanged" @has-field-default-value="setFieldDeaultValue" :config="fieldGroup" :form-data="formData" :validation-message="validationMessageList" :mode="mode" />
+      <input-group
+        @data-removed="removeData"
+        @data-changed="dataChanged"
+        @has-field-default-value="setFieldDeaultValue"
+        :config="fieldGroup"
+        :form-data="formData"
+        :validation-message="validationMessageList"
+        :mode="mode"
+      />
     </form>
     <slot name="additionalFormField" v-bind:formData="formData"></slot>
   </div>

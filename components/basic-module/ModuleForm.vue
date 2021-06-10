@@ -1,24 +1,30 @@
 <template>
   <div>
-    <div ref="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div v-bind:class="typeof config['form_setting']['modal_size'] !== 'undefined' ? 'modal-' + config['form_setting']['modal_size'] : ''" class="modal-dialog" role="document">
+    <div ref="modal" class="modal fade" tabindex="-1" >
+      <div v-bind:class="modalSize ? 'modal-' + modalSize : ''" class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{currentMode === 'create' ? 'Create ' + formName : formName + ' Details'}}</h5>
+            <h5 class="modal-title" >{{modalTitle}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <div v-if="formDescription" v-html="formDescription" class="mb-3"></div>
-            <div v-if="formMessage.type" class="text-center mt-3 mb-4">
-              <span v-bind:class="'alert-' + formMessage.type" class="alert" role="alert">
-                <fa v-bind:icon="formMessage.type === 'success' ? 'check-circle' : 'exclamation-circle'" />
+            <div v-if="formMessageType" class="text-center mt-3 mb-4">
+              <span :class="'alert-' + formMessageType" class="alert" role="alert">
+                <fa :icon="formMessageType === 'success' ? 'check-circle' : 'exclamation-circle'" />
                 {{formMessage.message}}
               </span>
               <br>
             </div>
-            <form-component ref="form" @form-ready="formReady" :config="formConfig" :validation-messages="validationMessages" :mode="isLoading ? 'view' : null">
+            <form-component
+              ref="form"
+              @form-ready="formReady"
+              :config="formConfig"
+              :validation-messages="validationMessages"
+              :mode="isLoading ? 'view' : null"
+            >
               <template v-slot:additionalFormField="slotProps">
                 <slot name="additionalFormField" v-bind:formData="slotProps.formData"></slot>
               </template>
@@ -246,6 +252,17 @@ export default {
       if(!newData){
         this.loadingMessage = ''
       }
+    }
+  },
+  computed: {
+    formMessageType(){
+      return this.formMessage.type
+    },
+    modalTitle(){
+      return this.currentMode === 'create' ? ('Create ' + this.formName) : this.formName + ' Details'
+    },
+    modalSize(){
+      return typeof this.config['form_setting']['modal_size'] !== 'undefined' ? this.config['form_setting']['modal_size'] : null
     }
   }
 }

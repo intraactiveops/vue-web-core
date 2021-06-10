@@ -3,6 +3,10 @@
       <ul class="sidebar-nav pt-2">
         <side-bar-item ref="sideBarItem" @link-clicked="hideSideBar" :items="menu" />
       </ul>
+      <div class="pt-4 mt-4 font-italic pl-4" style="color: #ffffff38">
+        <!-- version + year + month + iteration in that month -->
+        <small>Version 1.21.6.1</small>
+      </div>
   </div>
 </template>
 <script>

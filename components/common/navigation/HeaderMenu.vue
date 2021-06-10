@@ -2,7 +2,7 @@
   <nav id="header-wrapper" class="fixed-top navbar navbar-expand-md navbar-dark shadow-sm p-0" >
     <div class="d-flex align-items-center align-items-stretch" >
       <div :class="noSidebar ? '' : 'bg-primary'" class="navbar-brand px-3 mr-0 py-3 d-flex align-items-center">
-        <router-link :class="noSidebar ? 'text-primary font-weight-bold' : 'text-white'" class=" mr-0 float-left text-truncate" to="/">{{companyName ? companyName : defaultCompanyName}}</router-link>
+        <router-link :class="noSidebar ? 'text-primary font-weight-bold' : 'text-white'" class=" mr-0 float-left text-truncate text-capitalize" to="/">{{companyName ? companyName : defaultCompanyName}}</router-link>
       </div>
       <div v-if="!noSidebar && !navConfig.noSideBar" class="bg-md-white py-2">
         <button
@@ -57,7 +57,7 @@
           </li>
         </template>
         <li v-if="userID" class="nav-item dropdown text-center pt-md-2">
-          <a class="nav-link "  id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer">Hello <strong class="mr-2 text-uppercase">{{userName}}</strong> <fa :icon="'sort-down'" /></a>
+          <a class="nav-link "  id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer">{{mode === 'offline' ? 'Hi' : 'Hello'}} <strong class="mr-2 text-uppercase">{{userName}}</strong> <fa :icon="'sort-down'" /></a>
           <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdown06">
             <small v-if="mode === 'offline'" class="dropdown-item font-weight-bold text-secondary">Offline Mode</small>
             <router-link class="dropdown-item" to="/account-setting">Account Setting</router-link>
