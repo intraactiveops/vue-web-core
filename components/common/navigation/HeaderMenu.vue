@@ -59,7 +59,7 @@
         <li v-if="userID" class="nav-item dropdown text-center pt-md-2">
           <a class="nav-link "  id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer">{{mode === 'offline' ? 'Hi' : 'Hello'}} <strong class="mr-2 text-uppercase">{{userName}}</strong> <fa :icon="'sort-down'" /></a>
           <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdown06">
-            <small v-if="mode === 'offline'" class="dropdown-item font-weight-bold text-secondary">Offline Mode</small>
+            <small v-if="mode === 'offline'" class="pl-4 font-weight-bold text-secondary">Offline Mode</small>
             <router-link class="dropdown-item" to="/account-setting">Account Setting</router-link>
             <a class="dropdown-item" href="#" @click="logout">Logout</a>
           </div>

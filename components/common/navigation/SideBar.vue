@@ -5,7 +5,7 @@
       </ul>
       <div class="pt-4 mt-4 font-italic pl-4" style="color: #ffffff38">
         <!-- version + year + month + iteration in that month -->
-        <small>Version 1.21.6.1</small>
+        <small>Version 1.23.3.05</small>
       </div>
   </div>
 </template>
